@@ -9,10 +9,16 @@ public class FlightDatabase {
     private double basePrice;
     private String departureTime;
 
+    //Arraylist
+    ArrayList <FlightDatabase> flightDatabaseArr = new ArrayList<>();
+
     //Default constructor
     public FlightDatabase(){
-
+        flightDatabaseArr.add(new FlightDatabase("MH101", "Mas Airline", "KUL", "BKI", "Economy", 750.00, "0800"));
+        flightDatabaseArr.add(new FlightDatabase("AK512", "AirAsia", "KUL", "SIN", "Business", 380.00, "1200"));
+        flightDatabaseArr.add(new FlightDatabase("OD 802", "Batik Air", "KUL", "DPS", "Economy", 563.00, "1730"));
     }
+
     //Parameterized constructor
     public FlightDatabase(String flightNum, String airline, String from, String to, String cabinClass, double basePrice, String departureTime){
         this.flightNum = flightNum;
@@ -45,7 +51,5 @@ public class FlightDatabase {
 
     public String getDepartureTime() { return departureTime; }
     public void setDepartureTime(String departureTime) { this.departureTime = departureTime; }
-
-    //
 
 }
