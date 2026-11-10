@@ -23,16 +23,16 @@ public class TestAirline {
                     System.out.print("Check In");
                     break;
                 case 3:
-                    System.out.print("cancellation");
+                    System.out.print("Flight cancellation");
                     break;
                 case 4:
-                    System.out.print("schedule");
+                    System.out.print("Summary of upcoming flight schedule");
                     break;
                 case 5:
-                    System.out.print("member");
+                    System.out.print("Loyalty Programme");
                     break;
                 case 6:
-                    System.out.print("exit");
+                    System.out.print("Exit");
                     x++;
                     break;
                 default:
