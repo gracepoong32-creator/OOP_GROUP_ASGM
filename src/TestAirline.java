@@ -4,6 +4,7 @@ public class TestAirline {
     public static void main(String[] args){
         Scanner input = new Scanner(System.in); //Input scanner
 
+        //Airline Management System Menu UI
         int x = 1;
         do {
             System.out.print("\nWelcome to AirWorld. Please choose the option below to proceed:" +
@@ -17,7 +18,8 @@ public class TestAirline {
             int option = input.nextInt();
             switch (option) {
                 case 1:
-                    System.out.print("Welcome to Booking");
+                    System.out.print("-----Flight Booking-----");
+                    gatherBookingInput();
                     break;
                 case 2:
                     System.out.print("Check In");
@@ -41,4 +43,16 @@ public class TestAirline {
         }while (x == 1);
 
     }
+
+    //Flight booking gather input method
+    public static void gatherBookingInput(){
+        Scanner input = new Scanner(System.in);
+        System.out.print("\nEnter trip type (one-way/round trip): ");
+        String inputTypeTrip = input.nextLine();
+        System.out.print("Enter departure date (DD-MM-YYYY): ");
+        String inputDate = input.nextLine();
+        System.out.print("Enter cabin class (Business/Economy): ");
+        String inputCabinClass = input.nextLine();
+    }
 }
+
