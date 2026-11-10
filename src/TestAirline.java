@@ -44,6 +44,9 @@ public class TestAirline {
 
     }
 
+
+
+
     //Flight booking gather input method
     public static void gatherBookingInput(){
         Scanner input = new Scanner(System.in);

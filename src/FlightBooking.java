@@ -3,11 +3,11 @@ public class FlightBooking {
     private String inputDate;
     private String inputCabinClass;
 
-    FlightBooking(){
+    public FlightBooking(){
 
     }
 
-    FlightBooking(String inputTripType, String inputDate, String inputCabinClass){
+    public FlightBooking(String inputTripType, String inputDate, String inputCabinClass){
         this.inputTripType = inputTripType;
         this.inputDate = inputDate;
         this.inputCabinClass = inputCabinClass;
