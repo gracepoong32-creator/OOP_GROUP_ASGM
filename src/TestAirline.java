@@ -47,8 +47,9 @@ public class TestAirline {
 
 
 
-    //Flight booking gather input method
+    //Feature 1: Flight booking
     public static void gatherBookingInput(){
+        //Gather all user input for flight booking
         Scanner input = new Scanner(System.in);
         System.out.print("\nEnter trip type (one-way/round trip): ");
         String inputTypeTrip = input.nextLine();
@@ -56,6 +57,8 @@ public class TestAirline {
         String inputDate = input.nextLine();
         System.out.print("Enter cabin class (Business/Economy): ");
         String inputCabinClass = input.nextLine();
+
+        //for loop to display available flights for booking
     }
 }
 

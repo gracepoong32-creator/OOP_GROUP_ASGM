@@ -17,6 +17,8 @@ public class FlightDatabase {
         flightDatabaseArr.add(new FlightDatabase("MH101", "Mas Airline", "KUL", "BKI", "Economy", 750.00, "0800"));
         flightDatabaseArr.add(new FlightDatabase("AK512", "AirAsia", "KUL", "SIN", "Business", 380.00, "1200"));
         flightDatabaseArr.add(new FlightDatabase("OD 802", "Batik Air", "KUL", "DPS", "Economy", 563.00, "1730"));
+        flightDatabaseArr.add(new FlightDatabase("MH253", "Mas Airline", "KUL", "CAN", "Economy", 16700.00, "0910"));
+        flightDatabaseArr.add(new FlightDatabase("AK301", "AirAsia", "KUL", "SGN", "Business", 893.00, "1400"));
     }
 
     //Parameterized constructor
