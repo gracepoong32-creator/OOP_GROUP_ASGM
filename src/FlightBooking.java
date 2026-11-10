@@ -1,13 +1,13 @@
-public class flightBooking {
-    String inputTripType;
-    String inputDate;
-    String inputCabinClass;
+public class FlightBooking {
+    private String inputTripType;
+    private String inputDate;
+    private String inputCabinClass;
 
-    flightBooking(){
+    FlightBooking(){
 
     }
 
-    flightBooking(String inputTripType, String inputDate, String inputCabinClass){
+    FlightBooking(String inputTripType, String inputDate, String inputCabinClass){
         this.inputTripType = inputTripType;
         this.inputDate = inputDate;
         this.inputCabinClass = inputCabinClass;
