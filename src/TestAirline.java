@@ -1,8 +1,32 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TestAirline {
     public static void main(String[] args){
         Scanner input = new Scanner(System.in); //Input scanner
+
+        //Arraylist to store preset available flights for booking
+        ArrayList<FlightDatabase> flightDatabaseArr = new ArrayList<>();
+
+        //Preset 15 available flights
+        flightDatabaseArr.add(new FlightDatabase("MH101", "Mas Airline", "KUL", "BKI", "Economy", 750.00, "0800"));
+        flightDatabaseArr.add(new FlightDatabase("AK512", "AirAsia", "KUL", "SIN", "Business", 380.00, "1200"));
+        flightDatabaseArr.add(new FlightDatabase("OD 802", "Batik Air", "KUL", "DPS", "Economy", 563.00, "1730"));
+        flightDatabaseArr.add(new FlightDatabase("MH253", "Mas Airline", "KUL", "CAN", "Economy", 16700.00, "0910"));
+        flightDatabaseArr.add(new FlightDatabase("AK301", "AirAsia", "KUL", "SGN", "Business", 893.00, "1400"));
+
+        flightDatabaseArr.add(new FlightDatabase());
+        flightDatabaseArr.add(new FlightDatabase());
+        flightDatabaseArr.add(new FlightDatabase());
+        flightDatabaseArr.add(new FlightDatabase());
+        flightDatabaseArr.add(new FlightDatabase());
+        flightDatabaseArr.add(new FlightDatabase());
+
+        flightDatabaseArr.add(new FlightDatabase());
+        flightDatabaseArr.add(new FlightDatabase());
+        flightDatabaseArr.add(new FlightDatabase());
+        flightDatabaseArr.add(new FlightDatabase());
+        flightDatabaseArr.add(new FlightDatabase());
 
         //Airline Management System Menu UI
         int x = 1;
@@ -40,12 +64,9 @@ public class TestAirline {
                 default:
                     System.out.print("Please enter again.");
             }
-        }while (x == 1);
+        } while (x == 1);
 
     }
-
-
-
 
     //Feature 1: Flight booking
     public static void gatherBookingInput(){
