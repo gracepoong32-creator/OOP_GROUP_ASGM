@@ -18,8 +18,8 @@ public class TestAirline {
         flightDatabaseArr.add(new FlightDatabase("AK133", "AirAsia", "KUL", "TPE", "Economy", 634.00, "2000"));
         flightDatabaseArr.add(new FlightDatabase("AK170", "AirAsia", "KUL", "HKG", "Economy", 1020.00, "1100"));
         flightDatabaseArr.add(new FlightDatabase("MH158", "MAS", "KUL", "KCH", "Economy", 840.00, "0700"));
-        flightDatabaseArr.add(new FlightDatabase());
-        flightDatabaseArr.add(new FlightDatabase());
+        flightDatabaseArr.add(new FlightDatabase("OD106", "Batik Air", "KUL", "LGK", "Economy", 370.00, "0900"));
+        flightDatabaseArr.add(new FlightDatabase("AK275", "AirAsia", "KUL", "PEN", "Economy", 256.00, "1100"));
 
         flightDatabaseArr.add(new FlightDatabase());
         flightDatabaseArr.add(new FlightDatabase());
