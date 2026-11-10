@@ -9,7 +9,7 @@ public class FlightDatabase {
     private double basePrice;
     private String departureTime;
 
-    //Arraylist
+    //Arraylist to store preset available flights for booking
     ArrayList <FlightDatabase> flightDatabaseArr = new ArrayList<>();
 
     //Default constructor
