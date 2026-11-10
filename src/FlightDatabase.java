@@ -23,59 +23,24 @@ public class FlightDatabase {
             this.departureTime = departureTime;
         }
 
-    public String getFlightNum() {
-        return flightNum;
-    }
+    public String getFlightNum() { return flightNum; }
+    public void setFlightNum(String flightNum) { this.flightNum = flightNum; }
 
-    public void setFlightNum(String flightNum) {
-        this.flightNum = flightNum;
-    }
+    public String getAirline() { return airline; }
+    public void setAirline(String airline) { this.airline = airline; }
 
-    public String getAirline() {
-        return airline;
-    }
+    public String getFrom() { return from; }
+    public void setFrom(String from) { this.from = from; }
 
-    public void setAirline(String airline) {
-        this.airline = airline;
-    }
+    public String getTo() { return to; }
+    public void setTo(String to) { this.to = to; }
 
-    public String getFrom() {
-        return from;
-    }
+    public String getCabinClass() { return cabinClass; }
+    public void setCabinClass(String cabinClass) { this.cabinClass = cabinClass; }
 
-    public void setFrom(String from) {
-        this.from = from;
-    }
+    public double getBasePrice() { return basePrice; }
+    public void setBasePrice(double basePrice) { this.basePrice = basePrice; }
 
-    public String getTo() {
-        return to;
-    }
-
-    public void setTo(String to) {
-        this.to = to;
-    }
-
-    public String getCabinClass() {
-        return cabinClass;
-    }
-
-    public void setCabinClass(String cabinClass) {
-        this.cabinClass = cabinClass;
-    }
-
-    public double getBasePrice() {
-        return basePrice;
-    }
-
-    public void setBasePrice(double basePrice) {
-        this.basePrice = basePrice;
-    }
-
-    public String getDepartureTime() {
-        return departureTime;
-    }
-
-    public void setDepartureTime(String departureTime) {
-        this.departureTime = departureTime;
-    }
+    public String getDepartureTime() { return departureTime; }
+    public void setDepartureTime(String departureTime) { this.departureTime = departureTime; }
 }
