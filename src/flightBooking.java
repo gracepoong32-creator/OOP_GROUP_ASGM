@@ -38,6 +38,6 @@ public class flightBooking {
     }
 
     public static void printFlightBooking(String inputTripType, String inputDate, String inputCabinClass){
-        System.out.println("Enter type of trip flight: " + )
+        System.out.println("Type of trip flight: " + inputTripType + "\nDeparture date: " + inputDate + "\nCabin Class: " + inputCabinClass);
     }
 }
