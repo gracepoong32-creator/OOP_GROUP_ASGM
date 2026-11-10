@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class FlightDatabase {
     private String flightNum;
     private String airline;
