@@ -20,7 +20,6 @@ public class TestAirline {
         flightDatabaseArr.add(new FlightDatabase("MH158", "MAS", "KUL", "KCH", "Economy", 840.00, "0700"));
         flightDatabaseArr.add(new FlightDatabase());
         flightDatabaseArr.add(new FlightDatabase());
-        flightDatabaseArr.add(new FlightDatabase());
 
         flightDatabaseArr.add(new FlightDatabase());
         flightDatabaseArr.add(new FlightDatabase());
@@ -91,8 +90,6 @@ public class TestAirline {
                     flight.getCabinClass(),
                     flight.getBasePrice(),
                     flight.getDepartureTime());
-
-
         }
     }
 }
