@@ -55,11 +55,14 @@ public class TestAirline {
                         System.out.print("Exit");
                         x++;
                         break;
+                    default:
+                        System.out.println("Please enter again");
+                        break;
                 }
 
             } catch (Exception e) {
                 System.out.print("\nPlease enter again\n");
-                input.nextLine();
+                input.nextLine(); //clear input
             }
 
         } while (x == 1);
