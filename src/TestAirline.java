@@ -22,7 +22,7 @@ public class TestAirline {
         flightDatabaseArr.add(new FlightDatabase("AK275", "AirAsia", "KUL", "PEN", "Economy", 256.00, "1100"));
 
         //Airline Management System Menu UI
-        int x = 1;
+        int option = 0;
         do {
             System.out.print("\nWelcome to AirWorld. Please choose the option below to proceed:" +
                     "\n1. Flight Booking" +
@@ -33,7 +33,7 @@ public class TestAirline {
                     "\n6. Exit");
             System.out.print("\n\nEnter your option(1-6): "); //menu interface
             try { //exception handling for String input
-                int option = input.nextInt();
+                option = input.nextInt();
                 switch (option) {
                     case 1:
                         System.out.print("-----Flight Booking-----");
@@ -53,7 +53,6 @@ public class TestAirline {
                         break;
                     case 6:
                         System.out.print("Exit");
-                        x++;
                         break;
                     default:
                         System.out.println("Please enter again");
@@ -65,7 +64,7 @@ public class TestAirline {
                 input.nextLine(); //clear input
             }
 
-        } while (x == 1);
+        } while (option!=5);
 
     }
 
