@@ -1,4 +1,4 @@
-public class FlightBooking {
+public class FlightBooking extends FlightDatabase{
     private String inputTripType;
     private String inputDate;
     private String inputCabinClass;
