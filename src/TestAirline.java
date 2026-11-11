@@ -8,7 +8,7 @@ public class TestAirline {
         //Arraylist to store preset available flights for booking
         ArrayList<FlightDatabase> flightDatabaseArr = new ArrayList<>();
 
-        //Preset 15 available flights
+        //Preset 10 available flights
         flightDatabaseArr.add(new FlightDatabase("MH101", "MAS", "KUL", "BKI", "Economy", 750.00, "0800"));
         flightDatabaseArr.add(new FlightDatabase("AK512", "AirAsia", "KUL", "SIN", "Business", 380.00, "1200"));
         flightDatabaseArr.add(new FlightDatabase("OD802", "Batik Air", "KUL", "DPS", "Economy", 563.00, "1730"));
@@ -20,12 +20,6 @@ public class TestAirline {
         flightDatabaseArr.add(new FlightDatabase("MH158", "MAS", "KUL", "KCH", "Economy", 840.00, "0700"));
         flightDatabaseArr.add(new FlightDatabase("OD106", "Batik Air", "KUL", "LGK", "Economy", 370.00, "0900"));
         flightDatabaseArr.add(new FlightDatabase("AK275", "AirAsia", "KUL", "PEN", "Economy", 256.00, "1100"));
-
-        flightDatabaseArr.add(new FlightDatabase());
-        flightDatabaseArr.add(new FlightDatabase());
-        flightDatabaseArr.add(new FlightDatabase());
-        flightDatabaseArr.add(new FlightDatabase());
-        flightDatabaseArr.add(new FlightDatabase());
 
         //Airline Management System Menu UI
         int x = 1;
