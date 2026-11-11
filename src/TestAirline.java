@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TestAirline {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Scanner input = new Scanner(System.in); //Input scanner
 
         //Arraylist to store preset available flights for booking
@@ -32,37 +32,42 @@ public class TestAirline {
                     "\n5. Loyalty member" +
                     "\n6. Exit");
             System.out.print("\n\nEnter your option(1-6): "); //menu interface
-            int option = input.nextInt();
-            switch (option) {
-                case 1:
-                    System.out.print("-----Flight Booking-----");
-                    gatherBookingInput(flightDatabaseArr);
-                    break;
-                case 2:
-                    System.out.print("Check In");
-                    break;
-                case 3:
-                    System.out.print("Flight cancellation");
-                    break;
-                case 4:
-                    System.out.print("Summary of upcoming flight schedule");
-                    break;
-                case 5:
-                    System.out.print("Loyalty Programme");
-                    break;
-                case 6:
-                    System.out.print("Exit");
-                    x++;
-                    break;
-                default:
-                    System.out.print("Please enter again.");
+            try { //exception handling for String input
+                int option = input.nextInt();
+                switch (option) {
+                    case 1:
+                        System.out.print("-----Flight Booking-----");
+                        gatherBookingInput(flightDatabaseArr);
+                        break;
+                    case 2:
+                        System.out.print("Check In");
+                        break;
+                    case 3:
+                        System.out.print("Flight cancellation");
+                        break;
+                    case 4:
+                        System.out.print("Summary of upcoming flight schedule");
+                        break;
+                    case 5:
+                        System.out.print("Loyalty Programme");
+                        break;
+                    case 6:
+                        System.out.print("Exit");
+                        x++;
+                        break;
+                }
+
+            } catch (Exception e) {
+                System.out.print("\nPlease enter again\n");
+                input.nextLine();
             }
+
         } while (x == 1);
 
     }
 
     //Feature 1: Flight booking
-    public static void gatherBookingInput(ArrayList<FlightDatabase> flightDatabaseArr){
+    public static void gatherBookingInput(ArrayList<FlightDatabase> flightDatabaseArr) {
         //Gather all user input for flight booking
         Scanner input = new Scanner(System.in);
         System.out.print("\nEnter trip type (one-way/round trip): ");
@@ -75,7 +80,7 @@ public class TestAirline {
         //for loop to display available flights for booking
         System.out.println("\nFLIGHT     AIRLINE      FROM   TO     CLASS        PRICE        TIME");
         System.out.println("---------------------------------------------------------------------");
-        for (FlightDatabase flight : flightDatabaseArr){
+        for (FlightDatabase flight : flightDatabaseArr) {
             System.out.printf("%-10s %-12s %-6s %-6s %-12s RM%-10.2f %-6s\n",
                     flight.getFlightNum(),
                     flight.getAirline(),
@@ -87,4 +92,6 @@ public class TestAirline {
         }
     }
 }
+
+
 
