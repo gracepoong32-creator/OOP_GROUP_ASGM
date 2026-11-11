@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//if suddenly a lot of red, then go file-> repair IDE
+
 public class TestAirline {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in); //Input scanner
