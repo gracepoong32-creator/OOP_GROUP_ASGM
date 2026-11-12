@@ -1,6 +1,6 @@
 public class FlightBooking {
     private String bookingNumber; //random generated
-    private String flight;
+    private FlightDatabase flightId;
     private String lastName;
     private String inputTripType;
     private String inputDepDate;

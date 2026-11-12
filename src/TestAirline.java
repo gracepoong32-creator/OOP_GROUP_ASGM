@@ -124,14 +124,16 @@ public class TestAirline {
         }
         //User choose flight option
         System.out.print("\nEnter chosen flight Id: ");
-        String chosenFlightId = input.nextLine();
+        String chosenFlight = input.nextLine();
         System.out.print("Add-Ons: \nBaggage (Y/N): ");
         String optBaggage = input.nextLine();
         System.out.print("Meal (Y/N): ");
         String optMeal = input.nextLine();
 
-        for (FlightDatabase selectedFlight : flightDatabaseArr){
-
+        for (FlightDatabase flight : flightDatabaseArr){
+            if (flight.getFlightNum().equals(chosenFlight)){
+                //something
+            }
         }
     }
 }
