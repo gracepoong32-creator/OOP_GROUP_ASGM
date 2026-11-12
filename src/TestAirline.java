@@ -18,8 +18,8 @@ public class TestAirline {
         flightDatabaseArr.add(new FlightDatabase("AK301", "AirAsia", "KUL", "SGN", "Business", 893.00, "1400"));
 
         flightDatabaseArr.add(new FlightDatabase("AK133", "AirAsia", "KUL", "TPE", "Economy", 634.00, "2000"));
-        flightDatabaseArr.add(new FlightDatabase("AK170", "AirAsia", "KUL", "HKG", "Economy", 1020.00, "1100"));
-        flightDatabaseArr.add(new FlightDatabase("MH158", "MAS", "KUL", "KCH", "Economy", 840.00, "0700"));
+        flightDatabaseArr.add(new FlightDatabase("AK170", "AirAsia", "KUL", "HKG", "Business", 1020.00, "1100"));
+        flightDatabaseArr.add(new FlightDatabase("MH158", "MAS", "KUL", "KCH", "Business", 1840.00, "0700"));
         flightDatabaseArr.add(new FlightDatabase("OD106", "Batik Air", "KUL", "LGK", "Economy", 370.00, "0900"));
         flightDatabaseArr.add(new FlightDatabase("AK275", "AirAsia", "KUL", "PEN", "Economy", 256.00, "1100"));
 
@@ -42,8 +42,7 @@ public class TestAirline {
                         gatherBookingInput(flightDatabaseArr);
                         break;
                     case 2:
-                        System.out.print("-----Flight Checking-----");
-                        checkIn();
+                        System.out.print("Check In");
                         break;
                     case 3:
                         System.out.print("Flight cancellation");
@@ -67,7 +66,7 @@ public class TestAirline {
                 input.nextLine(); //clear input
             }
 
-        } while (option!=5);
+        } while (option!=6);
 
     }
 
@@ -85,36 +84,42 @@ public class TestAirline {
         //for loop to display available flights for booking
         System.out.println("\nFLIGHT     AIRLINE      FROM   TO     CLASS        PRICE        TIME");
         System.out.println("---------------------------------------------------------------------");
-        for (FlightDatabase flight : flightDatabaseArr) {
-            System.out.printf("%-10s %-12s %-6s %-6s %-12s RM%-10.2f %-6s\n",
-                    flight.getFlightNum(),
-                    flight.getAirline(),
-                    flight.getFrom(),
-                    flight.getTo(),
-                    flight.getCabinClass(),
-                    flight.getBasePrice(),
-                    flight.getDepartureTime());
-        } //U need to make like equal to the user search and display cabinclass
-        // like mcm ini -> getCabinClass().equals("Business")
 
-    }
+        //Odd days 5 flights, even days 5 flights
+        int hyphenIndex = inputDate.indexOf("-"); //Find index of first hyphen
+        String extractedDate = inputDate.substring(0, hyphenIndex); //Extract the date from inputCabin
+        int day = Integer.parseInt(extractedDate); //Convert string to integer for Date
 
-
-    //Feature 2: Check In
-    public static void checkIn(){
-        Scanner input = new Scanner(System.in);
-        CheckIn checkIn = new CheckIn();
-
-        System.out.print("Enter your name: ");
-        String name = input.nextLine();
-
-        if (checkIn.getCabinClass().equals("Business")){
-
-        }else{
-
+        if (day % 2 == 0){
+            for (int i=0; i<5; i++){
+                if (flightDatabaseArr.get(i).getCabinClass().equalsIgnoreCase(inputCabinClass)){
+                    System.out.printf("%-10s %-12s %-6s %-6s %-12s RM%-10.2f %-6s\n",
+                            flightDatabaseArr.get(i).getFlightNum(),
+                            flightDatabaseArr.get(i).getAirline(),
+                            flightDatabaseArr.get(i).getFrom(),
+                            flightDatabaseArr.get(i).getTo(),
+                            flightDatabaseArr.get(i).getCabinClass(),
+                            flightDatabaseArr.get(i).getBasePrice(),
+                            flightDatabaseArr.get(i).getDepartureTime());
+                }
+                else{ continue; }
+            }
         }
-
-        System.out.println(checkIn.toString());
+        else{
+            for (int i=5; i<10; i++){
+                if (flightDatabaseArr.get(i).getCabinClass().equalsIgnoreCase(inputCabinClass)){
+                    System.out.printf("%-10s %-12s %-6s %-6s %-12s RM%-10.2f %-6s\n",
+                            flightDatabaseArr.get(i).getFlightNum(),
+                            flightDatabaseArr.get(i).getAirline(),
+                            flightDatabaseArr.get(i).getFrom(),
+                            flightDatabaseArr.get(i).getTo(),
+                            flightDatabaseArr.get(i).getCabinClass(),
+                            flightDatabaseArr.get(i).getBasePrice(),
+                            flightDatabaseArr.get(i).getDepartureTime());
+                }
+                else{ continue; }
+            }
+        }
     }
 }
 
