@@ -74,14 +74,14 @@ public class TestAirline {
     public static void gatherBookingInput(ArrayList<FlightDatabase> flightDatabaseArr, Scanner input){
         //Gather all user input for flight booking
         System.out.print("\nEnter trip type (one-way/round trip): ");
-        String inputTypeTrip = input.nextLine();
         input.nextLine();
+        String inputTypeTrip = input.nextLine();
         System.out.print("Enter departure date (DD-MM-YYYY): ");
         String inputDepDate = input.nextLine();
 
         //Round trip requires returning date input
         if(inputTypeTrip.equalsIgnoreCase("round trip")){
-            System.out.print("\nEnter returning date (DD-MM-YYYY): ");
+            System.out.print("Enter returning date (DD-MM-YYYY): ");
             String inputReturnDate = input.nextLine();
         }
 
