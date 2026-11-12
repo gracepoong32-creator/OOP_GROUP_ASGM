@@ -1,3 +1,59 @@
 public class CheckIn extends FlightDatabase{
-    
+    private boolean checkIn;
+    private String boardingGate;
+    private String seatNumber;
+    private Integer zone;
+
+
+    public CheckIn(){
+
+    }
+
+    public CheckIn(boolean checkIn, String boardingGate, String seatNumber, int zone){
+        this.checkIn = checkIn;
+        this.boardingGate = boardingGate;
+        this.seatNumber = seatNumber;
+        this.zone = zone;
+    }
+
+    public boolean isCheckIn() {
+        return checkIn;
+    }
+
+    public void setCheckIn(boolean checkIn) {
+        this.checkIn = checkIn;
+    }
+
+    public String getBoardingGate(String boardingGate){
+        return  boardingGate;
+    }
+
+    public void setBoardingGate(String boardingGate) {
+        this.boardingGate = boardingGate;
+    }
+
+    public String getSeatNumber() {
+        return seatNumber;
+    }
+
+    public void setSeatNumber(String seatNumber) {
+        this.seatNumber = seatNumber;
+    }
+
+    public Integer getZone() {
+        return zone;
+    }
+
+    public void setZone(Integer zone) {
+        this.zone = zone;
+    }
+
+    @Override
+    public String toString() {
+        return "-----Boarding Pass-------" +
+                "\nName: " +
+                "\nBoarding Gate: " + boardingGate +
+                "\nSeat: " + seatNumber +
+                "\nZone: " + zone;
+    }
 }
