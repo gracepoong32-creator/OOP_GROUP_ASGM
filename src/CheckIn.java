@@ -1,7 +1,8 @@
 import java.time.LocalTime;
+import java.util.Random;
 
-public class CheckIn extends FlightDatabase{
-    private boolean checkIn;
+public class CheckIn extends FlightBooking {  //find implement user interface
+    private boolean checkIn = false;
     private String boardingGate;
     private String seatNumber;
     private Integer zone;
@@ -60,5 +61,9 @@ public class CheckIn extends FlightDatabase{
                 "\nBoarding Gate: " + boardingGate +
                 "\nSeat: " + seatNumber +
                 "\nZone: " + zone ;
+    }
+
+    public String randomSeatNumber(){
+
     }
 }

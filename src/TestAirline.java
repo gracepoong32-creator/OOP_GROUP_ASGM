@@ -143,6 +143,32 @@ public class TestAirline {
         System.out.println("No matching flights");
         return null;
     }
+
+    //Feature 2: Check in
+    public static void checkIn(){
+        Scanner input = new Scanner(System.in);
+        CheckIn checkIn = new CheckIn();
+
+        String name;
+        do{
+            System.out.print("Enter your last name: ");
+            input.nextLine();
+            name = input.nextLine();
+            if (!name.equals(checkIn.getLastName())) {
+                System.out.print("\nThe name is not found. Please try again.");
+
+            }
+        }while (!name.equals(checkIn.getLastName()));
+
+        if (checkIn.isCheckIn()){
+            System.out.println("You have been checked in.");
+        }else{
+            System.out.println("Please choose the Seat you want " +
+                    "\nSeat availability: " +
+                    "");
+        }
+
+    }
 }
 
 
