@@ -136,7 +136,7 @@ public class TestAirline {
         FlightDatabase selectedFlight = matchFlight(flightDatabaseArr, inputFlight);
 
         int bookingNum = random.nextInt(10000, 99999);
-        flightBookingArr.add(new FlightBooking(bookingNum, selectedFlight, inputDepDate, inputCabinClass, optMeal, optBaggage));
+        flightBookingArr.add(new FlightBooking(bookingNum, selectedFlight, inputTypeTrip, inputDepDate, inputCabinClass, optMeal, optBaggage));
     }
 
     //Match inputFlight with flightNum in FlightDatabase
@@ -170,8 +170,7 @@ public class TestAirline {
             System.out.println("You have been checked in.");
         }else{
             System.out.println("Please choose the Seat you want " +
-                    "\nSeat availability: " +
-                    "");
+                    "\nSeat availability: ");
         }
 
     }

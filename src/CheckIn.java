@@ -66,7 +66,7 @@ public class CheckIn extends FlightBooking {  //find implement user interface
     public String randomSeatNumber(String seatNumber){
         Random random = new Random();
 
-        if (super.getCabinClass().equalsIgnoreCase("Buisness")){
+        if (super.getCabinClass().equalsIgnoreCase("Business")){
             int randomNum = random.nextInt(1,5); // Random Row
             String[] seatAlphabet = {"A", "C" , "D", "F"};
             int randomAlphabet = random.nextInt(0,5); //Random Seat A, C, D or F
