@@ -140,7 +140,7 @@ public class TestAirline {
         FlightDatabase selectedFlight = matchFlight(flightDatabaseArr, inputFlight);
 
         int bookingNum = random.nextInt(10000, 99999);
-        FlightBooking flightBooking = new FlightBooking(bookingNum, selectedFlight, inputTypeTrip, inputDepDate, inputCabinClass, optMeal, optBaggage);
+        FlightBooking flightBooking = new FlightBooking(bookingNum, lastName, selectedFlight, inputTypeTrip, inputDepDate, inputCabinClass, optMeal, optBaggage);
         flightBookingArr.add(flightBooking);
         System.out.println("\n\n----------Booking Summary----------\n" + flightBooking.toString());
     }

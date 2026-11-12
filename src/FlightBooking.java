@@ -14,9 +14,10 @@ public class FlightBooking {
     }
 
     //Parameterized constructor for one-way
-    public FlightBooking(int bookingNumber, FlightDatabase flightId, String tripType, String depDate, String cabinClass, String optMeals, String optBaggage){
+    public FlightBooking(int bookingNumber, String lastName, FlightDatabase flightId, String tripType, String depDate, String cabinClass, String optMeals, String optBaggage){
         this.bookingNumber = bookingNumber;
         this.flightId = flightId;
+        this.lastName = lastName;
         this.tripType = tripType;
         this.depDate = depDate;
         this.cabinClass = cabinClass;
@@ -25,7 +26,8 @@ public class FlightBooking {
     }
 
     //Parameterized constructor for round trip
-    public FlightBooking(int bookingNumber, FlightDatabase flightId, String lastName, String tripType, String depDate, String returnDate, String cabinClass, String optMeals, String optBaggage){this.bookingNumber = bookingNumber;
+    public FlightBooking(int bookingNumber, FlightDatabase flightId, String lastName, String tripType, String depDate, String returnDate, String cabinClass, String optMeals, String optBaggage){
+        this.bookingNumber = bookingNumber;
         this.flightId = flightId;
         this.lastName = lastName;
         this.tripType = tripType;
