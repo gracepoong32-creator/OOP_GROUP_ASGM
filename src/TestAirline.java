@@ -94,7 +94,8 @@ public class TestAirline {
                     flight.getCabinClass(),
                     flight.getBasePrice(),
                     flight.getDepartureTime());
-        }
+        } //U need to make like equal to the user search and display cabinclass
+        // like mcm ini -> getCabinClass().equals("Business")
 
     }
 
