@@ -42,7 +42,7 @@ public class TestAirline {
                 switch (option) {
                     case 1:
                         System.out.print("-----Flight Booking-----");
-                        gatherBookingInput(flightDatabaseArr, flightBookingArr, input, random);
+                        bookFlight(flightDatabaseArr, flightBookingArr, input, random);
 
                         break;
                     case 2:
@@ -76,7 +76,7 @@ public class TestAirline {
     }
 
     //Feature 1: Flight booking
-    public static void gatherBookingInput(ArrayList<FlightDatabase> flightDatabaseArr, ArrayList<FlightBooking> flightBookingArr, Scanner input, Random random){
+    public static void bookFlight(ArrayList<FlightDatabase> flightDatabaseArr, ArrayList<FlightBooking> flightBookingArr, Scanner input, Random random){
         //Gather all user input for flight booking
         System.out.print("\nEnter trip type (one-way/round trip): ");
         input.nextLine();
@@ -130,6 +130,8 @@ public class TestAirline {
         //User choose flight option
         System.out.print("\nEnter chosen flight Id: ");
         String inputFlight = input.nextLine();
+        System.out.print("Enter last name: ");
+        String lastName = input.nextLine();
         System.out.print("Add-Ons: \nBaggage (Y/N): ");
         String optBaggage = input.nextLine();
         System.out.print("Meal (Y/N): ");

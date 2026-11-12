@@ -66,7 +66,7 @@ public class FlightBooking {
 
     @Override
     public String toString(){
-        return "Booking number: " + getBookingNumber() + "\nFlight Id: " + getFlightId()
+        return "Booking number: " + getBookingNumber() + "\nFlight Id: " + getFlightId().getFlightNum()
                 + "\nTrip type: " + getTripType() + "\nDeparture date: " + getDepDate()
                 + "\nCabin class: " + getCabinClass() + "\nBaggage: " + getOptBaggage() + "\nMeal: " + getOptMeals();
     }
