@@ -64,9 +64,12 @@ public class FlightBooking {
     public String getOptBaggage() { return optBaggage; }
     public void setOptBaggage(String optBaggage) { this.optBaggage = optBaggage; }
 
-    public static void printFlightBooking(){
-        System.out.println("Type of trip flight: ");
-    }//have to change
+    @Override
+    public String toString(){
+        return "Booking number: " + getBookingNumber() + "\nFlight Id: " + getFlightId()
+                + "\nTrip type: " + getTripType() + "\nDeparture date: " + getDepDate()
+                + "\nCabin class: " + getCabinClass() + "\nBaggage: " + getOptBaggage() + "\nMeal: " + getOptMeals();
+    }
 
     public static void printInvoice(){
 
