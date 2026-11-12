@@ -5,7 +5,6 @@ public class CheckIn extends FlightBooking {  //find implement user interface
     private boolean checkIn = false;
     private String boardingGate;
     private String seatNumber;
-    private Integer zone;
     private LocalTime boardingTime;
 
 
@@ -17,7 +16,6 @@ public class CheckIn extends FlightBooking {  //find implement user interface
         this.checkIn = checkIn;
         this.boardingGate = boardingGate;
         this.seatNumber = seatNumber;
-        this.zone = zone;
         LocalTime boardingTime = LocalTime.now();
     }
 
@@ -45,25 +43,17 @@ public class CheckIn extends FlightBooking {  //find implement user interface
         this.seatNumber = seatNumber;
     }
 
-    public Integer getZone() {
-        return zone;
-    }
-
-    public void setZone(Integer zone) {
-        this.zone = zone;
-    }
 
     @Override
     public String toString() {
         return "-----Boarding Pass-------" +
-                "\nName: " +
+                "\nName: " + getLastName() +
                 "Boarding time: " + boardingTime +
                 "\nBoarding Gate: " + boardingGate +
-                "\nSeat: " + seatNumber +
-                "\nZone: " + zone ;
+                "\nSeat: " + seatNumber;
     }
 
-    public String randomSeatNumber(String seatNumber){
+    public String randomSeatNumber(){
         Random random = new Random();
 
         if (super.getCabinClass().equalsIgnoreCase("Business")){

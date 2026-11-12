@@ -45,7 +45,8 @@ public class TestAirline {
                         gatherBookingInput(flightDatabaseArr, flightBookingArr, input, random);
                         break;
                     case 2:
-                        System.out.print("Check In");
+                        System.out.print("-----Check In-----");
+                        checkIn();
                         break;
                     case 3:
                         System.out.print("Flight cancellation");
@@ -155,6 +156,7 @@ public class TestAirline {
         Scanner input = new Scanner(System.in);
         CheckIn checkIn = new CheckIn();
 
+        int bookingNumber;
         String name;
         do{
             System.out.print("Enter your last name: ");
@@ -162,16 +164,25 @@ public class TestAirline {
             name = input.nextLine();
             if (!name.equals(checkIn.getLastName())) {
                 System.out.print("\nThe name is not found. Please try again.");
-
             }
-        }while (!name.equals(checkIn.getLastName()));
+
+            System.out.print("Enter your booking number: ");
+            bookingNumber = input.nextInt();
+            if (bookingNumber != checkIn.getBookingNumber()){
+                System.out.println("\nThe booking number is invalid or not found. Please try again.");
+            }
+
+        }while (!name.equals(checkIn.getLastName()) && bookingNumber != checkIn.getBookingNumber());
 
         if (checkIn.isCheckIn()){
             System.out.println("You have been checked in.");
         }else{
-            System.out.println("Please choose the Seat you want " +
-                    "\nSeat availability: ");
+            System.out.println("Your seat has been automatically given as " +checkIn.randomSeatNumber());
         }
+
+        System.out.println(checkIn.toString());
+
+
 
     }
 }
