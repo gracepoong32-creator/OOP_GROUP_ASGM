@@ -1,14 +1,17 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Random;
 
 //if suddenly a lot of red, then go file-> repair IDE
 
 public class TestAirline {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in); //Input scanner
+        Random random = new Random(); //Random
 
         //Arraylist to store preset available flights for booking
         ArrayList<FlightDatabase> flightDatabaseArr = new ArrayList<>();
+        ArrayList <FlightBooking> flightBookingArr = new ArrayList<>();
 
         //Preset 10 available flights
         flightDatabaseArr.add(new FlightDatabase("MH101", "MAS", "KUL", "BKI", "Economy", 750.00, "0800"));
@@ -39,7 +42,7 @@ public class TestAirline {
                 switch (option) {
                     case 1:
                         System.out.print("-----Flight Booking-----");
-                        gatherBookingInput(flightDatabaseArr, input);
+                        gatherBookingInput(flightDatabaseArr, flightBookingArr, input, random);
                         break;
                     case 2:
                         System.out.print("Check In");
@@ -71,7 +74,7 @@ public class TestAirline {
     }
 
     //Feature 1: Flight booking
-    public static void gatherBookingInput(ArrayList<FlightDatabase> flightDatabaseArr, Scanner input){
+    public static void gatherBookingInput(ArrayList<FlightDatabase> flightDatabaseArr, ArrayList<FlightBooking> flightBookingArr, Scanner input, Random random){
         //Gather all user input for flight booking
         System.out.print("\nEnter trip type (one-way/round trip): ");
         input.nextLine();
@@ -131,9 +134,9 @@ public class TestAirline {
         String optMeal = input.nextLine();
 
         FlightDatabase selectedFlight = matchFlight(flightDatabaseArr, inputFlight);
-        //Arraylist of flightBooking
-        ArrayList <FlightBooking> flightBookingArr = new ArrayList<>();
-        flightBookingArr.add();
+
+        int bookingNum = random.nextInt(10000, 99999);
+        flightBookingArr.add(new FlightBooking(bookingNum, selectedFlight, inputDepDate, inputCabinClass, optMeal, optBaggage));
     }
 
     //Match inputFlight with flightNum in FlightDatabase
@@ -173,6 +176,3 @@ public class TestAirline {
 
     }
 }
-
-
-
