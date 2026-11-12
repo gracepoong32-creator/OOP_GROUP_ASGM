@@ -102,12 +102,9 @@ public class TestAirline {
                 if (flightDatabaseArr.get(i).getCabinClass().equalsIgnoreCase(inputCabinClass)){
                     //Format specifier to space out the String
                     System.out.printf("%-10s %-12s %-6s %-6s %-12s RM%-10.2f %-6s\n",
-                            flightDatabaseArr.get(i).getFlightNum(),
-                            flightDatabaseArr.get(i).getAirline(),
-                            flightDatabaseArr.get(i).getFrom(),
-                            flightDatabaseArr.get(i).getTo(),
-                            flightDatabaseArr.get(i).getCabinClass(),
-                            flightDatabaseArr.get(i).getBasePrice(),
+                            flightDatabaseArr.get(i).getFlightNum(), flightDatabaseArr.get(i).getAirline(),
+                            flightDatabaseArr.get(i).getFrom(), flightDatabaseArr.get(i).getTo(),
+                            flightDatabaseArr.get(i).getCabinClass(), flightDatabaseArr.get(i).getBasePrice(),
                             flightDatabaseArr.get(i).getDepartureTime());
                 }
                 else{ continue; }
@@ -117,12 +114,9 @@ public class TestAirline {
             for (int i=5; i<10; i++){
                 if (flightDatabaseArr.get(i).getCabinClass().equalsIgnoreCase(inputCabinClass)){
                     System.out.printf("%-10s %-12s %-6s %-6s %-12s RM%-10.2f %-6s\n",
-                            flightDatabaseArr.get(i).getFlightNum(),
-                            flightDatabaseArr.get(i).getAirline(),
-                            flightDatabaseArr.get(i).getFrom(),
-                            flightDatabaseArr.get(i).getTo(),
-                            flightDatabaseArr.get(i).getCabinClass(),
-                            flightDatabaseArr.get(i).getBasePrice(),
+                            flightDatabaseArr.get(i).getFlightNum(), flightDatabaseArr.get(i).getAirline(),
+                            flightDatabaseArr.get(i).getFrom(), flightDatabaseArr.get(i).getTo(),
+                            flightDatabaseArr.get(i).getCabinClass(), flightDatabaseArr.get(i).getBasePrice(),
                             flightDatabaseArr.get(i).getDepartureTime());
                 }
                 else{ continue; }
