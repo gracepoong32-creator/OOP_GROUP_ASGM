@@ -79,6 +79,7 @@ public class TestAirline {
         System.out.print("Enter departure date (DD-MM-YYYY): ");
         String inputDepDate = input.nextLine();
 
+        //Round trip requires returning date input
         if(inputTypeTrip.equalsIgnoreCase("round trip")){
             System.out.print("\nEnter returning date (DD-MM-YYYY): ");
             String inputReturnDate = input.nextLine();
@@ -99,6 +100,7 @@ public class TestAirline {
         if (date % 2 == 0){
             for (int i=0; i<5; i++){
                 if (flightDatabaseArr.get(i).getCabinClass().equalsIgnoreCase(inputCabinClass)){
+                    //Format specifier to space out the String
                     System.out.printf("%-10s %-12s %-6s %-6s %-12s RM%-10.2f %-6s\n",
                             flightDatabaseArr.get(i).getFlightNum(),
                             flightDatabaseArr.get(i).getAirline(),
@@ -126,6 +128,15 @@ public class TestAirline {
                 else{ continue; }
             }
         }
+        //User choose flight option
+        System.out.print("\nEnter chosen flight Id: ");
+        String chosenFlightId = input.nextLine();
+        System.out.print("Add-Ons: \nBaggage (Y/N): ");
+        String optBaggage = input.nextLine();
+        System.out.print("Meal (Y/N): ");
+        String optMeal = input.nextLine();
+
+        //write to text file???????
     }
 }
 
