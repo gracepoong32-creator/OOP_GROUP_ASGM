@@ -130,7 +130,18 @@ public class TestAirline {
         System.out.print("Meal (Y/N): ");
         String optMeal = input.nextLine();
 
-        //Match inputFlight with flightNum in FlightDatabase
+        FlightDatabase selectedFlight = matchFlight(flightDatabaseArr, inputFlight);
+    }
+
+    //Match inputFlight with flightNum in FlightDatabase
+    public static FlightDatabase matchFlight(ArrayList<FlightDatabase> flightDatabaseArr, String inputFlight){
+        for (FlightDatabase flight : flightDatabaseArr){
+            if (flight.getFlightNum().equals(inputFlight)){
+                return flight;
+            }
+        }
+        System.out.println("No matching flights");
+        return null;
     }
 }
 
