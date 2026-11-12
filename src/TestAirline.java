@@ -131,6 +131,9 @@ public class TestAirline {
         String optMeal = input.nextLine();
 
         FlightDatabase selectedFlight = matchFlight(flightDatabaseArr, inputFlight);
+        //Arraylist of flightBooking
+        ArrayList <FlightBooking> flightBookingArr = new ArrayList<>();
+        flightBookingArr.add();
     }
 
     //Match inputFlight with flightNum in FlightDatabase
