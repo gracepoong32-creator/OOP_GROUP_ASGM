@@ -136,7 +136,7 @@ public class TestAirline {
         System.out.print("Meal (Y/N): ");
         String optMeal = input.nextLine();
 
-        //write to text file???????
+        //write to text file???????, create flightBooking object
     }
 }
 
