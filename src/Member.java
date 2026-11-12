@@ -1,3 +1,3 @@
-public class Member {
-    private int age;
+public class Member extends User{
+
 }

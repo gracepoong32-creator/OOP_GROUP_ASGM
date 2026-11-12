@@ -1,2 +1,2 @@
-public class NonMember {
+public class NonMember extends User {
 }
