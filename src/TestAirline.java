@@ -77,6 +77,8 @@ public class TestAirline {
 
     //Feature 1: Flight booking
     public static void bookFlight(ArrayList<FlightDatabase> flightDatabaseArr, ArrayList<FlightBooking> flightBookingArr, Scanner input, Random random){
+
+
         //Gather all user input for flight booking
         System.out.print("\nEnter trip type (one-way/round trip): ");
         input.nextLine();
@@ -161,23 +163,27 @@ public class TestAirline {
         Scanner input = new Scanner(System.in);
         CheckIn checkIn = new CheckIn();
 
-        int bookingNumber;
-        String name;
+        int loop = 0;
         do{
-            System.out.print("Enter your last name: ");
-            input.nextLine();
-            name = input.nextLine();
+            System.out.print("\nEnter your last name: ");
+            String name = input.nextLine();
             if (!name.equals(checkIn.getLastName())) {
                 System.out.print("\nThe name is not found. Please try again.");
+            }else{
+                break;
             }
 
+        }while (loop == 0);
+
+        do{
             System.out.print("Enter your booking number: ");
-            bookingNumber = input.nextInt();
+            int bookingNumber = input.nextInt();
             if (bookingNumber != checkIn.getBookingNumber()){
                 System.out.println("\nThe booking number is invalid or not found. Please try again.");
+            }else {
+                break;
             }
-
-        }while (!name.equals(checkIn.getLastName()) && bookingNumber != checkIn.getBookingNumber());
+        }while (loop == 0);
 
         if (checkIn.isCheckIn()){
             System.out.println("You have been checked in.");
