@@ -42,7 +42,8 @@ public class TestAirline {
                         gatherBookingInput(flightDatabaseArr);
                         break;
                     case 2:
-                        System.out.print("Check In");
+                        System.out.print("-----Flight Checking-----");
+                        checkIn();
                         break;
                     case 3:
                         System.out.print("Flight cancellation");
@@ -95,6 +96,24 @@ public class TestAirline {
                     flight.getDepartureTime());
         }
 
+    }
+
+
+    //Feature 2: Check In
+    public static void checkIn(){
+        Scanner input = new Scanner(System.in);
+        CheckIn checkIn = new CheckIn();
+
+        System.out.print("Enter your name: ");
+        String name = input.nextLine();
+
+        if (checkIn.getCabinClass().equals("Business")){
+
+        }else{
+
+        }
+
+        System.out.println(checkIn.toString());
     }
 }
 
