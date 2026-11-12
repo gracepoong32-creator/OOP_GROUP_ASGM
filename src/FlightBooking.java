@@ -1,6 +1,9 @@
 public class FlightBooking {
+    private String bookingNumber; //random generated
+    private String flight;
+    private String lastName;
     private String inputTripType;
-    private String inputDate;
+    private String inputDepDate;
     private String inputCabinClass;
     private String optMeals;
     private String optBaggage;
@@ -9,7 +12,7 @@ public class FlightBooking {
 
     public FlightBooking(String inputTripType, String inputDate, String inputCabinClass, String optBaggage, String optMeals){
         this.inputTripType = inputTripType;
-        this.inputDate = inputDate;
+        this.inputDepDate = inputDate;
         this.inputCabinClass = inputCabinClass;
         this.optBaggage = optBaggage;
         this.optMeals = optMeals;
@@ -24,11 +27,11 @@ public class FlightBooking {
     }
 
     public String getInputDate() {
-        return inputDate;
+        return inputDepDate;
     }
 
     public void setInputDate(String inputDate) {
-        this.inputDate = inputDate;
+        this.inputDepDate = inputDepDate;
     }
 
     public String getInputCabinClass() {
@@ -47,7 +50,7 @@ public class FlightBooking {
 
     public void setOptMeals(String optMeals) { this.optMeals = optMeals; }
 
-    public static void printFlightBooking(String inputTripType, String inputDate, String inputCabinClass){
-        System.out.println("Type of trip flight: " + inputTripType + "\nDeparture date: " + inputDate + "\nCabin Class: " + inputCabinClass);
+    public static void printFlightBooking(String inputTripType, String inputDepDate, String inputCabinClass){
+        System.out.println("Type of trip flight: " + inputTripType + "\nDeparture date: " + inputDepDate + "\nCabin Class: " + inputCabinClass);
     }
 }
