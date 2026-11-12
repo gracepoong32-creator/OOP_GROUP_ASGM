@@ -2,36 +2,36 @@ public class FlightBooking {
     private String bookingNumber; //random generated
     private FlightDatabase flightId;
     private String lastName;
-    private String inputTripType;
-    private String inputDepDate;
+    private String tripType;
+    private String depDate;
     private String inputCabinClass;
     private String optMeals;
     private String optBaggage;
 
     public FlightBooking(){}
 
-    public FlightBooking(String inputTripType, String inputDate, String inputCabinClass, String optBaggage, String optMeals){
-        this.inputTripType = inputTripType;
-        this.inputDepDate = inputDate;
+    public FlightBooking(String tripType, String depDate, String inputCabinClass, String optBaggage, String optMeals){
+        this.tripType = tripType;
+        this.depDate = depDate;
         this.inputCabinClass = inputCabinClass;
         this.optBaggage = optBaggage;
         this.optMeals = optMeals;
     }
 
-    public String getInputTripType() {
-        return inputTripType;
+    public String getTripType() {
+        return tripType;
     }
 
-    public void setInputTripType(String inputTripType) {
-        this.inputTripType = inputTripType;
+    public void setInputTripType(String tripType) {
+        this.tripType = tripType;
     }
 
-    public String getInputDate() {
-        return inputDepDate;
+    public String getDepDate() {
+        return depDate;
     }
 
-    public void setInputDate(String inputDate) {
-        this.inputDepDate = inputDepDate;
+    public void setDepDate(String inputDate) {
+        this.depDate = depDate;
     }
 
     public String getInputCabinClass() {
@@ -50,8 +50,8 @@ public class FlightBooking {
 
     public void setOptMeals(String optMeals) { this.optMeals = optMeals; }
 
-    public static void printFlightBooking(String inputTripType, String inputDepDate, String inputCabinClass){
-        System.out.println("Type of trip flight: " + inputTripType + "\nDeparture date: " + inputDepDate + "\nCabin Class: " + inputCabinClass);
+    public static void printFlightBooking(String tripType, String depDate, String inputCabinClass){
+        System.out.println("Type of trip flight: " + tripType + "\nDeparture date: " + depDate + "\nCabin Class: " + inputCabinClass);
     }//have to change
 
     public static void printInvoice(){

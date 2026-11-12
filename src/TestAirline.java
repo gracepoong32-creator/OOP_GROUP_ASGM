@@ -39,7 +39,7 @@ public class TestAirline {
                 switch (option) {
                     case 1:
                         System.out.print("-----Flight Booking-----");
-                        gatherBookingInput(flightDatabaseArr);
+                        gatherBookingInput(flightDatabaseArr, input);
                         break;
                     case 2:
                         System.out.print("Check In");
@@ -71,11 +71,11 @@ public class TestAirline {
     }
 
     //Feature 1: Flight booking
-    public static void gatherBookingInput(ArrayList<FlightDatabase> flightDatabaseArr) {
+    public static void gatherBookingInput(ArrayList<FlightDatabase> flightDatabaseArr, Scanner input){
         //Gather all user input for flight booking
-        Scanner input = new Scanner(System.in);
         System.out.print("\nEnter trip type (one-way/round trip): ");
         String inputTypeTrip = input.nextLine();
+        input.nextLine();
         System.out.print("Enter departure date (DD-MM-YYYY): ");
         String inputDepDate = input.nextLine();
 
