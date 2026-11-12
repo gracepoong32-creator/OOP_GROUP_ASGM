@@ -77,7 +77,13 @@ public class TestAirline {
         System.out.print("\nEnter trip type (one-way/round trip): ");
         String inputTypeTrip = input.nextLine();
         System.out.print("Enter departure date (DD-MM-YYYY): ");
-        String inputDate = input.nextLine();
+        String inputDepDate = input.nextLine();
+
+        if(inputTypeTrip.equalsIgnoreCase("round trip")){
+            System.out.print("\nEnter returning date (DD-MM-YYYY): ");
+            String inputReturnDate = input.nextLine();
+        }
+
         System.out.print("Enter cabin class (Business/Economy): ");
         String inputCabinClass = input.nextLine();
 
@@ -86,11 +92,11 @@ public class TestAirline {
         System.out.println("---------------------------------------------------------------------");
 
         //Odd days 5 flights, even days 5 flights
-        int hyphenIndex = inputDate.indexOf("-"); //Find index of first hyphen
-        String extractedDate = inputDate.substring(0, hyphenIndex); //Extract the date from inputCabin
-        int day = Integer.parseInt(extractedDate); //Convert string to integer for Date
+        int hyphenIndex = inputDepDate.indexOf("-"); //Find index of first hyphen
+        String extractedDate = inputDepDate.substring(0, hyphenIndex); //Extract the date from inputCabin
+        int date = Integer.parseInt(extractedDate); //Convert string to integer for Date
 
-        if (day % 2 == 0){
+        if (date % 2 == 0){
             for (int i=0; i<5; i++){
                 if (flightDatabaseArr.get(i).getCabinClass().equalsIgnoreCase(inputCabinClass)){
                     System.out.printf("%-10s %-12s %-6s %-6s %-12s RM%-10.2f %-6s\n",
