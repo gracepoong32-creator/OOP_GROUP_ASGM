@@ -1,8 +1,11 @@
+import java.time.LocalTime;
+
 public class CheckIn extends FlightDatabase{
     private boolean checkIn;
     private String boardingGate;
     private String seatNumber;
     private Integer zone;
+    private LocalTime boardingTime;
 
 
     public CheckIn(){
@@ -14,6 +17,7 @@ public class CheckIn extends FlightDatabase{
         this.boardingGate = boardingGate;
         this.seatNumber = seatNumber;
         this.zone = zone;
+        LocalTime boardingTime = LocalTime.now();
     }
 
     public boolean isCheckIn() {
@@ -52,8 +56,9 @@ public class CheckIn extends FlightDatabase{
     public String toString() {
         return "-----Boarding Pass-------" +
                 "\nName: " +
+                "Boarding time: " + boardingTime +
                 "\nBoarding Gate: " + boardingGate +
                 "\nSeat: " + seatNumber +
-                "\nZone: " + zone;
+                "\nZone: " + zone ;
     }
 }
