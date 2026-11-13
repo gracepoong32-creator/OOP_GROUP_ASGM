@@ -107,6 +107,4 @@ public class FlightBooking {
             return 0.0;
         }
     }
-
-
 }
