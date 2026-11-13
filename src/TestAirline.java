@@ -159,26 +159,6 @@ public class TestAirline {
         return null;
     }
 
-    //Add-ons to flight booking
-    double mealsPrice = 20.0;
-    double baggagePrice = 50.0;
-    public static double flightAddOns(double basePrice, String hasMeals, String hasBaggage, double mealsPrice, double baggagePrice){
-        double subtotal = 0;
-        if (hasMeals.equalsIgnoreCase("Y") && hasBaggage.equalsIgnoreCase("Y")){
-            subtotal += basePrice + mealsPrice + baggagePrice;
-        }
-        else if (hasMeals.equalsIgnoreCase("Y") && hasBaggage.equalsIgnoreCase("N")){
-            subtotal += basePrice + mealsPrice;
-        }
-        else if (hasMeals.equalsIgnoreCase("N") && hasBaggage.equalsIgnoreCase("Y")){
-            subtotal += basePrice + baggagePrice;
-        }
-        else{
-            subtotal = subtotal;
-        }
-        return subtotal;
-    }
-
     //Feature 2: Check in
     public static void checkIn(){
         Scanner input = new Scanner(System.in);

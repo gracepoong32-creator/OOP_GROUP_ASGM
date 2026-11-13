@@ -73,8 +73,4 @@ public class FlightBooking {
                 + "\nDeparture date: " + getDepDate() + "\nTrip type: " + getTripType()
                 + "\nCabin class: " + getCabinClass() +"\n--------------------------";
     }
-
-    public static void printInvoice(){
-
-    }
 }
