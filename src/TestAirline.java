@@ -28,11 +28,11 @@ public class TestAirline {
         flightDatabaseArr.add(new FlightDatabase("AK275", "AirAsia", "KUL", "PEN", "Economy", 256.00, "1100"));
 
         //Preset 10 loyalty members
-        memberArr.add(new Member("Grace", "Poong", 18, "M101", 50, "Bronze Tier", 700.00));
-        memberArr.add(new Member());
-        memberArr.add(new Member());
-        memberArr.add(new Member());
-        memberArr.add(new Member());
+        memberArr.add(new Member("Jane", "Smith", 18, "M101", 50, "Bronze Tier", 700.00));
+        memberArr.add(new Member("Shaun", "Wong", 20, "M102", 100, "Platinum Tier", 10001.00));
+        memberArr.add(new Member("Daniel", "Fong", 22, "M103", 110, "Bronze Tier", 1150.00));
+        memberArr.add(new Member("Marcus", "Lee", 35, "M104", 1120, "Gold Tier", 9200.00));
+        memberArr.add(new Member("Lucas", "Wong", 40, "M106", 1450, "Platinum Tier", 12500.00));
 
         memberArr.add(new Member());
         memberArr.add(new Member());
