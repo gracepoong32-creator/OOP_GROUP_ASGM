@@ -157,6 +157,12 @@ public class TestAirline {
         return null;
     }
 
+    //Add-ons to flight booking
+    public static double flightAddOns(FlightDatabase basePrice){
+        double subtotal = 0;
+        return subtotal;
+    }
+
     //Feature 2: Check in
     public static void checkIn(){
         Scanner input = new Scanner(System.in);
