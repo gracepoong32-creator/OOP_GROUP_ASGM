@@ -71,13 +71,12 @@ public class TestAirline {
                 input.nextLine(); //clear input
             }
 
-        } while (option!=6);
+        } while (option != 6);
 
     }
 
     //Feature 1: Flight booking
     public static void bookFlight(ArrayList<FlightDatabase> flightDatabaseArr, ArrayList<FlightBooking> flightBookingArr, Scanner input, Random random){
-
 
         //Gather all user input for flight booking
         System.out.print("\nEnter trip type (one-way/round trip): ");
@@ -173,7 +172,7 @@ public class TestAirline {
                 break;
             }
 
-        }while (loop == 0);
+        } while (loop == 0);
 
         do{
             System.out.print("Enter your booking number: ");
@@ -190,10 +189,6 @@ public class TestAirline {
         }else{
             System.out.println("Your seat has been automatically given as " +checkIn.randomSeatNumber());
         }
-
         System.out.println(checkIn.toString());
-
-
-
     }
 }
