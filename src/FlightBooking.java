@@ -68,9 +68,10 @@ public class FlightBooking {
 
     @Override
     public String toString(){
-        return "Booking number: " + getBookingNumber() + "\nFlight Id: " + getFlightId().getFlightNum()
-                + "\nTrip type: " + getTripType() + "\nDeparture date: " + getDepDate()
-                + "\nCabin class: " + getCabinClass() + "\nBaggage: " + getOptBaggage() + "\nMeal: " + getOptMeals();
+        return "\nBooking reference: " + getBookingNumber() + "\nPassenger last name: " + getLastName() + "\n--------------------------"
+                + "\nFLIGHT DETAILS" + "\nFlight Id: " + getFlightId().getFlightNum()
+                + "\nDeparture date: " + getDepDate() + "\nTrip type: " + getTripType()
+                + "\nCabin class: " + getCabinClass() +"\n--------------------------";
     }
 
     public static void printInvoice(){

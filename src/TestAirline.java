@@ -72,7 +72,6 @@ public class TestAirline {
             }
 
         } while (option != 6);
-
     }
 
     //Feature 1: Flight booking
@@ -143,7 +142,10 @@ public class TestAirline {
         int bookingNum = random.nextInt(10000, 99999);
         FlightBooking flightBooking = new FlightBooking(bookingNum, lastName, selectedFlight, inputTypeTrip, inputDepDate, inputCabinClass, optMeal, optBaggage);
         flightBookingArr.add(flightBooking);
-        System.out.println("\n\n----------Booking Summary----------\n" + flightBooking.toString());
+        System.out.println("\n\n==========================\n     CHECKOUT SUMMARY   \n==========================" +
+                flightBooking.toString() + "\nContinue to payment >>>");
+
+
     }
 
     //Match inputFlight with flightNum in FlightDatabase
@@ -158,8 +160,22 @@ public class TestAirline {
     }
 
     //Add-ons to flight booking
-    public static double flightAddOns(FlightDatabase basePrice){
+    double mealsPrice = 20.0;
+    double baggagePrice = 50.0;
+    public static double flightAddOns(double basePrice, String hasMeals, String hasBaggage, double mealsPrice, double baggagePrice){
         double subtotal = 0;
+        if (hasMeals.equalsIgnoreCase("Y") && hasBaggage.equalsIgnoreCase("Y")){
+            subtotal += basePrice + mealsPrice + baggagePrice;
+        }
+        else if (hasMeals.equalsIgnoreCase("Y") && hasBaggage.equalsIgnoreCase("N")){
+            subtotal += basePrice + mealsPrice;
+        }
+        else if (hasMeals.equalsIgnoreCase("N") && hasBaggage.equalsIgnoreCase("Y")){
+            subtotal += basePrice + baggagePrice;
+        }
+        else{
+            subtotal = subtotal;
+        }
         return subtotal;
     }
 
