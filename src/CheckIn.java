@@ -50,6 +50,7 @@ public class CheckIn {  //find implement user interface
                 "\nName: " + flightBookingArr.get(bookingIndex).getLastName() +
                 "\n" + flightBookingArr.get(bookingIndex).getFlightId().getFrom() + "  ------>  " + flightBookingArr.get(bookingIndex).getFlightId().getTo()+
                 "\nDeparture Date: " + flightBookingArr.get(bookingIndex).getDepDate() +
+                "\n " +
                 "\nBoarding time: " + flightBookingArr.get(bookingIndex).getFlightId().getDepartureTime() +
                 "\nBoarding Gate: " + boardingGate +
                 "\nSeat: " + seatNumber;
