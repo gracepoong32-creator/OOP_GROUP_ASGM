@@ -9,9 +9,10 @@ public class TestAirline {
         Scanner input = new Scanner(System.in); //Input scanner
         Random random = new Random(); //Random
 
-        //Arraylist to store preset available flights for booking
+        //Arraylist for preset flight schedules, flights booked, loyalty members
         ArrayList<FlightDatabase> flightDatabaseArr = new ArrayList<>();
         ArrayList <FlightBooking> flightBookingArr = new ArrayList<>();
+        ArrayList <Member> memberArr = new ArrayList<>();
 
         //Preset 10 available flights
         flightDatabaseArr.add(new FlightDatabase("MH101", "MAS", "KUL", "BKI", "Economy", 750.00, "0800"));
@@ -25,6 +26,19 @@ public class TestAirline {
         flightDatabaseArr.add(new FlightDatabase("MH158", "MAS", "KUL", "KCH", "Business", 840.00, "0700"));
         flightDatabaseArr.add(new FlightDatabase("OD106", "Batik Air", "KUL", "LGK", "Economy", 370.00, "0900"));
         flightDatabaseArr.add(new FlightDatabase("AK275", "AirAsia", "KUL", "PEN", "Economy", 256.00, "1100"));
+
+        //Preset 10 loyalty members
+        memberArr.add(new Member("Grace", "Poong", 18, "M101", 50, "Bronze Tier", 700.00));
+        memberArr.add(new Member());
+        memberArr.add(new Member());
+        memberArr.add(new Member());
+        memberArr.add(new Member());
+
+        memberArr.add(new Member());
+        memberArr.add(new Member());
+        memberArr.add(new Member());
+        memberArr.add(new Member());
+        memberArr.add(new Member());
 
         //Airline Management System Menu UI
         int option = 0;
