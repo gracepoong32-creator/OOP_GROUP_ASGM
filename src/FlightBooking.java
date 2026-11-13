@@ -74,27 +74,36 @@ public class FlightBooking {
                 + "\nFlight Id: " + getFlightId().getFlightNum() + "\nRoute: " + getFlightId().getFrom() + " -> " + getFlightId().getTo()
                 + "\nDeparture: " + depDate + " at " + getFlightId().getDepartureTime()
                 + "\nTrip type: " + tripType + "\nCabin class: " + cabinClass
-                + "\n------------------------------------------";
+                + "\n------------------------------------------" + "\nPRICE BREAKDOWN"
+                + "\nBase fare: RM" + flightId.getBasePrice() + "\nAdd-ons: \nBaggage: RM" + getBaggage()
+                + "\nMeal: RM" + getMeal() + "\n------------------------------------------"
+                + "\nTotal: " + calcTotalFare() + "\n==========================================";
     }
 
     public double calcTotalFare(){
         double basePrice = getFlightId().getBasePrice();
-        double mealPrice, baggagePrice;
         if(tripType.equalsIgnoreCase("round trip")){
             basePrice *= 2;
         }
-        if (optBaggage.equalsIgnoreCase("Y")){
-            baggagePrice = 50.0;
-        } else{
-            baggagePrice = 0.0;
-        }
+        return basePrice + getMeal() + getBaggage();
+    }
 
-        if(optMeals.equalsIgnoreCase("Y")){
-            mealPrice = 20.0;
-        } else {
-            mealPrice = 0.0;
+    public double getBaggage(){
+        if (getOptBaggage().equalsIgnoreCase("Y")){
+            return 50.0;
         }
-        return basePrice + baggagePrice + mealPrice;
+        else{
+            return 0.0;
+        }
+    }
+
+    public double getMeal(){
+        if(getOptMeals().equalsIgnoreCase("Y")){
+            return 20.0;
+        }
+        else{
+            return 0.0;
+        }
     }
 
 
