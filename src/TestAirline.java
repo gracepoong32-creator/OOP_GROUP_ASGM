@@ -42,6 +42,7 @@ public class TestAirline {
                 case 1:
                     System.out.print("-----Flight Booking-----");
                     bookFlight(flightDatabaseArr, flightBookingArr, input, random);
+                    checkUser(input);
 
                     break;
                 case 2:
@@ -141,7 +142,7 @@ public class TestAirline {
         System.out.println(flightBooking.toString());
     }
 
-    //Match inputFlight with flightNum in FlightDatabase
+    //Feature 1: Match inputFlight with flightNum in FlightDatabase
     public static FlightDatabase matchFlight(ArrayList<FlightDatabase> flightDatabaseArr, String inputFlight){
         for (FlightDatabase flight : flightDatabaseArr){
             if (flight.getFlightNum().equals(inputFlight)){
@@ -150,6 +151,19 @@ public class TestAirline {
         }
         System.out.println("No matching flights");
         return null;
+    }
+
+    //Feature 1: Check user (member/non-member) during checkout
+    public static void checkUser(Scanner input){
+        System.out.println("Are you a loyalty member? (Y/N): ");
+        String userType = input.nextLine();
+        if (userType.equalsIgnoreCase("Y")){
+            System.out.print("Enter member Id: ");
+
+        }
+        else{
+
+        }
     }
 
     //Feature 2: Check in
