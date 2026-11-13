@@ -68,9 +68,34 @@ public class FlightBooking {
 
     @Override
     public String toString(){
-        return "\nBooking reference: " + getBookingNumber() + "\nPassenger last name: " + getLastName() + "\n--------------------------"
-                + "\nFLIGHT DETAILS" + "\nFlight Id: " + getFlightId().getFlightNum()
-                + "\nDeparture date: " + getDepDate() + "\nTrip type: " + getTripType()
-                + "\nCabin class: " + getCabinClass() +"\n--------------------------";
+        return "\n==========================================\n             CHECKOUT SUMMARY       \n=========================================="
+                + "\nBooking reference: " + bookingNumber + "\nPassenger last name: " + lastName
+                + "\n------------------------------------------" + "\nFLIGHT DETAILS"
+                + "\nFlight Id: " + getFlightId().getFlightNum() + "\nRoute: " + getFlightId().getFrom() + " -> " + getFlightId().getTo()
+                + "\nDeparture: " + depDate + " at " + getFlightId().getDepartureTime()
+                + "\nTrip type: " + tripType + "\nCabin class: " + cabinClass
+                + "\n------------------------------------------";
     }
+
+    public double calcTotalFare(){
+        double basePrice = getFlightId().getBasePrice();
+        double mealPrice, baggagePrice;
+        if(tripType.equalsIgnoreCase("round trip")){
+            basePrice *= 2;
+        }
+        if (optBaggage.equalsIgnoreCase("Y")){
+            baggagePrice = 50.0;
+        } else{
+            baggagePrice = 0.0;
+        }
+
+        if(optMeals.equalsIgnoreCase("Y")){
+            mealPrice = 20.0;
+        } else {
+            mealPrice = 0.0;
+        }
+        return basePrice + baggagePrice + mealPrice;
+    }
+
+
 }
