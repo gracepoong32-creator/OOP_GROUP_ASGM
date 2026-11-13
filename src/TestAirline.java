@@ -159,30 +159,23 @@ public class TestAirline {
     //Feature 2: Check in
     public static void checkIn(){
         Scanner input = new Scanner(System.in);
-        CheckIn checkIn = new CheckIn();
-
-        int loop = 0;
-        do{
+        FlightBooking checkBooking = new CheckIn();
             System.out.print("\nEnter your last name: ");
             String name = input.nextLine();
-            if (!name.equals(checkIn.getLastName())) {
-                System.out.print("\nThe name is not found. Please try again.");
-            }else{
-                break;
+            if (!name.equals(checkBooking.getLastName())) {
+                System.out.println("The name is not found. Please try again.");
             }
 
-        } while (loop == 0);
 
-        do{
             System.out.print("Enter your booking number: ");
             int bookingNumber = input.nextInt();
-            if (bookingNumber != checkIn.getBookingNumber()){
+            if (bookingNumber != checkBooking.getBookingNumber()) {
                 System.out.println("\nThe booking number is invalid or not found. Please try again.");
-            }else {
-                break;
-            }
-        }while (loop == 0);
+            }else{
+                    System.out.print(bookingNumber + " \n" + checkBooking.getBookingNumber());
+                }
 
+        CheckIn checkIn = new CheckIn();
         if (checkIn.isCheckIn()){
             System.out.println("You have been checked in.");
         }else{
