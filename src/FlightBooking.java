@@ -77,7 +77,7 @@ public class FlightBooking {
                 + "\nDeparture: " + depDate + " at " + getFlightId().getDepartureTime()
                 + "\nTrip type: " + tripType + "\nCabin class: " + cabinClass
                 + "\n------------------------------------------" + "\nPRICE BREAKDOWN"
-                + "\nBase fare: RM" + flightId.getBasePrice() + "\nAdd-ons: \nBaggage: RM" + getBaggage()
+                + "\nBase fare: RM" + flightId.getBasePrice() + "\nAdd-ons \nBaggage: RM" + getBaggage()
                 + "\nMeal: RM" + getMeal() + "\n------------------------------------------"
                 + "\nTotal: " + calcTotalFare() + "\n==========================================\nContinue to payment >>>";
     }
