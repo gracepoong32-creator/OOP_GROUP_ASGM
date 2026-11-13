@@ -77,7 +77,7 @@ public class FlightBooking {
                 + "\n------------------------------------------" + "\nPRICE BREAKDOWN"
                 + "\nBase fare: RM" + flightId.getBasePrice() + "\nAdd-ons: \nBaggage: RM" + getBaggage()
                 + "\nMeal: RM" + getMeal() + "\n------------------------------------------"
-                + "\nTotal: " + calcTotalFare() + "\n==========================================";
+                + "\nTotal: " + calcTotalFare() + "\n==========================================\nContinue to payment >>>";
     }
 
     public double calcTotalFare(){
