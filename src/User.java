@@ -29,4 +29,9 @@ public class User {
 
     public double getTotalSpent() { return totalSpent; }
     public void setTotalSpent(double totalSpent) { this.totalSpent = totalSpent; }
+
+    @Override
+    public String toString(){
+        return "";
+    }
 }
