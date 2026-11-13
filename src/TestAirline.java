@@ -70,7 +70,6 @@ public class TestAirline {
     }
 
 
-
     //Feature 1: Flight booking
     public static void bookFlight(ArrayList<FlightDatabase> flightDatabaseArr, ArrayList<FlightBooking> flightBookingArr, Scanner input, Random random){
 
