@@ -2,7 +2,7 @@ public class User {
     private String firstName;
     private String lastName;
     private int age;
-    private double totalSpent;
+    private String userId;
 
     //Default constructor
     public User(){
@@ -10,11 +10,11 @@ public class User {
     }
 
     //Parameterized constructor
-    public User(String firstName, String lastName, int age, double totalSpent){
+    public User(String firstName, String lastName, int age, String userId){
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
-        this.totalSpent = totalSpent;
+        this.userId = userId;
     }
 
     //Getter and Setter
@@ -27,8 +27,8 @@ public class User {
     public int getAge() { return age; }
     public void setAge(int age) { this.age = age; }
 
-    public double getTotalSpent() { return totalSpent; }
-    public void setTotalSpent(double totalSpent) { this.totalSpent = totalSpent; }
+    public String getUserId() { return userId; }
+    public void setUserId(String userId) { this.userId = userId; }
 
     @Override
     public String toString(){
