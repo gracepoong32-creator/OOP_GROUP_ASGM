@@ -1,4 +1,5 @@
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class CheckIn extends FlightBooking {  //find implement user interface
@@ -53,10 +54,10 @@ public class CheckIn extends FlightBooking {  //find implement user interface
                 "\nSeat: " + seatNumber;
     }
 
-    public String randomSeatNumber(){
+    public String randomSeatNumber(ArrayList<FlightBooking> flightBookingArr, int bookingIndex){
         Random random = new Random();
 
-        if (super.getCabinClass().equalsIgnoreCase("Business")){
+        if (flightBookingArr.get(bookingIndex).getCabinClass().equalsIgnoreCase("Business")){
             int randomNum = random.nextInt(1,5); // Random Row
             String[] seatAlphabet = {"A", "C" , "D", "F"};
             int randomAlphabet = random.nextInt(0,5); //Random Seat A, C, D or F

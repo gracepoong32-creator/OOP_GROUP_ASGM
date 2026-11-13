@@ -37,42 +37,38 @@ public class TestAirline {
                     "\n5. Loyalty member" +
                     "\n6. Exit");
             System.out.print("\n\nEnter your option(1-6): "); //menu interface
-            try { //exception handling for String input
-                option = input.nextInt();
-                switch (option) {
-                    case 1:
-                        System.out.print("-----Flight Booking-----");
-                        bookFlight(flightDatabaseArr, flightBookingArr, input, random);
+            option = input.nextInt();
+            switch (option) {
+                case 1:
+                    System.out.print("-----Flight Booking-----");
+                    bookFlight(flightDatabaseArr, flightBookingArr, input, random);
 
-                        break;
-                    case 2:
-                        System.out.print("-----Check In-----");
-                        checkIn();
-                        break;
-                    case 3:
-                        System.out.print("Flight cancellation");
-                        break;
-                    case 4:
-                        System.out.print("Summary of upcoming flight schedule");
-                        break;
-                    case 5:
-                        System.out.print("Loyalty Programme");
-                        break;
-                    case 6:
-                        System.out.print("Exit");
-                        break;
-                    default:
-                        System.out.println("Please enter again");
-                        break;
-                }
-
-            } catch (Exception e) {
-                System.out.print("\nPlease enter again\n");
-                input.nextLine(); //clear input
+                    break;
+                case 2:
+                    System.out.print("-----Check In-----");
+                    checkIn(flightBookingArr);
+                    break;
+                case 3:
+                    System.out.print("Flight cancellation");
+                    break;
+                case 4:
+                    System.out.print("Summary of upcoming flight schedule");
+                    break;
+                case 5:
+                    System.out.print("Loyalty Programme");
+                    break;
+                case 6:
+                    System.out.print("Exit");
+                    break;
+                default:
+                    System.out.println("Please enter again");
+                    break;
             }
 
         } while (option != 6);
     }
+
+
 
     //Feature 1: Flight booking
     public static void bookFlight(ArrayList<FlightDatabase> flightDatabaseArr, ArrayList<FlightBooking> flightBookingArr, Scanner input, Random random){
@@ -157,29 +153,44 @@ public class TestAirline {
     }
 
     //Feature 2: Check in
-    public static void checkIn(){
+    public static void checkIn(ArrayList<FlightBooking> flightBookingArr){
         Scanner input = new Scanner(System.in);
-        FlightBooking checkBooking = new CheckIn();
+        CheckIn checkIn = new CheckIn();
+
+        int bookingIndex = 0; //initial number
+        boolean checkName = false;
+        do{
             System.out.print("\nEnter your last name: ");
             String name = input.nextLine();
-            if (!name.equals(checkBooking.getLastName())) {
-                System.out.println("The name is not found. Please try again.");
+            for (bookingIndex = 0; bookingIndex < flightBookingArr.size(); bookingIndex++) {
+                if (name.equals(flightBookingArr.get(bookingIndex).getLastName())){
+                    checkName = true;
+                }
+                else {
+                    System.out.println("The name you entered is not found. Please try again");
+                }
             }
+        }while (!checkName);
 
+        bookingIndex --;
 
+        boolean checkBookingNumber = false;
+        do{
             System.out.print("Enter your booking number: ");
             int bookingNumber = input.nextInt();
-            if (bookingNumber != checkBooking.getBookingNumber()) {
-                System.out.println("\nThe booking number is invalid or not found. Please try again.");
+            if (bookingNumber == flightBookingArr.get(bookingIndex).getBookingNumber()) {
+                checkBookingNumber = true;
             }else{
-                    System.out.print(bookingNumber + " \n" + checkBooking.getBookingNumber());
+                System.out.println("The booking number is invalid or not found. Please try again.");
                 }
 
-        CheckIn checkIn = new CheckIn();
+        }while (!checkBookingNumber);
+
         if (checkIn.isCheckIn()){
             System.out.println("You have been checked in.");
         }else{
-            System.out.println("Your seat has been automatically given as " +checkIn.randomSeatNumber());
+            System.out.println("Your seat has been automatically given as " +checkIn.randomSeatNumber(flightBookingArr,bookingIndex));
+            checkIn.setCheckIn(false);
         }
         System.out.println(checkIn.toString());
     }

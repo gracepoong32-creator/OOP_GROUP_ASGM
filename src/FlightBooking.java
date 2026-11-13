@@ -57,7 +57,9 @@ public class FlightBooking {
     public String getReturnDate() { return returnDate; }
     public void setReturnDate(String returnDate) { this.returnDate = returnDate; }
 
-    public String getCabinClass() { return cabinClass; }
+    public String getCabinClass() {
+        return cabinClass;
+    }
     public void setCabinClass(String cabinClass) { this.cabinClass = cabinClass; }
 
     public String getOptMeals() { return optMeals; }
