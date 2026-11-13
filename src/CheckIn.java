@@ -2,7 +2,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class CheckIn extends FlightBooking {  //find implement user interface
+public class CheckIn {  //find implement user interface
     private boolean checkIn = false;
     private String boardingGate;
     private String seatNumber;
@@ -45,11 +45,13 @@ public class CheckIn extends FlightBooking {  //find implement user interface
     }
 
 
-    @Override
-    public String toString() {
+    public String toString(ArrayList<FlightBooking> flightBookingArr, int bookingIndex) {
         return "-----Boarding Pass-------" +
-                "\nName: " + getLastName() +
-                "Boarding time: " + boardingTime +
+                "\nName: " + flightBookingArr.get(bookingIndex).getLastName() +
+                "\n" + flightBookingArr.get(bookingIndex).getFlightId().getFrom() + "  ------>  " + flightBookingArr.get(bookingIndex).getFlightId().getTo()+
+                "\nDeparture Date: " + flightBookingArr.get(bookingIndex).getDepDate() +
+                "\n " +
+                "\nBoarding time: " + flightBookingArr.get(bookingIndex).getFlightId().getDepartureTime() +
                 "\nBoarding Gate: " + boardingGate +
                 "\nSeat: " + seatNumber;
     }
@@ -62,7 +64,7 @@ public class CheckIn extends FlightBooking {  //find implement user interface
             String[] seatAlphabet = {"A", "C" , "D", "F"};
             int randomAlphabet = random.nextInt(0,5); //Random Seat A, C, D or F
             seatNumber = randomNum + seatAlphabet[randomAlphabet];
-        }else{
+        }else if (flightBookingArr.get(bookingIndex).getCabinClass().equalsIgnoreCase("economy")){
             int randomNum = random.nextInt(5,31); // Random Row
             String[] seatAlphabet = {"A", "B","C","D","E","F"};
             int randomAlphabet = random.nextInt(0,7); //Random Seat A,B,C,D,E,F

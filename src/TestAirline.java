@@ -204,7 +204,7 @@ public class TestAirline {
             System.out.println("You have been checked in.");
         }else{
             System.out.println("Your seat has been automatically given as " +checkIn.randomSeatNumber(flightBookingArr,bookingIndex));
-            checkIn.setCheckIn(false);
+            checkIn.setCheckIn(true);
         }
         System.out.println(checkIn.toString());
     }
