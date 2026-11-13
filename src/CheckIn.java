@@ -45,7 +45,7 @@ public class CheckIn {  //find implement user interface
 
 
     public String toString(ArrayList<FlightBooking> flightBookingArr, int bookingIndex) {
-        return "-----Boarding Pass-------" +
+        return "\n\n-----Boarding Pass-------" +
                 "\nName: " + flightBookingArr.get(bookingIndex).getLastName() +
                 "\n" + flightBookingArr.get(bookingIndex).getFlightId().getFrom() + "  ------>  " + flightBookingArr.get(bookingIndex).getFlightId().getTo()+
                 "\nDeparture Date: " + flightBookingArr.get(bookingIndex).getDepDate() +
