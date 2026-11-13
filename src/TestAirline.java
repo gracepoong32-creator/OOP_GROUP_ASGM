@@ -32,13 +32,13 @@ public class TestAirline {
         memberArr.add(new Member("Shaun", "Wong", 20, "M102", 100, "Platinum Tier", 10001.00));
         memberArr.add(new Member("Daniel", "Fong", 22, "M103", 110, "Bronze Tier", 1150.00));
         memberArr.add(new Member("Marcus", "Lee", 35, "M104", 1120, "Gold Tier", 9200.00));
-        memberArr.add(new Member("Lucas", "Wong", 40, "M106", 1450, "Platinum Tier", 12500.00));
+        memberArr.add(new Member("Lucas", "Wong", 40, "M105", 1450, "Platinum Tier", 12500.00));
 
-        memberArr.add(new Member());
-        memberArr.add(new Member());
-        memberArr.add(new Member());
-        memberArr.add(new Member());
-        memberArr.add(new Member());
+        memberArr.add(new Member("Chloe", "Lim", 19, "M106", 75, "Silver Tier", 3850.00));
+        memberArr.add(new Member("Emily", "Ng", 26, "M107", 130, "Bronze Tier", 1320.00));
+        memberArr.add(new Member("Marrlina", "Maklin", 32, "M108", 490, "Silver Tier", 3850.00));
+        memberArr.add(new Member("Gillian", "Gabriel", 21, "M109", 35, "Bronze Tier", 420.00));
+        memberArr.add(new Member("Kat", "Chong", 33, "M110", 410, "Silver Tier", 3200.00));
 
         //Airline Management System Menu UI
         int option = 0;
