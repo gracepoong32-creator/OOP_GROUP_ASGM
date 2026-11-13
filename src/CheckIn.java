@@ -8,7 +8,6 @@ public class CheckIn {  //find implement user interface
     private String seatNumber;
     private LocalTime boardingTime;
 
-
     public CheckIn(){
 
     }
@@ -71,7 +70,5 @@ public class CheckIn {  //find implement user interface
             seatNumber = randomNum + seatAlphabet[randomAlphabet];
         }
         return seatNumber;
-
-
     }
 }

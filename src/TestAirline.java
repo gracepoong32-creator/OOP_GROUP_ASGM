@@ -159,10 +159,10 @@ public class TestAirline {
         String userType = input.nextLine();
         if (userType.equalsIgnoreCase("Y")){
             System.out.print("Enter member Id: ");
-
+            //Need feature 5
         }
         else{
-
+            System.out.print("HI I WANT TO RETIRE");
         }
     }
 
