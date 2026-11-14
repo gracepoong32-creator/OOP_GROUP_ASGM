@@ -28,11 +28,11 @@ public class Member extends User{
 
     //Method to print out all member details
     public String toString(){
-        return "\n==========================================\n"
+        return "\n\n\n==========================================\n"
                 +"           LOYALTY MEMBER DETAILS         \n"
                 +"=========================================="
                 + "\nUser Id: " + super.getUserId()
-                + "\nFull name: " + super.getFirstName() + super.getLastName()
+                + "\nFull name: " + super.getFirstName() + " " + super.getLastName()
                 + "\nTier status: " + memberTier
                 + "\n------------------------------------------"
                 + "\nLoyalty points: " + pointsCollected + "pts";
