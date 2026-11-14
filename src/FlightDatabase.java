@@ -43,5 +43,4 @@ public class FlightDatabase {
 
     public String getDepartureTime() { return departureTime; }
     public void setDepartureTime(String departureTime) { this.departureTime = departureTime; }
-
 }

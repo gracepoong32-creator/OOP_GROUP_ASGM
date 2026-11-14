@@ -198,7 +198,6 @@ public class TestAirline {
             else {
                 System.out.print("Oops, no points available to redeem");
             }
-
         }
         else{
             System.out.print("Continue without loyalty programme >>>");
@@ -258,5 +257,4 @@ public class TestAirline {
         }
         System.out.println(checkIn.toString(flightBookingArr,bookingIndex));
     }
-
 }

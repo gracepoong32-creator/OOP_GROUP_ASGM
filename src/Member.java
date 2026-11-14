@@ -44,5 +44,3 @@ public class Member extends User{
 
     //Another method to update post payment
 }
-
-

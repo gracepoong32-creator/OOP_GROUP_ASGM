@@ -6,7 +6,6 @@ public class User {
 
     //Default constructor
     public User(){
-
     }
 
     //Parameterized constructor
@@ -35,4 +34,3 @@ public class User {
         return "";
     }
 }
-
