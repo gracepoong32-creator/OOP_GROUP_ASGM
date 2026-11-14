@@ -42,5 +42,12 @@ public class Member extends User{
         return pointsCollected * 0.01;
     }
 
-    //Another method to update post payment
+    public String printUpdatedMember(){
+        return "\nUPDATED MEMBER PROFILE (" + getUserId() + ")"
+                + "\nName: " + getFirstName() + " " + getLastName() + "(" + memberTier + ")"
+                + "\nPoints \nUsed: -RM" + pointsRedeem() + "Earned: +RM" + "pointsEarned"
+                + "\nNew point balance: " + "pointsCollected-redeem+earned" + "pts"
+                + "\nTotal spent: RM" + "totalSpend+ newTotalSpent"
+                + "\n==========================================";
+    }
 }

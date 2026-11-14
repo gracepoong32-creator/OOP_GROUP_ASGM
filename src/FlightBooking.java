@@ -125,6 +125,6 @@ public class FlightBooking {
                 +"=========================================="
                 + "\nBooking reference: " + bookingNumber
                 + "\nAmount paid: RM" + (calcTotalFare()-discount)
-                + "\n------------------------------------------\n\n";
+                + "\n------------------------------------------";
     }
 }
