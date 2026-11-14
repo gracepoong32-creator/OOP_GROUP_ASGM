@@ -60,7 +60,7 @@ public class Member extends User{
         }
 
         //Update points and totalSpent
-        this.pointsCollected = (this.pointsCollected - discount) + pointsEarned;
+        this.pointsCollected = (this.pointsCollected - (discount*100)) + pointsEarned;
         this.totalSpent += totalPaid;
 
         //Auto update member tier
