@@ -111,7 +111,7 @@ public class FlightBooking {
         }
     }
 
-    public String printPreCheckout(double discount, double pointsCollected){
+    public String printPreCheckoutMember(double discount, double pointsCollected){
         return "\n\n------------------------------------------\n"
                 + "UPDATED PAYMENT SUMMARY\n"
                 + "Subtotal: " + calcTotalFare()
@@ -122,7 +122,26 @@ public class FlightBooking {
                 + "\nContinue to payment >>>\n";
     }
 
-    public String printPostCheckout(double discount){
+    public String printPreCheckoutNonMember(double totalPayable, boolean hasPromo){
+        String promoLine = "";
+        double promoTotal = calcTotalFare();
+
+        if (hasPromo){
+            promoLine = "\nOne-time user promo: 10%";
+            promoTotal = calcTotalFare()*0.9;
+        }
+
+        return "\n\n------------------------------------------\n"
+                + "UPDATED PAYMENT SUMMARY\n"
+                + "Subtotal: " + calcTotalFare()
+                + "\n------------------------------------------"
+                + "\nTotal to pay: RM" + promoTotal
+                + "\n=========================================="
+                + "\nContinue to payment >>>\n";
+    }
+
+
+    public String printPostCheckoutMember(double discount){
         return "\n\n\n==========================================\n"
                 +"            PAYMENT SUCCESSFUL!!            \n"
                 +"=========================================="

@@ -38,6 +38,12 @@ public class NonMember extends User {
                 + "\nUser Id: " + super.getUserId()
                 + "\nFull name: " + super.getFirstName() + " " + super.getLastName()
                 + "\n------------------------------------------"
-                + "\nNew User Promo: " + newUserPromoCheck();
+                + "\nNew User Promo: " + newUserPromoCheck()
+                + "\nBooking count: " + bookingCount;
+    }
+
+    public String printUpdatedNonMemberProfile(){
+        return "\nUPDATED MEMBER PROFILE (" + getUserId() + ")"
+                + "\nName: " + getFirstName() + " " + getLastName();
     }
 }

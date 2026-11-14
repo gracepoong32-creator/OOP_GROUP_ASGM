@@ -195,7 +195,7 @@ public class TestAirline {
 
                 if(optPoints.equalsIgnoreCase("Y")){
                     discount = m.pointsRedeem();
-                    System.out.print(flightBooking.printPreCheckout(discount, m.getPointsCollected()));
+                    System.out.print(flightBooking.printPreCheckoutMember(discount, m.getPointsCollected()));
                 }
                 else{
                     System.out.print("Continue without redeeming loyalty points: ");
@@ -210,7 +210,7 @@ public class TestAirline {
 
             if (confirmPayment.equalsIgnoreCase("Y")){
                 double amountPaid = flightBooking.calcTotalFare() - discount;
-                System.out.print(flightBooking.printPostCheckout(discount));
+                System.out.print(flightBooking.printPostCheckoutMember(discount));
                 System.out.print(m.printUpdatedMember(amountPaid, discount));
             }
         }
@@ -220,10 +220,19 @@ public class TestAirline {
             NonMember nm = (NonMember) u;
             System.out.print("Non-member profile found!");
             System.out.println(nm.toString());
+
             if (nm.isHasPromo()){
                 System.out.print("Would you like to use the one-time discount? (Y/N): ");
                 String optNewUserPromo = input.nextLine();
-                //Continue here
+
+                if (optNewUserPromo.equalsIgnoreCase("Y")){
+                    double totalPayable = flightBooking.calcTotalFare();
+                    boolean hasPromo = true;
+                    System.out.print(flightBooking.printPreCheckoutNonMember(totalPayable, hasPromo));
+                }
+            }
+            else{
+
             }
         }
 
