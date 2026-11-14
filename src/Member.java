@@ -44,7 +44,7 @@ public class Member extends User{
 
     public String printUpdatedMember(double totalPaid, double pointsUsed){
 
-        double pointsEarned = totalPaid;
+        double pointsEarned = 0;
         //Points collection different multiplier for different tiers
         if (memberTier.equalsIgnoreCase("Bronze Tier")){
             pointsEarned += totalPaid;
