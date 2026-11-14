@@ -42,6 +42,18 @@ public class Member extends User{
         return pointsCollected * 0.01;
     }
 
+    public double pointsEarned(){
+
+    }
+
+    public double newPointBalance(){
+
+    }
+
+    public double newTotalSpend(){
+
+    }
+
     public String printUpdatedMember(){
         return "\nUPDATED MEMBER PROFILE (" + getUserId() + ")"
                 + "\nName: " + getFirstName() + " " + getLastName() + "(" + memberTier + ")"
