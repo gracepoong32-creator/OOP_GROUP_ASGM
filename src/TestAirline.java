@@ -235,17 +235,16 @@ public class TestAirline {
                 if (optNewUserPromo.equalsIgnoreCase("Y")){
                     usedPromo = true;
                     System.out.print(flightBooking.printPreCheckoutNonMember(totalPayable, usedPromo));
-
-                    System.out.print("Confirm payment? (Y/N): ");
-                    String confirmPayment = input.nextLine();
-
-                    if (confirmPayment.equalsIgnoreCase("Y")){
-                        System.out.print(flightBooking.printPostCheckoutNonMember(usedPromo));
-                        System.out.print(nm.updatedNonMemberProfile(usedPromo));
-                    }
                 }
                 else{
-                    //If user doesn't want to use the new user promo
+                    System.out.print("\nContinue without one-time new user promo");
+                }
+                System.out.print("Confirm payment? (Y/N): ");
+                String confirmPayment = input.nextLine();
+
+                if (confirmPayment.equalsIgnoreCase("Y")){
+                    System.out.print(flightBooking.printPostCheckoutNonMember(usedPromo));
+                    System.out.print(nm.updatedNonMemberProfile(usedPromo));
                 }
             }
             else{
@@ -258,7 +257,6 @@ public class TestAirline {
                 }
             }
         }
-
     }
 
     //Feature 1: Match user id if member/non-member
