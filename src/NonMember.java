@@ -42,8 +42,14 @@ public class NonMember extends User {
                 + "\nBooking count: " + bookingCount;
     }
 
-    public String printUpdatedNonMemberProfile(){
-        return "\nUPDATED MEMBER PROFILE (" + getUserId() + ")"
-                + "\nName: " + getFirstName() + " " + getLastName();
+    public String printUpdatedNonMemberProfile(int bookingCount, boolean hasPromo){
+        this.bookingCount++;
+        this.hasPromo = false;
+
+        return "\nUPDATED NON MEMBER PROFILE (" + getUserId() + ")"
+                + "\nName: " + getFirstName() + " " + getLastName()
+                + "\nBooking count: " + this.bookingCount
+                + "\nNew User Promo: " + newUserPromoCheck()
+                + "\n==========================================\n\n";
     }
 }

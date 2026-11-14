@@ -210,7 +210,7 @@ public class TestAirline {
 
             if (confirmPayment.equalsIgnoreCase("Y")){
                 double amountPaid = flightBooking.calcTotalFare() - discount;
-                System.out.print(flightBooking.printPostCheckoutMember(discount));
+                System.out.print(flightBooking.printPostCheckout(discount));
                 System.out.print(m.printUpdatedMember(amountPaid, discount));
             }
         }
@@ -221,18 +221,30 @@ public class TestAirline {
             System.out.print("Non-member profile found!");
             System.out.println(nm.toString());
 
+            int bookingCount = nm.getBookingCount();
+            boolean hasPromo = true;
+
             if (nm.isHasPromo()){
                 System.out.print("Would you like to use the one-time discount? (Y/N): ");
                 String optNewUserPromo = input.nextLine();
 
+
                 if (optNewUserPromo.equalsIgnoreCase("Y")){
                     double totalPayable = flightBooking.calcTotalFare();
-                    boolean hasPromo = true;
                     System.out.print(flightBooking.printPreCheckoutNonMember(totalPayable, hasPromo));
+
+                    System.out.print("Confirm payment? (Y/N): ");
+                    String confirmPayment = input.nextLine();
+
+                    if (confirmPayment.equalsIgnoreCase("Y")){
+                        System.out.print(flightBooking.printPostCheckout(discount));
+                        System.out.print(nm.printUpdatedNonMemberProfile(bookingCount, hasPromo));
+                    }
                 }
             }
             else{
-
+                System.out.print(flightBooking.printPostCheckout(discount));
+                System.out.print(nm.printUpdatedNonMemberProfile(bookingCount, hasPromo));
             }
         }
 

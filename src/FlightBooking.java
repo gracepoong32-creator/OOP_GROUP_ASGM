@@ -141,7 +141,7 @@ public class FlightBooking {
     }
 
 
-    public String printPostCheckoutMember(double discount){
+    public String printPostCheckout(double discount){
         return "\n\n\n==========================================\n"
                 +"            PAYMENT SUCCESSFUL!!            \n"
                 +"=========================================="
