@@ -143,7 +143,7 @@ public class FlightBooking {
     }
 
 
-    public String printPostCheckout(double discount){
+    public String printPostCheckoutMember(double discount){
         return "\n\n\n==========================================\n"
                 +"            PAYMENT SUCCESSFUL!!            \n"
                 +"=========================================="
@@ -151,4 +151,19 @@ public class FlightBooking {
                 + "\nAmount paid: RM" + (calcTotalFare()-discount)
                 + "\n------------------------------------------";
     }
+
+    public String printPostCheckoutNonMember(boolean hasPromo){
+        double totalPayment = calcTotalFare();
+        if (hasPromo){
+            totalPayment = calcTotalFare()*0.9;
+        }
+
+        return "\n\n\n==========================================\n"
+                +"            PAYMENT SUCCESSFUL!!            \n"
+                +"=========================================="
+                + "\nBooking reference: " + bookingNumber
+                + "\nAmount paid: RM" + totalPayment
+                + "\n------------------------------------------";
+    }
+
 }
