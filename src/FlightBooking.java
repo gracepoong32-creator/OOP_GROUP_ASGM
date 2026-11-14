@@ -112,10 +112,10 @@ public class FlightBooking {
         return "\n\n------------------------------------------\n"
                 + "UPDATED PAYMENT SUMMARY\n"
                 + "Subtotal: " + calcTotalFare()
-                + "Points redeemed (" + pointsCollected + "): -RM" + discount
+                + "\nPoints redeemed (" + pointsCollected + "): -RM" + discount
                 + "\n------------------------------------------"
                 + "\nTotal to pay: RM" + (calcTotalFare()-discount)
                 + "\n=========================================="
-                + "\nContinue to payment >>>";
+                + "\nContinue to payment >>>\n";
     }
 }

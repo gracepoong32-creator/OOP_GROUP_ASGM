@@ -54,7 +54,7 @@ public class TestAirline {
             option = input.nextInt();
             switch (option) {
                 case 1:
-                    System.out.print("-----Flight Booking-----");
+                    System.out.print("\n-----Flight Booking-----");
                     FlightBooking currentFlight = bookFlight(flightDatabaseArr, flightBookingArr, input, random);
                     checkoutLoyalty(input, memberArr, currentFlight);
 
@@ -188,7 +188,7 @@ public class TestAirline {
 
                 if(optPoints.equalsIgnoreCase("Y")){
                     double discount = m.pointsRedeem();
-                    flightBooking.printPreCheckout(discount, m.getPointsCollected());
+                    System.out.print(flightBooking.printPreCheckout(discount, m.getPointsCollected()));
                 }
                 else{
                     System.out.print("Continue without redeeming loyalty points: ");
