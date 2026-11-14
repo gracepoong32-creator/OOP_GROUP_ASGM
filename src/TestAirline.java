@@ -14,6 +14,7 @@ public class TestAirline {
         ArrayList <FlightBooking> flightBookingArr = new ArrayList<>();
         ArrayList <CheckIn> checkInArr = new ArrayList<>();
         ArrayList <Member> memberArr = new ArrayList<>();
+        ArrayList <NonMember> nonMemberArr = new ArrayList<>();
 
         //Preset 10 available flights
         flightDatabaseArr.add(new FlightDatabase("MH101", "MAS", "KUL", "BKI", "Economy", 750.00, "0800"));
@@ -28,18 +29,19 @@ public class TestAirline {
         flightDatabaseArr.add(new FlightDatabase("OD106", "Batik Air", "KUL", "LGK", "Economy", 370.00, "0900"));
         flightDatabaseArr.add(new FlightDatabase("AK275", "AirAsia", "KUL", "PEN", "Economy", 256.00, "1100"));
 
-        //Preset 10 loyalty members
+        //Preset 5 loyalty members
         memberArr.add(new Member("Jane", "Smith", 18, "M101", 50, "Bronze Tier", 700.00));
         memberArr.add(new Member("Shaun", "Wong", 20, "M102", 100, "Platinum Tier", 10001.00));
         memberArr.add(new Member("Daniel", "Fong", 22, "M103", 110, "Bronze Tier", 1150.00));
         memberArr.add(new Member("Marcus", "Lee", 35, "M104", 1120, "Gold Tier", 9200.00));
         memberArr.add(new Member("Lucas", "Wong", 40, "M105", 1450, "Platinum Tier", 12500.00));
 
-        memberArr.add(new Member("Chloe", "Lim", 19, "M106", 75, "Silver Tier", 3850.00));
-        memberArr.add(new Member("Emily", "Ng", 26, "M107", 130, "Bronze Tier", 1320.00));
-        memberArr.add(new Member("Marrlina", "Maklin", 32, "M108", 490, "Silver Tier", 3850.00));
-        memberArr.add(new Member("Gillian", "Gabriel", 21, "M109", 35, "Bronze Tier", 420.00));
-        memberArr.add(new Member("Kat", "Chong", 33, "M110", 410, "Silver Tier", 3200.00));
+        //Preset 5 non Member
+        nonMemberArr.add(new NonMember("Gina","Wang", 52, "M106", 3, false));
+        nonMemberArr.add(new NonMember("Jayden", "Cooper", 19, "M107", 7, false));
+        nonMemberArr.add(new NonMember());
+        nonMemberArr.add(new NonMember());
+        nonMemberArr.add(new NonMember());
 
         //Airline Management System Menu UI
         int option = 0;
@@ -209,6 +211,7 @@ public class TestAirline {
         }
         else{
             System.out.print("Continue without loyalty programme >>>");
+            //Continue here wait ah i retire first
         }
         System.out.print("Confirm payment? (Y/N): ");
         String confirmPayment = input.nextLine();
