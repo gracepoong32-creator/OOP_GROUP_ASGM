@@ -9,8 +9,9 @@ public class FlightBooking {
     private String optMeals;
     private String optBaggage;
 
-    public FlightBooking(){
-
+    public FlightBooking(String lastName, int bookingNumber){
+        this.lastName = lastName;
+        this.bookingNumber = bookingNumber;
     }
 
     //Parameterized constructor for one-way
@@ -36,6 +37,9 @@ public class FlightBooking {
         this.cabinClass = cabinClass;
         this.optMeals = optMeals;
         this.optBaggage = optBaggage;
+    }
+
+    public FlightBooking() {
     }
 
     //Getter and Setters

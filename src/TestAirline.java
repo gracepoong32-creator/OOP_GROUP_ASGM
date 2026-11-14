@@ -180,7 +180,6 @@ public class TestAirline {
 
         System.out.print("Enter user Id: ");
         String inputUserId = input.nextLine();
-
         User u = matchUser(userArr, inputUserId);
 
         if (u instanceof Member){
@@ -222,7 +221,7 @@ public class TestAirline {
             System.out.println(nm.toString());
 
             int bookingCount = nm.getBookingCount();
-            boolean hasPromo = true;
+            boolean hasPromo = nm.isHasPromo();
 
             if (nm.isHasPromo()){
                 System.out.print("Would you like to use the one-time discount? (Y/N): ");
@@ -243,8 +242,13 @@ public class TestAirline {
                 }
             }
             else{
-                System.out.print(flightBooking.printPostCheckout(discount));
-                System.out.print(nm.updatedNonMemberProfile(bookingCount, hasPromo));
+                System.out.print("Confirm payment? (Y/N): ");
+                String confirmPayment = input.nextLine();
+
+                if (confirmPayment.equalsIgnoreCase("Y")){
+                    System.out.print(flightBooking.printPostCheckout(discount));
+                    System.out.print(nm.updatedNonMemberProfile(bookingCount, hasPromo));
+                }
             }
         }
 
