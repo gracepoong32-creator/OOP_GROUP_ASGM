@@ -107,4 +107,15 @@ public class FlightBooking {
             return 0.0;
         }
     }
+
+    public String printPreCheckout(double discount, int pointsCollected){
+        return "\n\n------------------------------------------\n"
+                + "UPDATED PAYMENT SUMMARY\n"
+                + "Subtotal: " + calcTotalFare()
+                + "Points redeemed (" + pointsCollected + "): -RM" + discount
+                + "\n------------------------------------------"
+                + "\nTotal to pay: RM" + (calcTotalFare()-discount)
+                + "\n=========================================="
+                + "\nContinue to payment >>>";
+    }
 }

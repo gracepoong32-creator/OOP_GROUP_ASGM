@@ -55,8 +55,8 @@ public class TestAirline {
             switch (option) {
                 case 1:
                     System.out.print("-----Flight Booking-----");
-                    bookFlight(flightDatabaseArr, flightBookingArr, input, random);
-                    checkoutLoyalty(input, memberArr);
+                    FlightBooking currentFlight = bookFlight(flightDatabaseArr, flightBookingArr, input, random);
+                    checkoutLoyalty(input, memberArr, currentFlight);
 
                     break;
                 case 2:
@@ -84,7 +84,7 @@ public class TestAirline {
     }
 
     //Feature 1: Flight booking
-    public static void bookFlight(ArrayList<FlightDatabase> flightDatabaseArr, ArrayList<FlightBooking> flightBookingArr, Scanner input, Random random){
+    public static FlightBooking bookFlight(ArrayList<FlightDatabase> flightDatabaseArr, ArrayList<FlightBooking> flightBookingArr, Scanner input, Random random){
 
         //Gather all user input for flight booking
         System.out.print("\nEnter trip type (one-way/round trip): ");
@@ -152,6 +152,8 @@ public class TestAirline {
         FlightBooking flightBooking = new FlightBooking(bookingNum, lastName, selectedFlight, inputTypeTrip, inputDepDate, inputCabinClass, optMeal, optBaggage);
         flightBookingArr.add(flightBooking);
         System.out.println(flightBooking.toString());
+
+        return flightBooking;
     }
 
     //Feature 1: Match inputFlight with flightNum in FlightDatabase
@@ -166,7 +168,7 @@ public class TestAirline {
     }
 
     //Feature 1: Check user (member/non-member) during checkout
-    public static void checkoutLoyalty(Scanner input, ArrayList<Member> memberArr){
+    public static void checkoutLoyalty(Scanner input, ArrayList<Member> memberArr, FlightBooking flightBooking){
         System.out.print("Are you a loyalty member? (Y/N): ");
         String userType = input.nextLine();
 
@@ -178,9 +180,24 @@ public class TestAirline {
             System.out.print("Member profile found!");
 
             System.out.println(m.toString());
-            System.out.print("\nWould you like to use loyalty points as discount? (Y/N): ");
-            String optPoints = input.nextLine();
-            System.out.print("Points redeemable to cash: RM" + m.pointsRedeem());
+
+            if (m.pointsRedeem() > 0){
+                System.out.print("Points redeemable to cash: RM" + m.pointsRedeem());
+                System.out.print("\nWould you like to use loyalty points as discount? (Y/N): ");
+                String optPoints = input.nextLine();
+
+                if(optPoints.equalsIgnoreCase("Y")){
+                    double discount = m.pointsRedeem();
+                    flightBooking.printPreCheckout(discount, m.getPointsCollected());
+                }
+                else{
+                    System.out.print("Continue without redeeming loyalty points: ");
+                }
+
+            }
+            else {
+                System.out.print("Oops, no points available to redeem");
+            }
 
         }
         else{
@@ -241,4 +258,5 @@ public class TestAirline {
         }
         System.out.println(checkIn.toString(flightBookingArr,bookingIndex));
     }
+
 }
