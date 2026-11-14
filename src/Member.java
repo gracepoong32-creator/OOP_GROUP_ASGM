@@ -42,7 +42,7 @@ public class Member extends User{
         return pointsCollected * 0.01;
     }
 
-    public String printUpdatedMember(double totalPaid, double pointsUsed){
+    public String printUpdatedMember(double totalPaid, double discount){
 
         double pointsEarned = 0;
         //Points collection different multiplier for different tiers
@@ -60,7 +60,7 @@ public class Member extends User{
         }
 
         //Update points and totalSpent
-        this.pointsCollected = (this.pointsCollected-pointsUsed)+pointsEarned;
+        this.pointsCollected = (this.pointsCollected - discount) + pointsEarned;
         this.totalSpent += totalPaid;
 
         //Auto update member tier
@@ -79,7 +79,7 @@ public class Member extends User{
 
         return "\nUPDATED MEMBER PROFILE (" + getUserId() + ")"
                 + "\nName: " + getFirstName() + " " + getLastName() + "(" + memberTier + ")"
-                + "\nPoints \nUsed: -" + pointsRedeem() + "pts | Earned: +" + pointsEarned + "pts"
+                + "\nPoints \nUsed: -" + (discount*100) + "pts | Earned: +" + pointsEarned + "pts"
                 + "\nNew point balance: " + pointsCollected + "pts"
                 + "\nTotal spent: RM" + totalSpent
                 + "\n==========================================\n\n";
