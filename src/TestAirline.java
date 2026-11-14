@@ -220,7 +220,11 @@ public class TestAirline {
             NonMember nm = (NonMember) u;
             System.out.print("Non-member profile found!");
             System.out.println(nm.toString());
-            //Continue here
+            if (nm.isHasPromo()){
+                System.out.print("Would you like to use the one-time discount? (Y/N): ");
+                String optNewUserPromo = input.nextLine();
+                //Continue here
+            }
         }
 
     }

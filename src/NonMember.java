@@ -24,7 +24,7 @@ public class NonMember extends User {
 
     public String newUserPromoCheck(){
         if (hasPromo){
-            return "Available (One-time discount)" + "\nNew user promo discount: RM" + newUserPromo;
+            return "Available (One-time discount)" + "\nNew user promo discount: " + newUserPromo*100 + "%";
         }
         else{
             return "Already used";
