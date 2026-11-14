@@ -5,7 +5,9 @@ public class Member extends User{
 
     //Default constructor
     public Member(){
-
+        this.memberTier = "Bronze Tier";
+        this.pointsCollected = 0.0;
+        this.totalSpent = 0.0;
     }
 
     //Parameterized constructor

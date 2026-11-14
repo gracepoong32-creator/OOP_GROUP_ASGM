@@ -194,6 +194,11 @@ public class TestAirline {
 
                 if(optPoints.equalsIgnoreCase("Y")){
                     discount = m.pointsRedeem();
+                    //Only allow member to redeem the maximum points which is equal to total fare
+                    if (discount > flightBooking.calcTotalFare()){
+                        discount = flightBooking.calcTotalFare();
+                    }
+
                     System.out.print(flightBooking.printPreCheckoutMember(discount, m.getPointsCollected()));
                 }
                 else{
@@ -220,6 +225,7 @@ public class TestAirline {
             System.out.print("Non-member profile found!");
             System.out.println(nm.toString());
             boolean usedPromo = false;
+            double totalPayable = flightBooking.calcTotalFare();
 
             if (nm.isHasPromo()){
                 System.out.print("Would you like to use the one-time discount? (Y/N): ");
@@ -228,16 +234,18 @@ public class TestAirline {
 
                 if (optNewUserPromo.equalsIgnoreCase("Y")){
                     usedPromo = true;
-                    double totalPayable = flightBooking.calcTotalFare();
                     System.out.print(flightBooking.printPreCheckoutNonMember(totalPayable, usedPromo));
 
                     System.out.print("Confirm payment? (Y/N): ");
                     String confirmPayment = input.nextLine();
 
                     if (confirmPayment.equalsIgnoreCase("Y")){
-                        System.out.print(flightBooking.printPostCheckoutMember(discount));
+                        System.out.print(flightBooking.printPostCheckoutNonMember(usedPromo));
                         System.out.print(nm.updatedNonMemberProfile(usedPromo));
                     }
+                }
+                else{
+                    //If user doesn't want to use the new user promo
                 }
             }
             else{
@@ -245,7 +253,7 @@ public class TestAirline {
                 String confirmPayment = input.nextLine();
 
                 if (confirmPayment.equalsIgnoreCase("Y")){
-                    System.out.print(flightBooking.printPostCheckoutMember(discount));
+                    System.out.print(flightBooking.printPostCheckoutNonMember(usedPromo));
                     System.out.print(nm.updatedNonMemberProfile(usedPromo));
                 }
             }
