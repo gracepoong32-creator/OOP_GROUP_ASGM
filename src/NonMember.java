@@ -23,6 +23,10 @@ public class NonMember extends User {
     public void setHasPromo(boolean hasPromo) { this.hasPromo = hasPromo; }
 
     public String toString(){
-
+        return "\n\n\n==========================================\n"
+                +"           NON MEMBER DETAILS         \n"
+                +"=========================================="
+                + "\nUser Id: " + super.getUserId()
+                + "\nFull name: " + super.getFirstName() + " " + super.getLastName();
     }
 }

@@ -219,7 +219,8 @@ public class TestAirline {
             System.out.print("Continue without loyalty programme >>>\n");
             NonMember nm = (NonMember) u;
             System.out.print("Non-member profile found!");
-
+            System.out.println(nm.toString());
+            //Continue here
         }
 
     }
