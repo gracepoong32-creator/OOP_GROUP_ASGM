@@ -56,7 +56,7 @@ public class TestAirline {
                 case 1:
                     System.out.print("-----Flight Booking-----");
                     bookFlight(flightDatabaseArr, flightBookingArr, input, random);
-                    checkUser(input);
+                    checkoutLoyalty(input, memberArr);
 
                     break;
                 case 2:
@@ -158,7 +158,7 @@ public class TestAirline {
     //Feature 1: Match inputFlight with flightNum in FlightDatabase
     public static FlightDatabase matchFlight(ArrayList<FlightDatabase> flightDatabaseArr, String inputFlight){
         for (FlightDatabase flight : flightDatabaseArr){
-            if (flight.getFlightNum().equals(inputFlight)){
+            if (flight.getFlightNum().equalsIgnoreCase(inputFlight)){
                 return flight;
             }
         }
@@ -167,16 +167,33 @@ public class TestAirline {
     }
 
     //Feature 1: Check user (member/non-member) during checkout
-    public static void checkUser(Scanner input){
-        System.out.println("Are you a loyalty member? (Y/N): ");
+    public static void checkoutLoyalty(Scanner input, ArrayList<Member> memberArr){
+        System.out.print("Are you a loyalty member? (Y/N): ");
         String userType = input.nextLine();
         if (userType.equalsIgnoreCase("Y")){
-            System.out.print("Enter member Id: ");
-            //Need feature 5
+            System.out.print("Enter user Id: ");
+            String inputUserId = input.nextLine();
+            Member m = matchMember(memberArr, inputUserId);
+            System.out.print("Member profile found!");
+            //Print out member details
+            System.out.println(m.toString());
+            System.out.print("\nWould you like to use loyalty points as discount? (Y/N): ");
+            String optPoints = input.nextLine();
         }
         else{
-            System.out.print("HI I WANT TO RETIRE");
+            System.out.print("Continue without loyalty programme >>>");
         }
+    }
+
+    //Feature 1: Match user Id if member/non-member
+    public static Member matchMember(ArrayList<Member> memberArr, String inputUserId){
+        for (Member m : memberArr){
+            if (m.getUserId().equalsIgnoreCase(inputUserId)){
+                return m;
+            }
+        }
+        System.out.println("No matching member profiles");
+        return null;
     }
 
     //Feature 2: Check in
