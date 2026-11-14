@@ -6,8 +6,8 @@ public class CheckIn {  //find implement user interface
     private boolean checkIn = false;
     private String boardingGate;
     private String seatNumber;
-    private LocalTime boardingTime;
 
+    //default constructor
     public CheckIn(){
 
     }
@@ -16,7 +16,6 @@ public class CheckIn {  //find implement user interface
         this.checkIn = checkIn;
         this.boardingGate = boardingGate;
         this.seatNumber = seatNumber;
-        LocalTime boardingTime = LocalTime.now();
     }
 
     public boolean isCheckIn() {
@@ -43,7 +42,7 @@ public class CheckIn {  //find implement user interface
         this.seatNumber = seatNumber;
     }
 
-
+    //Online Boarding Pass
     public String toString(ArrayList<FlightBooking> flightBookingArr, int bookingIndex) {
         return "\n\n-----Boarding Pass-------" +
                 "\nName: " + flightBookingArr.get(bookingIndex).getLastName() +
@@ -55,15 +54,17 @@ public class CheckIn {  //find implement user interface
                 "\nSeat: " + seatNumber;
     }
 
+
+    //Random Seat Number
     public String randomSeatNumber(ArrayList<FlightBooking> flightBookingArr, int bookingIndex){
         Random random = new Random();
 
-        if (flightBookingArr.get(bookingIndex).getCabinClass().equalsIgnoreCase("Business")){
+        if (flightBookingArr.get(bookingIndex).getCabinClass().equalsIgnoreCase("Business")){ //Business class
             int randomNum = random.nextInt(1,5); // Random Row
             String[] seatAlphabet = {"A", "C" , "D", "F"};
             int randomAlphabet = random.nextInt(0,5); //Random Seat A, C, D or F
             seatNumber = randomNum + seatAlphabet[randomAlphabet];
-        }else if (flightBookingArr.get(bookingIndex).getCabinClass().equalsIgnoreCase("economy")){
+        }else if (flightBookingArr.get(bookingIndex).getCabinClass().equalsIgnoreCase("economy")){  //Economy
             int randomNum = random.nextInt(5,31); // Random Row
             String[] seatAlphabet = {"A", "B","C","D","E","F"};
             int randomAlphabet = random.nextInt(0,7); //Random Seat A,B,C,D,E,F
