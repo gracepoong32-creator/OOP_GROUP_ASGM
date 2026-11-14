@@ -165,5 +165,4 @@ public class FlightBooking {
                 + "\nAmount paid: RM" + totalPayment
                 + "\n------------------------------------------";
     }
-
 }
