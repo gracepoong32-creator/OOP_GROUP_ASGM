@@ -169,6 +169,10 @@ public class TestAirline {
 
     //Feature 1: Check user (member/non-member) during checkout
     public static void checkoutLoyalty(Scanner input, ArrayList<Member> memberArr, FlightBooking flightBooking){
+        Member m = null;
+        double discount = 0.0;
+        int pointsRedeem = 0;
+
         System.out.print("Are you a loyalty member? (Y/N): ");
         String userType = input.nextLine();
 
@@ -176,7 +180,7 @@ public class TestAirline {
             System.out.print("Enter user Id: ");
             String inputUserId = input.nextLine();
 
-            Member m = matchMember(memberArr, inputUserId);
+            m = matchMember(memberArr, inputUserId);
             System.out.print("Member profile found!");
 
             System.out.println(m.toString());
@@ -187,7 +191,7 @@ public class TestAirline {
                 String optPoints = input.nextLine();
 
                 if(optPoints.equalsIgnoreCase("Y")){
-                    double discount = m.pointsRedeem();
+                    discount = m.pointsRedeem();
                     System.out.print(flightBooking.printPreCheckout(discount, m.getPointsCollected()));
                 }
                 else{
@@ -201,6 +205,12 @@ public class TestAirline {
         }
         else{
             System.out.print("Continue without loyalty programme >>>");
+        }
+        System.out.print("Confirm payment? (Y/N): ");
+        String confirmPymt = input.nextLine();
+
+        if (confirmPymt.equalsIgnoreCase("Y")){
+            System.out.print(flightBooking.printPostCheckout(discount));
         }
     }
 

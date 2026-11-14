@@ -118,4 +118,12 @@ public class FlightBooking {
                 + "\n=========================================="
                 + "\nContinue to payment >>>\n";
     }
+
+    public String printPostCheckout(double discount){
+        return "\n\n\n==========================================\n"
+                +"              PAYMENT SUCCESSFUL!!            \n"
+                +"=========================================="
+                + "\nBooking reference: " + bookingNumber
+                + "\nAmount paid: RM" + (calcTotalFare()-discount);
+    }
 }
