@@ -1,22 +1,25 @@
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class CheckIn {  //find implement user interface
+public class CheckIn extends FlightBooking{  //find implement user interface
     private boolean checkIn = false;
     private String boardingGate;
     private String seatNumber;
-    private LocalTime boardingTime;
 
+    //default constructor
     public CheckIn(){
-
     }
 
-    public CheckIn(boolean checkIn, String boardingGate, String seatNumber, int zone){
+    public CheckIn(String lastName, int bookingNumber, boolean checkIn){
+        super(lastName, bookingNumber);
+        this.checkIn = checkIn;
+    }
+
+    public CheckIn(String lastName, int bookingNumber, boolean checkIn, String boardingGate, String seatNumber){
+        super(lastName,bookingNumber);
         this.checkIn = checkIn;
         this.boardingGate = boardingGate;
         this.seatNumber = seatNumber;
-        LocalTime boardingTime = LocalTime.now();
     }
 
     public boolean isCheckIn() {
@@ -27,7 +30,7 @@ public class CheckIn {  //find implement user interface
         this.checkIn = checkIn;
     }
 
-    public String getBoardingGate(String boardingGate){
+    public String getBoardingGate(){
         return  boardingGate;
     }
 
@@ -43,32 +46,45 @@ public class CheckIn {  //find implement user interface
         this.seatNumber = seatNumber;
     }
 
-
-    public String toString(ArrayList<FlightBooking> flightBookingArr, int bookingIndex) {
+    //Online Boarding Pass
+    public String toString(ArrayList<FlightBooking> flightBookingArr, int bookingIndex, ArrayList<CheckIn> checkInArr) {
         return "\n\n-----Boarding Pass-------" +
                 "\nName: " + flightBookingArr.get(bookingIndex).getLastName() +
                 "\n" + flightBookingArr.get(bookingIndex).getFlightId().getFrom() + "  ------>  " + flightBookingArr.get(bookingIndex).getFlightId().getTo()+
                 "\nDeparture Date: " + flightBookingArr.get(bookingIndex).getDepDate() +
                 "\n " +
                 "\nBoarding time: " + flightBookingArr.get(bookingIndex).getFlightId().getDepartureTime() +
-                "\nBoarding Gate: " + boardingGate +
-                "\nSeat: " + seatNumber;
+                "\nBoarding Gate: " + checkInArr.get(bookingIndex).getBoardingGate() +
+                "\nSeat: " + checkInArr.get(bookingIndex).getSeatNumber();
     }
 
+
+    //Random Seat Number
     public String randomSeatNumber(ArrayList<FlightBooking> flightBookingArr, int bookingIndex){
         Random random = new Random();
 
-        if (flightBookingArr.get(bookingIndex).getCabinClass().equalsIgnoreCase("Business")){
+        if (flightBookingArr.get(bookingIndex).getCabinClass().equalsIgnoreCase("Business")){ //Business class
             int randomNum = random.nextInt(1,5); // Random Row
             String[] seatAlphabet = {"A", "C" , "D", "F"};
-            int randomAlphabet = random.nextInt(0,5); //Random Seat A, C, D or F
+            int randomAlphabet = random.nextInt(0,4); //Random Seat A, C, D or F
             seatNumber = randomNum + seatAlphabet[randomAlphabet];
-        }else if (flightBookingArr.get(bookingIndex).getCabinClass().equalsIgnoreCase("economy")){
+        }else if (flightBookingArr.get(bookingIndex).getCabinClass().equalsIgnoreCase("economy")){  //Economy
             int randomNum = random.nextInt(5,31); // Random Row
             String[] seatAlphabet = {"A", "B","C","D","E","F"};
-            int randomAlphabet = random.nextInt(0,7); //Random Seat A,B,C,D,E,F
+            int randomAlphabet = random.nextInt(0,6); //Random Seat A,B,C,D,E,F
             seatNumber = randomNum + seatAlphabet[randomAlphabet];
         }
         return seatNumber;
     }
+
+    public String randomBoardingGate(){
+        Random random = new Random();
+
+        int randomNum = random.nextInt(1,31);
+        String[] boardingGateAlphabet = {"J","K","L","P","Q"};
+        int randomBoardingGateAlphabet = random.nextInt(0,5);
+        return boardingGate = randomNum + boardingGateAlphabet[randomBoardingGateAlphabet];
+    }
+
+
 }

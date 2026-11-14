@@ -9,7 +9,7 @@ public class FlightBooking {
     private String optMeals;
     private String optBaggage;
 
-    public FlightBooking(){
+    public FlightBooking(String lastName, int bookingNumber){
 
     }
 
@@ -36,6 +36,9 @@ public class FlightBooking {
         this.cabinClass = cabinClass;
         this.optMeals = optMeals;
         this.optBaggage = optBaggage;
+    }
+
+    public FlightBooking() {
     }
 
     //Getter and Setters

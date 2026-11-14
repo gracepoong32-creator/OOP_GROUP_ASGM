@@ -5,13 +5,14 @@ import java.util.Random;
 //if suddenly a lot of red, then file-> repair IDE
 
 public class TestAirline {
-    public static void main(String[] args) {
+    static void main(String[] args) {
         Scanner input = new Scanner(System.in); //Input scanner
         Random random = new Random(); //Random
 
         //Arraylist for preset flight schedules, flights booked, loyalty members
         ArrayList<FlightDatabase> flightDatabaseArr = new ArrayList<>();
         ArrayList <FlightBooking> flightBookingArr = new ArrayList<>();
+        ArrayList <CheckIn> checkInArr = new ArrayList<>();
         ArrayList <Member> memberArr = new ArrayList<>();
 
         //Preset 10 available flights
@@ -55,13 +56,13 @@ public class TestAirline {
             switch (option) {
                 case 1:
                     System.out.print("\n-----Flight Booking-----");
-                    FlightBooking currentFlight = bookFlight(flightDatabaseArr, flightBookingArr, input, random);
+                    FlightBooking currentFlight = bookFlight(flightDatabaseArr, flightBookingArr, input, random, checkInArr);
                     checkoutLoyalty(input, memberArr, currentFlight);
 
                     break;
                 case 2:
                     System.out.print("-----Check In-----");
-                    checkIn(flightBookingArr);
+                    checkIn(flightBookingArr, checkInArr,input);
                     break;
                 case 3:
                     System.out.print("Flight cancellation");
@@ -84,7 +85,7 @@ public class TestAirline {
     }
 
     //Feature 1: Flight booking
-    public static FlightBooking bookFlight(ArrayList<FlightDatabase> flightDatabaseArr, ArrayList<FlightBooking> flightBookingArr, Scanner input, Random random){
+    public static FlightBooking bookFlight(ArrayList<FlightDatabase> flightDatabaseArr, ArrayList<FlightBooking> flightBookingArr, Scanner input, Random random, ArrayList<CheckIn> checkInArr){
 
         //Gather all user input for flight booking
         System.out.print("\nEnter trip type (one-way/round trip): ");
@@ -151,7 +152,11 @@ public class TestAirline {
         int bookingNum = random.nextInt(10000, 99999);
         FlightBooking flightBooking = new FlightBooking(bookingNum, lastName, selectedFlight, inputTypeTrip, inputDepDate, inputCabinClass, optMeal, optBaggage);
         flightBookingArr.add(flightBooking);
-        System.out.println(flightBooking.toString());
+        boolean checkIn = false;
+        String boardingGate = null;
+        String seatNumber = null;
+        checkInArr.add(new CheckIn(lastName,bookingNum,checkIn,boardingGate,seatNumber));
+        System.out.println(flightBooking);
 
         return flightBooking;
     }
@@ -227,45 +232,65 @@ public class TestAirline {
     }
 
     //Feature 2: Check in
-    public static void checkIn(ArrayList<FlightBooking> flightBookingArr){
-        Scanner input = new Scanner(System.in);
+    public static void checkIn(ArrayList<FlightBooking> flightBookingArr, ArrayList<CheckIn> checkInArr, Scanner input){
         CheckIn checkIn = new CheckIn();
 
         int bookingIndex = 0; //initial number
-        boolean checkName = false;
+        boolean checkName = false; //Initial haven't checkName
+        String name;
+        int bookingNumber = 0;
+        int reset = 0;
+
+        //Check Name
         do{
-            System.out.print("\nEnter your last name: ");
-            String name = input.nextLine();
+            if (reset == 0){
+                System.out.print("\nEnter your last name: ");
+                input.nextLine();
+                name = input.nextLine();
+                reset ++;
+            }else {
+                System.out.print("\nEnter your last name: ");
+                name = input.nextLine();
+            }
             for (bookingIndex = 0; bookingIndex < flightBookingArr.size(); bookingIndex++) {
                 if (name.equals(flightBookingArr.get(bookingIndex).getLastName())){
                     checkName = true;
+                    break;
                 }
-                else {
+
+                if (!checkName){
                     System.out.println("The name you entered is not found. Please try again");
                 }
+
             }
-        }while (!checkName);
 
-        bookingIndex --;
+        }while (!checkName); //If check name is true, break from while loop
 
+
+        //Check Booking Number
         boolean checkBookingNumber = false;
         do{
             System.out.print("Enter your booking number: ");
-            int bookingNumber = input.nextInt();
+            bookingNumber = input.nextInt();
             if (bookingNumber == flightBookingArr.get(bookingIndex).getBookingNumber()) {
                 checkBookingNumber = true;
-            }else{
-                System.out.println("The booking number is invalid or not found. Please try again.");
-                }
-
+                break;
+            }
+            System.out.println("The booking number is invalid or not found. Please try again.");
         }while (!checkBookingNumber);
 
-        if (checkIn.isCheckIn()){
+
+        if (checkInArr.get(bookingIndex).isCheckIn()){
             System.out.println("You have been checked in.");
         }else{
-            System.out.println("Your seat has been automatically given as " +checkIn.randomSeatNumber(flightBookingArr,bookingIndex));
-            checkIn.setCheckIn(true);
+            String boardingGate = checkIn.randomBoardingGate();
+            String seatNumber = checkIn.randomSeatNumber(flightBookingArr,bookingIndex);
+            System.out.println("Your seat has been automatically given as " + seatNumber);
+            checkInArr.get(bookingIndex).setCheckIn(true);
+            checkInArr.get(bookingIndex).setBoardingGate(boardingGate);
+            checkInArr.get(bookingIndex).setSeatNumber(seatNumber);
+
         }
-        System.out.println(checkIn.toString(flightBookingArr,bookingIndex));
+        System.out.println(checkIn.toString(flightBookingArr,bookingIndex,checkInArr));
     }
 }
