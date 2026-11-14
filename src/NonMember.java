@@ -22,11 +22,22 @@ public class NonMember extends User {
     public boolean isHasPromo() { return hasPromo; }
     public void setHasPromo(boolean hasPromo) { this.hasPromo = hasPromo; }
 
+    public String newUserPromoCheck(){
+        if (hasPromo){
+            return "Available (One-time discount)" + "\nNew user promo discount: RM" + newUserPromo;
+        }
+        else{
+            return "Already used";
+        }
+    }
+
     public String toString(){
         return "\n\n\n==========================================\n"
                 +"           NON MEMBER DETAILS         \n"
                 +"=========================================="
                 + "\nUser Id: " + super.getUserId()
-                + "\nFull name: " + super.getFirstName() + " " + super.getLastName();
+                + "\nFull name: " + super.getFirstName() + " " + super.getLastName()
+                + "\n------------------------------------------"
+                + "\nNew User Promo: " + newUserPromoCheck();
     }
 }
