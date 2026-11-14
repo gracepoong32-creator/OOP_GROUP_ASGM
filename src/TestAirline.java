@@ -180,8 +180,7 @@ public class TestAirline {
             System.out.println(m.toString());
             System.out.print("\nWould you like to use loyalty points as discount? (Y/N): ");
             String optPoints = input.nextLine();
-
-
+            System.out.print("Points redeemable to cash: RM" + m.pointsRedeem());
 
         }
         else{
@@ -198,11 +197,6 @@ public class TestAirline {
         }
         System.out.println("No matching member profiles");
         return null;
-    }
-
-    //Feature 1: Loyalty points discount
-    public static double loyaltyPointsDiscount(){
-
     }
 
     //Feature 2: Check in

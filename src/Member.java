@@ -37,6 +37,12 @@ public class Member extends User{
                 + "\n------------------------------------------"
                 + "\nLoyalty points: " + pointsCollected + "pts";
     }
+
+    public double pointsRedeem(){
+        return pointsCollected * 0.01;
+    }
+
+    //Another method to update post payment
 }
 
 
