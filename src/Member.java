@@ -42,7 +42,7 @@ public class Member extends User{
         return pointsCollected * 0.01;
     }
 
-    public String printUpdatedMember(double totalPaid, double discount){
+    public String updatedMemberProfile(double totalPaid, double discount){
 
         double pointsEarned = 0;
         //Points collection different multiplier for different tiers

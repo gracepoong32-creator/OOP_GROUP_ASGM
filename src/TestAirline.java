@@ -5,7 +5,7 @@ import java.util.Random;
 //if suddenly a lot of red, then file-> repair IDE
 
 public class TestAirline {
-    static void main(String[] args) {
+    public static void main(String[] args) {
         Scanner input = new Scanner(System.in); //Input scanner
         Random random = new Random(); //Random
 
@@ -211,7 +211,7 @@ public class TestAirline {
             if (confirmPayment.equalsIgnoreCase("Y")){
                 double amountPaid = flightBooking.calcTotalFare() - discount;
                 System.out.print(flightBooking.printPostCheckout(discount));
-                System.out.print(m.printUpdatedMember(amountPaid, discount));
+                System.out.print(m.updatedMemberProfile(amountPaid, discount));
             }
         }
 
@@ -238,13 +238,13 @@ public class TestAirline {
 
                     if (confirmPayment.equalsIgnoreCase("Y")){
                         System.out.print(flightBooking.printPostCheckout(discount));
-                        System.out.print(nm.printUpdatedNonMemberProfile(bookingCount, hasPromo));
+                        System.out.print(nm.updatedNonMemberProfile(bookingCount, hasPromo));
                     }
                 }
             }
             else{
                 System.out.print(flightBooking.printPostCheckout(discount));
-                System.out.print(nm.printUpdatedNonMemberProfile(bookingCount, hasPromo));
+                System.out.print(nm.updatedNonMemberProfile(bookingCount, hasPromo));
             }
         }
 

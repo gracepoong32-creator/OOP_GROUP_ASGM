@@ -42,7 +42,7 @@ public class NonMember extends User {
                 + "\nBooking count: " + bookingCount;
     }
 
-    public String printUpdatedNonMemberProfile(int bookingCount, boolean hasPromo){
+    public String updatedNonMemberProfile(int bookingCount, boolean hasPromo){
         this.bookingCount++;
         this.hasPromo = false;
 

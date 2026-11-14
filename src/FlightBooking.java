@@ -9,7 +9,7 @@ public class FlightBooking {
     private String optMeals;
     private String optBaggage;
 
-    public FlightBooking(String lastName, int bookingNumber){
+    public FlightBooking(){
 
     }
 
@@ -36,9 +36,6 @@ public class FlightBooking {
         this.cabinClass = cabinClass;
         this.optMeals = optMeals;
         this.optBaggage = optBaggage;
-    }
-
-    public FlightBooking() {
     }
 
     //Getter and Setters
@@ -134,6 +131,7 @@ public class FlightBooking {
         return "\n\n------------------------------------------\n"
                 + "UPDATED PAYMENT SUMMARY\n"
                 + "Subtotal: " + calcTotalFare()
+                + promoLine
                 + "\n------------------------------------------"
                 + "\nTotal to pay: RM" + promoTotal
                 + "\n=========================================="
