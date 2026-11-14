@@ -13,8 +13,7 @@ public class TestAirline {
         ArrayList<FlightDatabase> flightDatabaseArr = new ArrayList<>();
         ArrayList <FlightBooking> flightBookingArr = new ArrayList<>();
         ArrayList <CheckIn> checkInArr = new ArrayList<>();
-        ArrayList <Member> memberArr = new ArrayList<>();
-        ArrayList <NonMember> nonMemberArr = new ArrayList<>();
+        ArrayList <User> userArr = new ArrayList<>();
 
         //Preset 10 available flights
         flightDatabaseArr.add(new FlightDatabase("MH101", "MAS", "KUL", "BKI", "Economy", 750.00, "0800"));
@@ -30,18 +29,18 @@ public class TestAirline {
         flightDatabaseArr.add(new FlightDatabase("AK275", "AirAsia", "KUL", "PEN", "Economy", 256.00, "1100"));
 
         //Preset 5 loyalty members
-        memberArr.add(new Member("Jane", "Smith", 18, "M101", 50, "Bronze Tier", 700.00));
-        memberArr.add(new Member("Shaun", "Wong", 20, "M102", 100, "Platinum Tier", 10001.00));
-        memberArr.add(new Member("Daniel", "Fong", 22, "M103", 110, "Bronze Tier", 1150.00));
-        memberArr.add(new Member("Marcus", "Lee", 35, "M104", 1120, "Gold Tier", 9200.00));
-        memberArr.add(new Member("Lucas", "Wong", 40, "M105", 1450, "Platinum Tier", 12500.00));
+        userArr.add(new Member("Jane", "Smith", 18, "M101", 50, "Bronze Tier", 700.00));
+        userArr.add(new Member("Shaun", "Wong", 20, "M102", 100, "Platinum Tier", 10001.00));
+        userArr.add(new Member("Daniel", "Fong", 22, "M103", 110, "Bronze Tier", 1150.00));
+        userArr.add(new Member("Marcus", "Lee", 35, "M104", 1120, "Gold Tier", 9200.00));
+        userArr.add(new Member("Lucas", "Wong", 40, "M105", 1450, "Platinum Tier", 12500.00));
 
         //Preset 5 non Member
-        nonMemberArr.add(new NonMember("Gina","Wang", 52, "M106", 3, false));
-        nonMemberArr.add(new NonMember("Jayden", "Cooper", 19, "M107", 7, false));
-        nonMemberArr.add(new NonMember("Isabelle", "Kong", 21, "M108", 0, true));
-        nonMemberArr.add(new NonMember("Miriam", "Grey", 48, "M109", 9, false));
-        nonMemberArr.add(new NonMember("Lily", "Ketchman", 34, "M110", 1, true));
+        userArr.add(new NonMember("Gina","Wang", 52, "M106", 3, false));
+        userArr.add(new NonMember("Jayden", "Cooper", 19, "M107", 7, false));
+        userArr.add(new NonMember("Isabelle", "Kong", 21, "M108", 0, true));
+        userArr.add(new NonMember("Miriam", "Grey", 48, "M109", 9, false));
+        userArr.add(new NonMember("Lily", "Ketchman", 34, "M110", 1, true));
 
         //Airline Management System Menu UI
         int option = 0;
@@ -59,7 +58,7 @@ public class TestAirline {
                 case 1:
                     System.out.print("\n-----Flight Booking-----");
                     FlightBooking currentFlight = bookFlight(flightDatabaseArr, flightBookingArr, input, random, checkInArr);
-                    checkoutLoyalty(input, memberArr, currentFlight);
+                    checkoutLoyalty(input, userArr, currentFlight);
 
                     break;
                 case 2:
@@ -175,21 +174,18 @@ public class TestAirline {
     }
 
     //Feature 1: Check user (member/non-member) during checkout
-    public static void checkoutLoyalty(Scanner input, ArrayList<Member> memberArr, FlightBooking flightBooking){
-        Member m = null;
+    public static void checkoutLoyalty(Scanner input, ArrayList<User> userArr, FlightBooking flightBooking){
         double discount = 0.0;
         double pointsRedeem = 0;
 
-        System.out.print("Are you a loyalty member? (Y/N): ");
-        String userType = input.nextLine();
+        System.out.print("Enter user Id: ");
+        String inputUserId = input.nextLine();
 
-        if (userType.equalsIgnoreCase("Y")){
-            System.out.print("Enter user Id: ");
-            String inputUserId = input.nextLine();
+        User u = matchUser(userArr, inputUserId);
 
-            m = matchMember(memberArr, inputUserId);
-            System.out.print("Member profile found!");
-
+        if (u instanceof Member){
+            Member m = (Member) u;
+            System.out.print("Loyalty member profile found!");
             System.out.println(m.toString());
 
             if (m.pointsRedeem() > 0){
@@ -208,26 +204,29 @@ public class TestAirline {
             else {
                 System.out.print("Oops, no points available to redeem");
             }
-        }
-        else{
-            System.out.print("Continue without loyalty programme >>>");
-            //Continue here wait ah i retire first
-        }
-        System.out.print("Confirm payment? (Y/N): ");
-        String confirmPayment = input.nextLine();
 
-        if (confirmPayment.equalsIgnoreCase("Y")){
-            double amountPaid = flightBooking.calcTotalFare() - discount;
-            System.out.print(flightBooking.printPostCheckout(discount));
-            System.out.print(m.printUpdatedMember(amountPaid, discount));
+            System.out.print("Confirm payment? (Y/N): ");
+            String confirmPayment = input.nextLine();
+
+            if (confirmPayment.equalsIgnoreCase("Y")){
+                double amountPaid = flightBooking.calcTotalFare() - discount;
+                System.out.print(flightBooking.printPostCheckout(discount));
+                System.out.print(m.printUpdatedMember(amountPaid, discount));
+            }
         }
+
+        if (u instanceof NonMember){
+            System.out.print("Continue without loyalty programme >>>");
+            //Continue here
+        }
+
     }
 
     //Feature 1: Match user id if member/non-member
-    public static Member matchMember(ArrayList<Member> memberArr, String inputUserId){
-        for (Member m : memberArr){
-            if (m.getUserId().equalsIgnoreCase(inputUserId)){
-                return m;
+    public static User matchUser(ArrayList<User> userArr, String inputUserId){
+        for (User u : userArr){
+            if (u.getUserId().equalsIgnoreCase(inputUserId)){
+                return u;
             }
         }
         System.out.println("No matching member profiles");
