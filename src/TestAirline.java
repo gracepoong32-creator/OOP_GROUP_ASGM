@@ -5,7 +5,7 @@ import java.util.Random;
 //if suddenly a lot of red, then go file-> repair IDE
 
 public class TestAirline {
-    public static void main(String[] args) {
+    static void main(String[] args) {
         Scanner input = new Scanner(System.in); //Input scanner
         Random random = new Random(); //Random
 
@@ -156,7 +156,7 @@ public class TestAirline {
         String boardingGate = null;
         String seatNumber = null;
         checkInArr.add(new CheckIn(lastName,bookingNum,checkIn,boardingGate,seatNumber));
-        System.out.println(flightBooking.toString());
+        System.out.println(flightBooking);
 
         return flightBooking;
     }
@@ -238,17 +238,25 @@ public class TestAirline {
         boolean checkName = false; //Initial haven't checkName
         String name;
         int bookingNumber = 0;
+        int reset = 0;
 
         //Check Name
         do{
-            System.out.print("\nEnter your last name: ");
-            input.nextLine();
-            name = input.nextLine();
+            if (reset == 0){
+                System.out.print("\nEnter your last name: ");
+                input.nextLine();
+                name = input.nextLine();
+                reset ++;
+            }else {
+                System.out.print("\nEnter your last name: ");
+                name = input.nextLine();
+            }
             for (bookingIndex = 0; bookingIndex < flightBookingArr.size(); bookingIndex++) {
                 if (name.equals(flightBookingArr.get(bookingIndex).getLastName())){
                     checkName = true;
                     break;
                 }
+
                 if (!checkName){
                     System.out.println("The name you entered is not found. Please try again");
                 }
@@ -271,7 +279,7 @@ public class TestAirline {
         }while (!checkBookingNumber);
 
 
-        if (checkInArr.get(bookingIndex).getBookingNumber() == bookingNumber && checkInArr.get(bookingNumber).isCheckIn()){
+        if (checkInArr.get(bookingIndex).isCheckIn()){
             System.out.println("You have been checked in.");
         }else{
             String boardingGate = checkIn.randomBoardingGate();
@@ -282,6 +290,6 @@ public class TestAirline {
             checkInArr.get(bookingIndex).setSeatNumber(seatNumber);
 
         }
-        System.out.println(checkIn.toString(flightBookingArr,bookingIndex));
+        System.out.println(checkIn.toString(flightBookingArr,bookingIndex,checkInArr));
     }
 }
