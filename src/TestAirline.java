@@ -39,9 +39,9 @@ public class TestAirline {
         //Preset 5 non Member
         nonMemberArr.add(new NonMember("Gina","Wang", 52, "M106", 3, false));
         nonMemberArr.add(new NonMember("Jayden", "Cooper", 19, "M107", 7, false));
-        nonMemberArr.add(new NonMember());
-        nonMemberArr.add(new NonMember());
-        nonMemberArr.add(new NonMember());
+        nonMemberArr.add(new NonMember("Isabelle", "Kong", 21, "M108", 0, true));
+        nonMemberArr.add(new NonMember("Miriam", "Grey", 48, "M109", 9, false));
+        nonMemberArr.add(new NonMember("Lily", "Ketchman", 34, "M110", 1, true));
 
         //Airline Management System Menu UI
         int option = 0;
