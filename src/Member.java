@@ -43,15 +43,15 @@ public class Member extends User{
     }
 
     public double pointsEarned(){
-
+        return pointsRedeem();
     }
 
     public double newPointBalance(){
-
+        return newPointBalance();
     }
 
     public double newTotalSpend(){
-
+        return newTotalSpend();
     }
 
     public String printUpdatedMember(){
