@@ -1,18 +1,22 @@
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class CheckIn {  //find implement user interface
+public class CheckIn extends FlightBooking{  //find implement user interface
     private boolean checkIn = false;
     private String boardingGate;
     private String seatNumber;
 
     //default constructor
     public CheckIn(){
-
     }
 
-    public CheckIn(boolean checkIn, String boardingGate, String seatNumber, int zone){
+    public CheckIn(String lastName, int bookingNumber, boolean checkIn){
+        super(lastName, bookingNumber);
+        this.checkIn = checkIn;
+    }
+
+    public CheckIn(String lastName, int bookingNumber, boolean checkIn, String boardingGate, String seatNumber){
+        super(lastName,bookingNumber);
         this.checkIn = checkIn;
         this.boardingGate = boardingGate;
         this.seatNumber = seatNumber;
@@ -72,4 +76,15 @@ public class CheckIn {  //find implement user interface
         }
         return seatNumber;
     }
+
+    public String randomBoardingGate(){
+        Random random = new Random();
+
+        int randomNum = random.nextInt(1,31);
+        String[] boardingGateAlphabet = {"J","K","L","P","Q"};
+        int randomBoardingGateAlphabet = random.nextInt(0,5);
+        return boardingGate = randomNum + boardingGateAlphabet[randomBoardingGateAlphabet];
+    }
+
+
 }
