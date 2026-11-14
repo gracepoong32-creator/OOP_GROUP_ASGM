@@ -21,4 +21,8 @@ public class NonMember extends User {
 
     public boolean isHasPromo() { return hasPromo; }
     public void setHasPromo(boolean hasPromo) { this.hasPromo = hasPromo; }
+
+    public String toString(){
+
+    }
 }

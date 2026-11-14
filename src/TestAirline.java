@@ -216,8 +216,10 @@ public class TestAirline {
         }
 
         if (u instanceof NonMember){
-            System.out.print("Continue without loyalty programme >>>");
-            //Continue here
+            System.out.print("Continue without loyalty programme >>>\n");
+            NonMember nm = (NonMember) u;
+            System.out.print("Non-member profile found!");
+
         }
 
     }
