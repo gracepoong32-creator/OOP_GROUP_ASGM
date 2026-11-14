@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Random;
 
-//if suddenly a lot of red, then go file-> repair IDE
+//if suddenly a lot of red, then file-> repair IDE
 
 public class TestAirline {
     public static void main(String[] args) {
@@ -103,7 +103,7 @@ public class TestAirline {
         String inputCabinClass = input.nextLine();
 
         //for loop to display available flights for booking
-        System.out.println("\nFLIGHT     AIRLINE      FROM   TO     CLASS        PRICE        TIME");
+        System.out.print("\nFLIGHT     AIRLINE      FROM   TO     CLASS        PRICE        TIME");
         System.out.println("---------------------------------------------------------------------");
 
         //Odd days 5 flights, even days 5 flights
@@ -171,7 +171,7 @@ public class TestAirline {
     public static void checkoutLoyalty(Scanner input, ArrayList<Member> memberArr, FlightBooking flightBooking){
         Member m = null;
         double discount = 0.0;
-        int pointsRedeem = 0;
+        double pointsRedeem = 0;
 
         System.out.print("Are you a loyalty member? (Y/N): ");
         String userType = input.nextLine();
@@ -197,7 +197,6 @@ public class TestAirline {
                 else{
                     System.out.print("Continue without redeeming loyalty points: ");
                 }
-
             }
             else {
                 System.out.print("Oops, no points available to redeem");
@@ -207,14 +206,16 @@ public class TestAirline {
             System.out.print("Continue without loyalty programme >>>");
         }
         System.out.print("Confirm payment? (Y/N): ");
-        String confirmPymt = input.nextLine();
+        String confirmPayment = input.nextLine();
 
-        if (confirmPymt.equalsIgnoreCase("Y")){
+        if (confirmPayment.equalsIgnoreCase("Y")){
+            double amountPaid = flightBooking.calcTotalFare() - discount;
             System.out.print(flightBooking.printPostCheckout(discount));
+            System.out.print(m.printUpdatedMember(amountPaid, discount));
         }
     }
 
-    //Feature 1: Match user Id if member/non-member
+    //Feature 1: Match user id if member/non-member
     public static Member matchMember(ArrayList<Member> memberArr, String inputUserId){
         for (Member m : memberArr){
             if (m.getUserId().equalsIgnoreCase(inputUserId)){

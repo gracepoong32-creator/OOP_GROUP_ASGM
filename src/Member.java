@@ -1,5 +1,5 @@
 public class Member extends User{
-    private int pointsCollected;
+    private double pointsCollected;
     private String memberTier;
     private double totalSpent;
 
@@ -9,7 +9,7 @@ public class Member extends User{
     }
 
     //Parameterized constructor
-    public Member(String firstName, String lastName, int age, String userId, int pointsCollected, String memberTier, double totalSpent){
+    public Member(String firstName, String lastName, int age, String userId, double pointsCollected, String memberTier, double totalSpent){
         super(firstName, lastName, age, userId);
         this.pointsCollected = pointsCollected;
         this.memberTier = memberTier;
@@ -17,8 +17,8 @@ public class Member extends User{
     }
 
     //Getter and setters
-    public int getPointsCollected() { return pointsCollected; }
-    public void setPointsCollected(int pointsCollected) { this.pointsCollected = pointsCollected; }
+    public double getPointsCollected() { return pointsCollected; }
+    public void setPointsCollected(double pointsCollected) { this.pointsCollected = pointsCollected; }
 
     public String getMemberTier() { return memberTier; }
     public void setMemberTier(String memberTier) { this.memberTier = memberTier; }
@@ -33,7 +33,7 @@ public class Member extends User{
                 +"=========================================="
                 + "\nUser Id: " + super.getUserId()
                 + "\nFull name: " + super.getFirstName() + " " + super.getLastName()
-                + "\nTier status: " + memberTier
+                + "\nTier status: " + " " + memberTier
                 + "\n------------------------------------------"
                 + "\nLoyalty points: " + pointsCollected + "pts";
     }
@@ -42,24 +42,46 @@ public class Member extends User{
         return pointsCollected * 0.01;
     }
 
-    public double pointsEarned(){
+    public String printUpdatedMember(double totalPaid, double pointsUsed){
 
-    }
+        double pointsEarned = totalPaid;
+        //Points collection different multiplier for different tiers
+        if (memberTier.equalsIgnoreCase("Bronze Tier")){
+            pointsEarned += totalPaid;
+        }
+        else if (memberTier.equalsIgnoreCase("Silver Tier")){
+            pointsEarned += totalPaid*1.5;
+        }
+        else if(memberTier.equalsIgnoreCase("Gold Tier")){
+            pointsEarned += totalPaid*2;
+        }
+        else{
+            pointsEarned += totalPaid*3;
+        }
 
-    public double newPointBalance(){
+        //Update points and totalSpent
+        this.pointsCollected = (this.pointsCollected-pointsUsed)+pointsEarned;
+        this.totalSpent += totalPaid;
 
-    }
+        //Auto update member tier
+        if (totalSpent >= 10000.00){
+            this.memberTier = "Platinum Tier";
+        }
+        else if (totalSpent >= 5000.00){
+            this.memberTier = "Gold Tier";
+        }
+        else if (totalSpent >= 1500.00){
+            this.memberTier = "Silver Tier";
+        }
+        else {
+            this.memberTier = "Bronze Tier";
+        }
 
-    public double newTotalSpend(){
-
-    }
-
-    public String printUpdatedMember(){
         return "\nUPDATED MEMBER PROFILE (" + getUserId() + ")"
                 + "\nName: " + getFirstName() + " " + getLastName() + "(" + memberTier + ")"
-                + "\nPoints \nUsed: -RM" + pointsRedeem() + "Earned: +RM" + "pointsEarned"
-                + "\nNew point balance: " + "pointsCollected-redeem+earned" + "pts"
-                + "\nTotal spent: RM" + "totalSpend+ newTotalSpent"
-                + "\n==========================================";
+                + "\nPoints \nUsed: -" + pointsRedeem() + "pts | Earned: +" + pointsEarned + "pts"
+                + "\nNew point balance: " + pointsCollected + "pts"
+                + "\nTotal spent: RM" + totalSpent
+                + "\n==========================================\n\n";
     }
 }

@@ -108,11 +108,11 @@ public class FlightBooking {
         }
     }
 
-    public String printPreCheckout(double discount, int pointsCollected){
+    public String printPreCheckout(double discount, double pointsCollected){
         return "\n\n------------------------------------------\n"
                 + "UPDATED PAYMENT SUMMARY\n"
                 + "Subtotal: " + calcTotalFare()
-                + "\nPoints redeemed (" + pointsCollected + "): -RM" + discount
+                + "\nPoints redeemed (" + pointsCollected + "): - RM" + discount
                 + "\n------------------------------------------"
                 + "\nTotal to pay: RM" + (calcTotalFare()-discount)
                 + "\n=========================================="
