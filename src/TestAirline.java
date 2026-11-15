@@ -32,16 +32,16 @@ public class TestAirline {
 
         //Preset 5 available returning flights (5 for alternate days)
         flightDatabaseArr.add(new FlightDatabase("MH237", "MAS", "BKI", "KUL", "Economy", 733.00, "1200"));
-        flightDatabaseArr.add(new FlightDatabase("AK128", "AirAsia", "BKI", "KUL", "Economy", 673.00, "2300"));
+        flightDatabaseArr.add(new FlightDatabase("MH128", "MAS", "BKI", "KUL", "Economy", 673.00, "2300"));
         flightDatabaseArr.add(new FlightDatabase("AK384", "AirAsia", "TPE", "KUL", "Economy", 769, "1730"));
-        flightDatabaseArr.add(new FlightDatabase("MH120", "MAS", "SGN", "KUL", "Business", 1029.00, "!400"));
+        flightDatabaseArr.add(new FlightDatabase("AK120", "AirAsia", "SGN", "KUL", "Business", 1029.00, "!400"));
         flightDatabaseArr.add(new FlightDatabase("OD184", "Batik Air", "DPS", "KUL", "Economy", 574.00, "1300"));
 
         flightDatabaseArr.add(new FlightDatabase("AK123", "AirAsia", "PEN", "KUL", "Economy", 230.00, "1130"));
-        flightDatabaseArr.add(new FlightDatabase("MH192", "MAS", "PEN", "KUL", "Economy", 249.00, "1300"));
+        flightDatabaseArr.add(new FlightDatabase("AK340", "AirAsia", "PEN", "KUL", "Economy", 249.00, "1300"));
         flightDatabaseArr.add(new FlightDatabase("MH874", "MAS", "TPE", "KUL", "Economy", 670.00, "1230"));
         flightDatabaseArr.add(new FlightDatabase("AK985", "AirAsia", "HKG", "KUL", "Business", 580.00, "1030"));
-        flightDatabaseArr.add(new FlightDatabase());
+        flightDatabaseArr.add(new FlightDatabase("MH093", "MAS", "CAN", "KUL", "Economy", 750.00, "0600"));
 
         //Present flight schedules
         flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(0), LocalDateTime.of(2026,11,20,8,0),"A12","On Time"));
