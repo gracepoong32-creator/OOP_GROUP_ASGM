@@ -90,14 +90,26 @@ public class FlightBooking {
 
     @Override
     public String toString(){
+        double basePrice = flightId.getBasePrice();
+        String roundTripLine = "";
+
+        if (tripType.equalsIgnoreCase("round trip")){
+            basePrice += returnFlightId.getBasePrice();
+            roundTripLine = "\n------------------------------------------"
+                    + "\nReturn Flight Id: " + getReturnFlightId().getFlightNum()
+                    + "\nRoute: " + getReturnFlightId().getFrom() + " -> " + getReturnFlightId().getTo()
+                    + "\nReturn: " + returnDate + " at " + getReturnFlightId().getDepartureTime();
+        }
+
         return "\n==========================================\n             CHECKOUT SUMMARY       \n=========================================="
                 + "\nBooking reference: " + bookingNumber + "\nPassenger last name: " + lastName
                 + "\n------------------------------------------" + "\nFLIGHT DETAILS"
-                + "\nFlight Id: " + getFlightId().getFlightNum() + "\nRoute: " + getFlightId().getFrom() + " -> " + getFlightId().getTo()
+                + "\nDeparture Flight Id: " + getFlightId().getFlightNum() + "\nRoute: " + getFlightId().getFrom() + " -> " + getFlightId().getTo()
                 + "\nDeparture: " + depDate + " at " + getFlightId().getDepartureTime()
+                + roundTripLine
                 + "\nTrip type: " + tripType + "\nCabin class: " + cabinClass
                 + "\n------------------------------------------" + "\nPRICE BREAKDOWN"
-                + "\nBase fare: RM" + String.format("%.2f", flightId.getBasePrice()) + "\nAdd-ons \nBaggage: RM" + String.format("%.2f", getBaggage())
+                + "\nBase fare: RM" + String.format("%.2f", basePrice) + "\nAdd-ons \nBaggage: RM" + String.format("%.2f", getBaggage())
                 + "\nMeal: RM" + String.format("%.2f", getMeal()) + "\n------------------------------------------"
                 + "\nTotal: RM" + String.format("%.2f", calcTotalFare()) + "\n==========================================\nContinue to payment >>>";
     }
@@ -105,7 +117,7 @@ public class FlightBooking {
     public double calcTotalFare(){
         double basePrice = getFlightId().getBasePrice();
         if(tripType.equalsIgnoreCase("round trip")){
-            basePrice *= 2;
+            basePrice += getReturnFlightId().getBasePrice();
         }
         return basePrice + getMeal() + getBaggage();
     }
