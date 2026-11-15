@@ -228,17 +228,17 @@ public class TestAirline {
         }
 
         else if (u instanceof NonMember){
-            System.out.print("Continue without loyalty programme >>>\n");
             NonMember nm = (NonMember) u;
+
             System.out.print("Non-member profile found!");
             System.out.println(nm.toString());
+
             boolean usedPromo = false;
             double totalPayable = flightBooking.calcTotalFare();
 
             if (nm.isHasPromo()){
                 System.out.print("Would you like to use the one-time discount? (Y/N): ");
                 String optNewUserPromo = input.nextLine();
-
 
                 if (optNewUserPromo.equalsIgnoreCase("Y")){
                     usedPromo = true;
@@ -248,7 +248,7 @@ public class TestAirline {
                     System.out.print("\nContinue without one-time new user promo");
                 }
             }
-            System.out.print("Confirm payment? (Y/N): ");
+            System.out.print("\n\nConfirm payment? (Y/N): ");
             String confirmPayment = input.nextLine();
 
             if (confirmPayment.equalsIgnoreCase("Y")){
@@ -256,8 +256,11 @@ public class TestAirline {
                 System.out.print(nm.updatedNonMemberProfile(usedPromo));
             }
             else{
-                System.out.print("Payment cancelled. Returning to main menu...");
+                System.out.print("Payment cancelled. Returning to main menu...\n\n");
             }
+        }
+        else {
+            System.out.print("User ID not found. Returning to main menu...");
         }
     }
 
@@ -275,17 +278,24 @@ public class TestAirline {
 
     //Feature 1: Sign up during checkout
     public static NonMember signUpNonMember(Scanner input, ArrayList<User> userArr){
-        System.out.print("\nNEW NON MEMBER SIGN UP\n------------------------\n");
+        System.out.print("\n\nNEW NON MEMBER SIGN UP\n------------------------\n");
         System.out.print("Enter first name: ");
         String firstName = input.nextLine();
         System.out.print("Enter last name: ");
         String lastName = input.nextLine();
         System.out.print("Enter age: ");
         int age = input.nextInt();
+        input.nextLine(); //clears leftover newline from age input
 
         String newUserId = "M" + (101+userArr.size());
         NonMember nm = new NonMember (firstName, lastName, age, newUserId);
         userArr.add(nm);
+
+        System.out.println("------------------------------------------");
+        System.out.println("Account created successfully!");
+        System.out.println("Your new User Id: " + newUserId);
+        System.out.println("==========================================\n");
+
         return nm;
     }
 
