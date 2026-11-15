@@ -5,7 +5,8 @@ public class NonMember extends User {
 
     //Default constructor
     public NonMember(){
-
+        this.bookingCount = 0;
+        this.hasPromo = true;
     }
 
     //Parameterized constructor

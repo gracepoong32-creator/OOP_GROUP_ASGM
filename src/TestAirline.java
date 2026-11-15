@@ -178,7 +178,7 @@ public class TestAirline {
         double discount = 0.0;
         double pointsRedeem = 0;
 
-        System.out.print("Enter user Id: ");
+        System.out.print("Enter user Id (Enter - if not registered): ");
         String inputUserId = input.nextLine();
         User u = matchUser(userArr, inputUserId);
 
@@ -260,6 +260,9 @@ public class TestAirline {
                 }
             }
         }
+        else{
+            System.out.println("Sign up pls i need to retire");
+        }
     }
 
     //Feature 1: Match user id if member/non-member
@@ -271,7 +274,6 @@ public class TestAirline {
         }
         System.out.println("No matching member profiles");
         System.out.println("Please sign up to continue to checkout >>>");
-
         return null;
     }
 
