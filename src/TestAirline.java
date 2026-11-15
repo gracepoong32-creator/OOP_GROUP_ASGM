@@ -11,11 +11,11 @@ public class TestAirline {
         Random random = new Random(); //Random
 
         //Arraylist for preset flight schedules, flights booked, loyalty members
-        ArrayList<FlightDatabase> flightDatabaseArr = new ArrayList<>();
+        ArrayList <FlightDatabase> flightDatabaseArr = new ArrayList<>();
         ArrayList <FlightBooking> flightBookingArr = new ArrayList<>();
         ArrayList <CheckIn> checkInArr = new ArrayList<>();
         ArrayList <User> userArr = new ArrayList<>();
-        ArrayList<FlightSchedule> flightScheduleArr = new ArrayList<>();
+        ArrayList <FlightSchedule> flightScheduleArr = new ArrayList<>();
 
         //Preset 10 available flights
         flightDatabaseArr.add(new FlightDatabase("MH101", "MAS", "KUL", "BKI", "Economy", 750.00, "0800"));
@@ -229,7 +229,7 @@ public class TestAirline {
                 }
             }
             else {
-                System.out.print("Oops, no points available to redeem");
+                System.out.print("Oops, no points available to redeem\n");
             }
 
             System.out.print("Confirm payment? (Y/N): ");
