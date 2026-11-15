@@ -157,7 +157,7 @@ public class TestAirline {
         boolean checkIn = false;
         String boardingGate = null;
         String seatNumber = null;
-        checkInArr.add(new CheckIn(lastName,bookingNum,checkIn,boardingGate,seatNumber));
+        checkInArr.add(new CheckIn(lastName, bookingNum, checkIn, boardingGate, seatNumber));
         System.out.println(flightBooking);
 
         return flightBooking;
@@ -196,7 +196,7 @@ public class TestAirline {
             System.out.println(m.toString());
 
             if (m.pointsRedeem() > 0){
-                System.out.print("Points redeemable to cash: RM" + m.pointsRedeem());
+                System.out.print("Points redeemable to cash: RM" + String.format("%.2f", m.pointsRedeem()));
                 System.out.print("\nWould you like to use loyalty points as discount? (Y/N): ");
                 String optPoints = input.nextLine();
 
@@ -254,6 +254,14 @@ public class TestAirline {
             if (confirmPayment.equalsIgnoreCase("Y")){
                 System.out.print(flightBooking.printPostCheckoutNonMember(usedPromo));
                 System.out.print(nm.updatedNonMemberProfile(usedPromo));
+
+                //Check if bookingCount >= 10, upgrade to member
+                if (nm.getBookingCount() >= 10){
+                    //Create new object (Member) for nonMember
+                    Member m = new Member(nm.getFirstName(), nm.getLastName(), nm.getAge(), nm.getUserId(), 0.0, "Bronze Tier", 0.0);
+                    //Replace new object in array
+                    userArr.set(userArr.indexOf(nm), m);
+                }
             }
             else{
                 System.out.print("Payment cancelled. Returning to main menu...\n\n");
