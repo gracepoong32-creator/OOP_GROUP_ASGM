@@ -538,7 +538,7 @@ public class TestAirline {
         }while(!cancelProcess);
     }
 
-    //Feature4 Flight Schedule
+    //Feature 4: Flight Schedule
     public static void displayFlightSchedule(ArrayList<FlightSchedule>flightSchedulesArr){
         System.out.println("===== Upcoming Flight Schedule =====");
         for (FlightSchedule schedule : flightSchedulesArr){
