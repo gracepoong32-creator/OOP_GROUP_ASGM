@@ -268,7 +268,7 @@ public class TestAirline {
                             + "\n=========================================="
                             + "\nCongrats!! You have reached 10 booking"
                             + "\nAccount (" + nm.getUserId() + ") upgraded to Loyalty Member (Bronze)"
-                            + "\n==========================================");
+                            + "\n==========================================\n\n");
                 }
             }
             else{
