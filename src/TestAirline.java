@@ -444,7 +444,7 @@ public class TestAirline {
 
             } else if (cancelFlight.equalsIgnoreCase("n")) {
 //Cancel cancel Flight
-                System.out.print("You cancel this process.");
+                System.out.print("You cancel this process");
                 cancelProcess = true;
                 break;
 

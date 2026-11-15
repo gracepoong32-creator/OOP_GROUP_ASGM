@@ -172,7 +172,7 @@ public class FlightBooking {
                 +"            PAYMENT SUCCESSFUL!!            \n"
                 +"=========================================="
                 + "\nBooking reference: " + bookingNumber
-                + "\nAmount paid: RM" + totalPayment
+                + "\nAmount paid: RM" +  totalPayment
                 + "\n------------------------------------------";
     }
 
