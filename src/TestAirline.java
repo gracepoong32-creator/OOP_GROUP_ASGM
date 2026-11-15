@@ -40,7 +40,7 @@ public class TestAirline {
         flightDatabaseArr.add(new FlightDatabase("AK123", "AirAsia", "PEN", "KUL", "Economy", 230.00, "1130"));
         flightDatabaseArr.add(new FlightDatabase("MH192", "MAS", "PEN", "KUL", "Economy", 249.00, "1300"));
         flightDatabaseArr.add(new FlightDatabase("MH874", "MAS", "TPE", "KUL", "Economy", 670.00, "1230"));
-        flightDatabaseArr.add(new FlightDatabase("AK985", "AirAsia", ""));
+        flightDatabaseArr.add(new FlightDatabase("AK985", "AirAsia", "HKG", "KUL", "Business", 580.00, "1030"));
         flightDatabaseArr.add(new FlightDatabase());
 
         //Present flight schedules
