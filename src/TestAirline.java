@@ -178,7 +178,7 @@ public class TestAirline {
         double discount = 0.0;
         double pointsRedeem = 0;
 
-        System.out.print("Enter user Id (Enter - if not registered): ");
+        System.out.print("Enter user Id (or '-' to sign up): ");
         String inputUserId = input.nextLine();
         User u = matchUser(userArr, inputUserId);
 
