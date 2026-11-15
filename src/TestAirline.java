@@ -494,8 +494,7 @@ public class TestAirline {
     public static void displayFlightSchedule(ArrayList<FlightSchedule>flightSchedulesArr){
         System.out.println("===== Upcoming Flight Schedule =====");
         for (FlightSchedule schedule : flightSchedulesArr){
-            System.out.print("hi");
-          
+
         }
     }
 }
