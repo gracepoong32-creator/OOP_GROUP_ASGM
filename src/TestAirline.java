@@ -166,21 +166,24 @@ public class TestAirline {
             }
         }
         //User choose flight option
-        System.out.print("\nEnter chosen flight Id: ");
-        String inputFlight = input.nextLine();
-        System.out.print("Enter last name: ");
+        System.out.print("\nEnter last name: ");
         String lastName = input.nextLine();
-        System.out.print("Add-Ons: \nBaggage (Y/N): ");
+        System.out.print("Enter departure flight Id: ");
+        String inputFlight = input.nextLine();
+
+        if (inputTypeTrip.equalsIgnoreCase("round trip")){
+            System.out.print("RETURNING FLIGHTS");
+            System.out.print("\nFLIGHT     AIRLINE      FROM   TO     CLASS        PRICE        TIME");
+            System.out.println("\n---------------------------------------------------------------------");
+            //continue here
+        }
+
+        System.out.print("\nAdd-Ons: \nBaggage (Y/N): ");
         String optBaggage = input.nextLine();
         System.out.print("Meal (Y/N): ");
         String optMeal = input.nextLine();
 
         FlightDatabase selectedFlight = matchFlight(flightDatabaseArr, inputFlight);
-
-        //Round trip
-        if (inputTypeTrip.equalsIgnoreCase("round trip")){
-            //match location again
-        }
 
         int bookingNum = random.nextInt(10000, 99999);
         double totalAmount = 0;
@@ -204,6 +207,25 @@ public class TestAirline {
             }
         }
         System.out.println("No matching flights");
+        return null;
+    }
+
+    //Feature 1: Match return flight with chosen flight locations (reverse from, to)
+    public static FlightDatabase matchReturnFlight(ArrayList<FlightDatabase> flightDatabaseArr, String inputFlight){
+        FlightDatabase selectedFlight = matchFlight(flightDatabaseArr, inputFlight);
+
+        if (selectedFlight == null){
+            return null;
+        }
+
+        for (int i=10; i<20; i++){
+            FlightDatabase returnFlight = flightDatabaseArr.get(i);
+
+            if (selectedFlight.getTo().equalsIgnoreCase(returnFlight.getFrom()) && selectedFlight.getFrom().equalsIgnoreCase(returnFlight.getTo())){
+                return returnFlight;
+            }
+        }
+        System.out.print("No matching flights available");
         return null;
     }
 
