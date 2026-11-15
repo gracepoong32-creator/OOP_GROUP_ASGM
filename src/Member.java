@@ -80,7 +80,7 @@ public class Member extends User{
         }
 
         return "\nUPDATED MEMBER PROFILE (" + getUserId() + ")"
-                + "\nName: " + getFirstName() + " " + getLastName() + "(" + memberTier + ")"
+                + "\nName: " + getFirstName() + " " + getLastName() + " (" + memberTier + ")"
                 + "\nPoints \nUsed: -" + (discount*100) + "pts | Earned: +" + pointsEarned + "pts"
                 + "\nNew point balance: " + pointsCollected + "pts"
                 + "\nTotal spent: RM" + totalSpent

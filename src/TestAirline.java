@@ -255,6 +255,9 @@ public class TestAirline {
                     System.out.print(flightBooking.printPostCheckoutNonMember(usedPromo));
                     System.out.print(nm.updatedNonMemberProfile(usedPromo));
                 }
+                else{
+                    System.out.print("Payment cancelled. Returning to main menu...");
+                }
             }
         }
     }
