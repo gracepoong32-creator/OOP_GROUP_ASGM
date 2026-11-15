@@ -200,14 +200,11 @@ public class TestAirline {
 
         if (inputTypeTrip.equalsIgnoreCase("round trip")){
             flightBooking = new FlightBooking(bookingNum, selectedFlight, selectedReturnFlight, lastName, inputTypeTrip, inputDepDate, inputReturnDate, inputCabinClass, optMeal, optBaggage, totalAmount);
-            flightBookingArr.add(flightBooking);
-
         }
         else{
             flightBooking = new FlightBooking(bookingNum, lastName, selectedFlight, inputTypeTrip, inputDepDate, inputCabinClass, optMeal, optBaggage, totalAmount);
-            flightBookingArr.add(flightBooking);
         }
-
+        flightBookingArr.add(flightBooking);
 
         boolean checkIn = false;
         String boardingGate = null;
