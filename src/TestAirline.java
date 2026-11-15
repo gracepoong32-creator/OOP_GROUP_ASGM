@@ -177,9 +177,12 @@ public class TestAirline {
             System.out.println("\n---------------------------------------------------------------------");
 
             matchReturnFlight(flightDatabaseArr, inputFlight);
+
+            System.out.print("\nEnter returning flight Id: ");
+            String inputReturnFlight = input.nextLine();
         }
 
-        System.out.print("\nAdd-Ons: \nBaggage (Y/N): ");
+        System.out.print("Add-Ons: \nBaggage (Y/N): ");
         String optBaggage = input.nextLine();
         System.out.print("Meal (Y/N): ");
         String optMeal = input.nextLine();
