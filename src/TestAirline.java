@@ -115,7 +115,9 @@ public class TestAirline {
     //Feature 1: Flight booking
     public static FlightBooking bookFlight(ArrayList<FlightDatabase> flightDatabaseArr, ArrayList<FlightBooking> flightBookingArr, Scanner input, Random random, ArrayList<CheckIn> checkInArr){
         String inputReturnDate = null;
-        String inputReturnFlight = null;
+        String inputReturnFlight;
+        FlightDatabase selectedReturnFlight = null;
+        FlightBooking flightBooking;
 
         //Gather all user input for flight booking
         System.out.print("\nEnter trip type (one-way/round trip): ");
@@ -182,6 +184,8 @@ public class TestAirline {
 
             System.out.print("\nEnter returning flight Id: ");
             inputReturnFlight = input.nextLine();
+            //Match return flight with database
+            selectedReturnFlight = matchFlight(flightDatabaseArr, inputReturnFlight);//for round-trip
         }
 
         System.out.print("Add-Ons: \nBaggage (Y/N): ");
@@ -189,12 +193,21 @@ public class TestAirline {
         System.out.print("Meal (Y/N): ");
         String optMeal = input.nextLine();
 
-        FlightDatabase selectedFlight = matchFlight(flightDatabaseArr, inputFlight);
+        FlightDatabase selectedFlight = matchFlight(flightDatabaseArr, inputFlight); //for one-way
 
         int bookingNum = random.nextInt(10000, 99999);
         double totalAmount = 0;
-        FlightBooking flightBooking = new FlightBooking(bookingNum, lastName, selectedFlight, inputTypeTrip, inputDepDate, inputCabinClass, optMeal, optBaggage, totalAmount);
-        flightBookingArr.add(flightBooking);
+
+        if (inputTypeTrip.equalsIgnoreCase("round trip")){
+            flightBooking = new FlightBooking(bookingNum, selectedFlight, selectedReturnFlight, lastName, inputTypeTrip, inputDepDate, inputReturnDate, inputCabinClass, optMeal, optBaggage, totalAmount);
+            flightBookingArr.add(flightBooking);
+
+        }
+        else{
+            flightBooking = new FlightBooking(bookingNum, lastName, selectedFlight, inputTypeTrip, inputDepDate, inputCabinClass, optMeal, optBaggage, totalAmount);
+            flightBookingArr.add(flightBooking);
+        }
+
 
         boolean checkIn = false;
         String boardingGate = null;
