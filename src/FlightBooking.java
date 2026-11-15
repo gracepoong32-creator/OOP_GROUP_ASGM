@@ -8,6 +8,7 @@ public class FlightBooking {
     private String cabinClass;
     private String optMeals;
     private String optBaggage;
+    private double totalPaid;
 
     public FlightBooking(String lastName, int bookingNumber){
         this.lastName = lastName;
@@ -15,7 +16,7 @@ public class FlightBooking {
     }
 
     //Parameterized constructor for one-way
-    public FlightBooking(int bookingNumber, String lastName, FlightDatabase flightId, String tripType, String depDate, String cabinClass, String optMeals, String optBaggage){
+    public FlightBooking(int bookingNumber, String lastName, FlightDatabase flightId, String tripType, String depDate, String cabinClass, String optMeals, String optBaggage, double totalPaid){
         this.bookingNumber = bookingNumber;
         this.flightId = flightId;
         this.lastName = lastName;
@@ -24,10 +25,11 @@ public class FlightBooking {
         this.cabinClass = cabinClass;
         this.optMeals = optMeals;
         this.optBaggage = optBaggage;
+        this.totalPaid = totalPaid;
     }
 
     //Parameterized constructor for round trip
-    public FlightBooking(int bookingNumber, FlightDatabase flightId, String lastName, String tripType, String depDate, String returnDate, String cabinClass, String optMeals, String optBaggage){
+    public FlightBooking(int bookingNumber, FlightDatabase flightId, String lastName, String tripType, String depDate, String returnDate, String cabinClass, String optMeals, String optBaggage, double totalPaid){
         this.bookingNumber = bookingNumber;
         this.flightId = flightId;
         this.lastName = lastName;
@@ -72,6 +74,14 @@ public class FlightBooking {
     public String getOptBaggage() { return optBaggage; }
     public void setOptBaggage(String optBaggage) { this.optBaggage = optBaggage; }
 
+    public double getTotalPaid(){
+        return totalPaid;
+    }
+
+    public void setTotalPaid(double totalPaid) {
+        this.totalPaid = totalPaid;
+    }
+
     @Override
     public String toString(){
         return "\n==========================================\n             CHECKOUT SUMMARY       \n=========================================="
@@ -81,9 +91,9 @@ public class FlightBooking {
                 + "\nDeparture: " + depDate + " at " + getFlightId().getDepartureTime()
                 + "\nTrip type: " + tripType + "\nCabin class: " + cabinClass
                 + "\n------------------------------------------" + "\nPRICE BREAKDOWN"
-                + "\nBase fare: RM" + String.format("%.2f", flightId.getBasePrice()) + "\nAdd-ons \nBaggage: RM" + String.format("%.2f", getBaggage())
-                + "\nMeal: RM" + String.format("%.2f", getMeal()) + "\n------------------------------------------"
-                + "\nTotal: RM" + String.format("%.2f", calcTotalFare()) + "\n==========================================\nContinue to payment >>>";
+                + "\nBase fare: RM" + flightId.getBasePrice() + "\nAdd-ons \nBaggage: RM" + getBaggage()
+                + "\nMeal: RM" + getMeal() + "\n------------------------------------------"
+                + "\nTotal: " + calcTotalFare() + "\n==========================================\nContinue to payment >>>";
     }
 
     public double calcTotalFare(){
@@ -115,10 +125,10 @@ public class FlightBooking {
     public String printPreCheckoutMember(double discount, double pointsCollected){
         return "\n\n------------------------------------------\n"
                 + "UPDATED PAYMENT SUMMARY\n"
-                + "Subtotal: RM" + String.format("%.2f", calcTotalFare())
-                + "\nPoints redeemed (" + pointsCollected + "): - RM" + String.format("%.2f", discount)
+                + "Subtotal: " + calcTotalFare()
+                + "\nPoints redeemed (" + pointsCollected + "): - RM" + discount
                 + "\n------------------------------------------"
-                + "\nTotal to pay: RM" + String.format("%.2f", (calcTotalFare()-discount))
+                + "\nTotal to pay: RM" + (calcTotalFare()-discount)
                 + "\n=========================================="
                 + "\nContinue to payment >>>\n";
     }
@@ -134,35 +144,36 @@ public class FlightBooking {
 
         return "\n\n------------------------------------------\n"
                 + "UPDATED PAYMENT SUMMARY\n"
-                + "Subtotal: RM" + String.format("%.2f", calcTotalFare())
+                + "Subtotal: " + calcTotalFare()
                 + promoLine
                 + "\n------------------------------------------"
-                + "\nTotal to pay: RM" + String.format("%.2f", promoTotal)
+                + "\nTotal to pay: RM" + promoTotal
                 + "\n=========================================="
                 + "\nContinue to payment >>>\n";
     }
 
 
-    public String printPostCheckoutMember(double discount){
-        return "\n\n\n==========================================\n"
-                +"            PAYMENT SUCCESSFUL!!            \n"
-                +"=========================================="
-                + "\nBooking reference: " + bookingNumber
-                + "\nAmount paid: RM" + String.format("%.2f", (calcTotalFare()-discount))
-                + "\n------------------------------------------";
+    public double totalPaymentMember(double discount){
+        return (calcTotalFare()-discount);
+
     }
 
-    public String printPostCheckoutNonMember(boolean hasPromo){
+    public double totalPaymentNonMember(boolean hasPromo){
         double totalPayment = calcTotalFare();
         if (hasPromo){
             totalPayment = calcTotalFare()*0.9;
         }
 
+        return totalPayment;
+    }
+
+    public String printPostCheckout(double totalPayment){
         return "\n\n\n==========================================\n"
                 +"            PAYMENT SUCCESSFUL!!            \n"
                 +"=========================================="
                 + "\nBooking reference: " + bookingNumber
-                + "\nAmount paid: RM" + String.format("%.2f", totalPayment)
+                + "\nAmount paid: RM" + totalPayment
                 + "\n------------------------------------------";
     }
+
 }
