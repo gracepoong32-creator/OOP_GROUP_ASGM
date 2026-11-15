@@ -275,6 +275,14 @@ public class TestAirline {
                     Member m = new Member(nm.getFirstName(), nm.getLastName(), nm.getAge(), nm.getUserId(), 0.0, "Bronze Tier", 0.0);
                     //Replace new object in array
                     userArr.set(userArr.indexOf(nm), m);
+
+                    //Upgraded to member message
+                    System.out.print("\n\n=========================================="
+                            + "\n      *** LOYALTY TIER UPGRADE! ***       "
+                            + "\n=========================================="
+                            + "\nCongrats!! You have reached 10 booking"
+                            + "\nAccount (" + nm.getUserId() + ") upgraded to Loyalty Member (Bronze)"
+                            + "\n==========================================\n\n");
                 }
             }
             else{
