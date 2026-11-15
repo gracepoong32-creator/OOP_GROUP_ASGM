@@ -1,4 +1,4 @@
-public class User {
+public abstract class User {
     private String firstName;
     private String lastName;
     private int age;
@@ -30,7 +30,5 @@ public class User {
     public void setUserId(String userId) { this.userId = userId; }
 
     @Override
-    public String toString(){
-        return "";
-    }
+    public abstract String toString();
 }

@@ -29,6 +29,7 @@ public class Member extends User{
     public void setTotalSpent(double totalSpent) { this.totalSpent = totalSpent; }
 
     //Method to print out all member details
+    @Override
     public String toString(){
         return "\n\n\n==========================================\n"
                 +"           LOYALTY MEMBER DETAILS         \n"
@@ -37,7 +38,8 @@ public class Member extends User{
                 + "\nFull name: " + super.getFirstName() + " " + super.getLastName()
                 + "\nTier status: " + " " + memberTier
                 + "\n------------------------------------------"
-                + "\nLoyalty points: " + pointsCollected + "pts";
+                + "\nLoyalty points: " + pointsCollected + "pts"
+                + "\nTotal spent: RM" + String.format("%.2f", totalSpent);
     }
 
     public double pointsRedeem(){
@@ -83,7 +85,7 @@ public class Member extends User{
                 + "\nName: " + getFirstName() + " " + getLastName() + " (" + memberTier + ")"
                 + "\nPoints \nUsed: -" + (discount*100) + "pts | Earned: +" + pointsEarned + "pts"
                 + "\nNew point balance: " + pointsCollected + "pts"
-                + "\nTotal spent: RM" + totalSpent
+                + "\nTotal spent: RM" + String.format("%.2f", totalSpent)
                 + "\n==========================================\n\n";
     }
 }
