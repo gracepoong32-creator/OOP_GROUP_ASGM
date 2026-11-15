@@ -172,10 +172,11 @@ public class TestAirline {
         String inputFlight = input.nextLine();
 
         if (inputTypeTrip.equalsIgnoreCase("round trip")){
-            System.out.print("RETURNING FLIGHTS");
+            System.out.print("\n\nRETURNING FLIGHTS");
             System.out.print("\nFLIGHT     AIRLINE      FROM   TO     CLASS        PRICE        TIME");
             System.out.println("\n---------------------------------------------------------------------");
-            //continue here
+
+            matchReturnFlight(flightDatabaseArr, inputFlight);
         }
 
         System.out.print("\nAdd-Ons: \nBaggage (Y/N): ");
@@ -211,22 +212,30 @@ public class TestAirline {
     }
 
     //Feature 1: Match return flight with chosen flight locations (reverse from, to)
-    public static FlightDatabase matchReturnFlight(ArrayList<FlightDatabase> flightDatabaseArr, String inputFlight){
+    public static void matchReturnFlight(ArrayList<FlightDatabase> flightDatabaseArr, String inputFlight){
         FlightDatabase selectedFlight = matchFlight(flightDatabaseArr, inputFlight);
 
         if (selectedFlight == null){
-            return null;
+            return;
         }
+        boolean foundReturn = false;
 
         for (int i=10; i<20; i++){
+
             FlightDatabase returnFlight = flightDatabaseArr.get(i);
 
             if (selectedFlight.getTo().equalsIgnoreCase(returnFlight.getFrom()) && selectedFlight.getFrom().equalsIgnoreCase(returnFlight.getTo())){
-                return returnFlight;
+                foundReturn = true;
+                System.out.printf("%-10s %-12s %-6s %-6s %-12s RM%-10.2f %-6s\n",
+                        returnFlight.getFlightNum(), returnFlight.getAirline(),
+                        returnFlight.getFrom(), returnFlight.getTo(),
+                        returnFlight.getCabinClass(), returnFlight.getBasePrice(),
+                        returnFlight.getDepartureTime());
             }
         }
-        System.out.print("No matching flights available");
-        return null;
+        if (!foundReturn){
+            System.out.print("No matching flights available");
+        }
     }
 
     //Feature 1: Check user (member/non-member) during checkout
