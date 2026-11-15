@@ -17,7 +17,7 @@ public class TestAirline {
         ArrayList <User> userArr = new ArrayList<>();
         ArrayList <FlightSchedule> flightScheduleArr = new ArrayList<>();
 
-        //Preset 10 available flights
+        //Preset 10 available departure flights (5 for alternate days)
         flightDatabaseArr.add(new FlightDatabase("MH101", "MAS", "KUL", "BKI", "Economy", 750.00, "0800"));
         flightDatabaseArr.add(new FlightDatabase("AK512", "AirAsia", "KUL", "SIN", "Business", 380.00, "1200"));
         flightDatabaseArr.add(new FlightDatabase("OD802", "Batik Air", "KUL", "DPS", "Economy", 563.00, "1730"));
@@ -29,6 +29,19 @@ public class TestAirline {
         flightDatabaseArr.add(new FlightDatabase("MH158", "MAS", "KUL", "KCH", "Business", 840.00, "0700"));
         flightDatabaseArr.add(new FlightDatabase("OD106", "Batik Air", "KUL", "LGK", "Economy", 370.00, "0900"));
         flightDatabaseArr.add(new FlightDatabase("AK275", "AirAsia", "KUL", "PEN", "Economy", 256.00, "1100"));
+
+        //Preset 5 available returning flights (5 for alternate days)
+        flightDatabaseArr.add(new FlightDatabase("MH237", "MAS", "BKI", "KUL", "Economy", 733.00, "1200"));
+        flightDatabaseArr.add(new FlightDatabase("AK128", "AirAsia", "BKI", "KUL", "Economy", 673.00, "2300"));
+        flightDatabaseArr.add(new FlightDatabase("AK384", "AirAsia", "TPE", "KUL", "Economy", 769, "1730"));
+        flightDatabaseArr.add(new FlightDatabase("MH120", "MAS", "SGN", "KUL", "Business", 1029.00, "!400"));
+        flightDatabaseArr.add(new FlightDatabase("OD184", "Batik Air", "DPS", "KUL", "Economy", 574.00, "1300"));
+
+        flightDatabaseArr.add(new FlightDatabase("AK123", "AirAsia", "PEN", "KUL", "Economy", 230.00, "1130"));
+        flightDatabaseArr.add(new FlightDatabase("MH192", "MAS", "PEN", "KUL", "Economy", 249.00, "1300"));
+        flightDatabaseArr.add(new FlightDatabase("MH874", "MAS", "TPE", "KUL", "Economy", 670.00, "1230"));
+        flightDatabaseArr.add(new FlightDatabase("AK985", "AirAsia", ""));
+        flightDatabaseArr.add(new FlightDatabase());
 
         //Present flight schedules
         flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(0), LocalDateTime.of(2026,11,20,8,0),"A12","On Time"));
@@ -396,6 +409,7 @@ public class TestAirline {
         }
         System.out.println(checkIn.toString(flightBookingArr,bookingIndex,checkInArr));
     }
+
     //Feature 3: Flight Cancellation
     public static void flightCancellation(ArrayList<FlightBooking> flightBookingArr, Scanner input) {
 
