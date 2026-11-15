@@ -6,6 +6,7 @@ public class FlightDatabase {
     private String cabinClass;
     private double basePrice;
     private String departureTime;
+    private String hi;
 
     //Default constructor
     public FlightDatabase(){

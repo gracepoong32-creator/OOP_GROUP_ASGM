@@ -55,7 +55,7 @@ public class CheckIn extends FlightBooking{  //find implement user interface
                 "\n " +
                 "\nBoarding time: " + flightBookingArr.get(bookingIndex).getFlightId().getDepartureTime() +
                 "\nBoarding Gate: " + checkInArr.get(bookingIndex).getBoardingGate() +
-                "\nSeat: " + checkInArr.get(bookingIndex).getSeatNumber();
+                "\n\nSeat: " + checkInArr.get(bookingIndex).getSeatNumber();
     }
 
 

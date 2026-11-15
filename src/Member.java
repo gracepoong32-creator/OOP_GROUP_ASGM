@@ -86,6 +86,6 @@ public class Member extends User{
                 + "\nPoints \nUsed: -" + (discount*100) + "pts | Earned: +" + pointsEarned + "pts"
                 + "\nNew point balance: " + pointsCollected + "pts"
                 + "\nTotal spent: RM" + String.format("%.2f", totalSpent)
-                + "\n==========================================\n\n";
+                + "\n==========================================\n\n\n";
     }
 }

@@ -60,6 +60,6 @@ public class NonMember extends User {
                 + "\nName: " + getFirstName() + " " + getLastName()
                 + "\nBooking count: " + this.bookingCount
                 + "\nNew User Promo: " + newUserPromoCheck()
-                + "\n==========================================\n\n";
+                + "\n==========================================\n\n\n";
     }
 }
