@@ -254,6 +254,14 @@ public class TestAirline {
             if (confirmPayment.equalsIgnoreCase("Y")){
                 System.out.print(flightBooking.printPostCheckoutNonMember(usedPromo));
                 System.out.print(nm.updatedNonMemberProfile(usedPromo));
+
+                //Check if bookingCount >= 10, upgrade to member
+                if (nm.getBookingCount() >= 10){
+                    //Create new object (Member) for nonMember
+                    Member m = new Member(nm.getFirstName(), nm.getLastName(), nm.getAge(), nm.getUserId(), 0.0, "Bronze Tier", 0.0);
+                    //Replace new object in array
+                    userArr.set(userArr.indexOf(nm), m);
+                }
             }
             else{
                 System.out.print("Payment cancelled. Returning to main menu...\n\n");
