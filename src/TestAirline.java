@@ -114,6 +114,8 @@ public class TestAirline {
 
     //Feature 1: Flight booking
     public static FlightBooking bookFlight(ArrayList<FlightDatabase> flightDatabaseArr, ArrayList<FlightBooking> flightBookingArr, Scanner input, Random random, ArrayList<CheckIn> checkInArr){
+        String inputReturnDate = null;
+        String inputReturnFlight = null;
 
         //Gather all user input for flight booking
         System.out.print("\nEnter trip type (one-way/round trip): ");
@@ -125,7 +127,7 @@ public class TestAirline {
         //Round trip requires returning date input
         if(inputTypeTrip.equalsIgnoreCase("round trip")){
             System.out.print("Enter returning date (DD-MM-YYYY): ");
-            String inputReturnDate = input.nextLine();
+            inputReturnDate = input.nextLine();
         }
 
         System.out.print("Enter cabin class (Business/Economy): ");
@@ -179,7 +181,7 @@ public class TestAirline {
             matchReturnFlight(flightDatabaseArr, inputFlight);
 
             System.out.print("\nEnter returning flight Id: ");
-            String inputReturnFlight = input.nextLine();
+            inputReturnFlight = input.nextLine();
         }
 
         System.out.print("Add-Ons: \nBaggage (Y/N): ");
