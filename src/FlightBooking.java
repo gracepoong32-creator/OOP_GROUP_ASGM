@@ -81,9 +81,9 @@ public class FlightBooking {
                 + "\nDeparture: " + depDate + " at " + getFlightId().getDepartureTime()
                 + "\nTrip type: " + tripType + "\nCabin class: " + cabinClass
                 + "\n------------------------------------------" + "\nPRICE BREAKDOWN"
-                + "\nBase fare: RM" + flightId.getBasePrice() + "\nAdd-ons \nBaggage: RM" + getBaggage()
-                + "\nMeal: RM" + getMeal() + "\n------------------------------------------"
-                + "\nTotal: " + calcTotalFare() + "\n==========================================\nContinue to payment >>>";
+                + "\nBase fare: RM" + String.format("%.2f", flightId.getBasePrice()) + "\nAdd-ons \nBaggage: RM" + String.format("%.2f", getBaggage())
+                + "\nMeal: RM" + String.format("%.2f", getMeal()) + "\n------------------------------------------"
+                + "\nTotal: RM" + String.format("%.2f", calcTotalFare()) + "\n==========================================\nContinue to payment >>>";
     }
 
     public double calcTotalFare(){
@@ -115,10 +115,10 @@ public class FlightBooking {
     public String printPreCheckoutMember(double discount, double pointsCollected){
         return "\n\n------------------------------------------\n"
                 + "UPDATED PAYMENT SUMMARY\n"
-                + "Subtotal: " + calcTotalFare()
-                + "\nPoints redeemed (" + pointsCollected + "): - RM" + discount
+                + "Subtotal: RM" + String.format("%.2f", calcTotalFare())
+                + "\nPoints redeemed (" + pointsCollected + "): - RM" + String.format("%.2f", discount)
                 + "\n------------------------------------------"
-                + "\nTotal to pay: RM" + (calcTotalFare()-discount)
+                + "\nTotal to pay: RM" + String.format("%.2f", (calcTotalFare()-discount))
                 + "\n=========================================="
                 + "\nContinue to payment >>>\n";
     }
@@ -134,10 +134,10 @@ public class FlightBooking {
 
         return "\n\n------------------------------------------\n"
                 + "UPDATED PAYMENT SUMMARY\n"
-                + "Subtotal: " + calcTotalFare()
+                + "Subtotal: RM" + String.format("%.2f", calcTotalFare())
                 + promoLine
                 + "\n------------------------------------------"
-                + "\nTotal to pay: RM" + promoTotal
+                + "\nTotal to pay: RM" + String.format("%.2f", promoTotal)
                 + "\n=========================================="
                 + "\nContinue to payment >>>\n";
     }
@@ -148,7 +148,7 @@ public class FlightBooking {
                 +"            PAYMENT SUCCESSFUL!!            \n"
                 +"=========================================="
                 + "\nBooking reference: " + bookingNumber
-                + "\nAmount paid: RM" + (calcTotalFare()-discount)
+                + "\nAmount paid: RM" + String.format("%.2f", (calcTotalFare()-discount))
                 + "\n------------------------------------------";
     }
 
@@ -162,7 +162,7 @@ public class FlightBooking {
                 +"            PAYMENT SUCCESSFUL!!            \n"
                 +"=========================================="
                 + "\nBooking reference: " + bookingNumber
-                + "\nAmount paid: RM" + totalPayment
+                + "\nAmount paid: RM" + String.format("%.2f", totalPayment)
                 + "\n------------------------------------------";
     }
 }
