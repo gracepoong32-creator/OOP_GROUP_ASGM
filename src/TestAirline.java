@@ -89,7 +89,7 @@ public class TestAirline {
                     break;
                 case 2:
                     System.out.print("-----Check In-----");
-                    checkIn(flightBookingArr, checkInArr,input);
+                    checkIn(flightBookingArr, checkInArr,userArr,input);
                     break;
                 case 3:
                     System.out.print("Flight cancellation");
@@ -387,7 +387,7 @@ public class TestAirline {
     }
 
     //Feature 2: Check in
-    public static void checkIn(ArrayList<FlightBooking> flightBookingArr, ArrayList<CheckIn> checkInArr, Scanner input){
+    public static void checkIn(ArrayList<FlightBooking> flightBookingArr, ArrayList<CheckIn> checkInArr, ArrayList<User> userArr , Scanner input){
         CheckIn checkIn = new CheckIn();
 
         int bookingIndex = 0; //initial number
@@ -409,6 +409,14 @@ public class TestAirline {
             }
             for (bookingIndex = 0; bookingIndex < flightBookingArr.size(); bookingIndex++) {
                 if (name.equals(flightBookingArr.get(bookingIndex).getLastName())){
+                    //Check member age
+                    for (int userCheck = 0; userCheck < userArr.size(); userCheck++){
+                        if (name.equals(userArr.get(userCheck).getLastName())){
+                            if (userArr.get(userCheck).getAge() < 16){
+                                System.out.print("User under 16 cant do online check in. Please check in during the day at the counter.");
+                            }
+                        }
+                    }
                     checkName = true;
                     break;
                 }
