@@ -441,9 +441,7 @@ public class TestAirline {
 
         } while (!checkBookingNumber);
 
-
         //Print flight Details
-
         System.out.println("\n-----Flight Details-----" +
                 "\nFlight Id: " + flightBookingArr.get(bookingIndex).getFlightId().getFlightNum() +
                 "\nRoute: " + flightBookingArr.get(bookingIndex).getFlightId().getFrom() + " -> " + flightBookingArr.get(bookingIndex).getFlightId().getTo() +
@@ -459,13 +457,11 @@ public class TestAirline {
                 input.nextLine();
                 cancelFlight = input.nextLine();
                 reset++;
-            }else {
+            } else {
                 System.out.println("\nCancel a flight only will refund 80% of the total amount paid.");
                 System.out.print("Are you sure to cancel this flight (y for yes/ n for no): ");
                 cancelFlight = input.nextLine();
             }
-
-
 
             if (cancelFlight.equalsIgnoreCase("y")) {
                 //Cancel Flight
@@ -487,7 +483,6 @@ public class TestAirline {
                 System.out.print("Please enter y or n only.");
             }
         }while(!cancelProcess);
-
     }
 
     //Feature4 Flight Schedule
