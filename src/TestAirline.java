@@ -106,7 +106,7 @@ public class TestAirline {
 
         //for loop to display available flights for booking
         System.out.print("\nFLIGHT     AIRLINE      FROM   TO     CLASS        PRICE        TIME");
-        System.out.println("---------------------------------------------------------------------");
+        System.out.println("\n---------------------------------------------------------------------");
 
         //Odd days 5 flights, even days 5 flights
         int hyphenIndex = inputDepDate.indexOf("-"); //Find index of first hyphen
@@ -153,6 +153,7 @@ public class TestAirline {
         int bookingNum = random.nextInt(10000, 99999);
         FlightBooking flightBooking = new FlightBooking(bookingNum, lastName, selectedFlight, inputTypeTrip, inputDepDate, inputCabinClass, optMeal, optBaggage);
         flightBookingArr.add(flightBooking);
+
         boolean checkIn = false;
         String boardingGate = null;
         String seatNumber = null;
@@ -183,7 +184,7 @@ public class TestAirline {
         String inputUserId = input.nextLine();
 
         if (inputUserId.equals("-")){
-            //call method to sign up
+            u = signUpNonMember(input, userArr);
         }
         else{
             u = matchUser(userArr, inputUserId);
@@ -246,25 +247,16 @@ public class TestAirline {
                 else{
                     System.out.print("\nContinue without one-time new user promo");
                 }
-                System.out.print("Confirm payment? (Y/N): ");
-                String confirmPayment = input.nextLine();
+            }
+            System.out.print("Confirm payment? (Y/N): ");
+            String confirmPayment = input.nextLine();
 
-                if (confirmPayment.equalsIgnoreCase("Y")){
-                    System.out.print(flightBooking.printPostCheckoutNonMember(usedPromo));
-                    System.out.print(nm.updatedNonMemberProfile(usedPromo));
-                }
+            if (confirmPayment.equalsIgnoreCase("Y")){
+                System.out.print(flightBooking.printPostCheckoutNonMember(usedPromo));
+                System.out.print(nm.updatedNonMemberProfile(usedPromo));
             }
             else{
-                System.out.print("Confirm payment? (Y/N): ");
-                String confirmPayment = input.nextLine();
-
-                if (confirmPayment.equalsIgnoreCase("Y")){
-                    System.out.print(flightBooking.printPostCheckoutNonMember(usedPromo));
-                    System.out.print(nm.updatedNonMemberProfile(usedPromo));
-                }
-                else{
-                    System.out.print("Payment cancelled. Returning to main menu...");
-                }
+                System.out.print("Payment cancelled. Returning to main menu...");
             }
         }
     }
@@ -279,6 +271,22 @@ public class TestAirline {
         System.out.println("No matching member profiles");
         System.out.println("\nPlease sign up to continue to checkout >>>");
         return null;
+    }
+
+    //Feature 1: Sign up during checkout
+    public static NonMember signUpNonMember(Scanner input, ArrayList<User> userArr){
+        System.out.print("\nNEW NON MEMBER SIGN UP\n------------------------\n");
+        System.out.print("Enter first name: ");
+        String firstName = input.nextLine();
+        System.out.print("Enter last name: ");
+        String lastName = input.nextLine();
+        System.out.print("Enter age: ");
+        int age = input.nextInt();
+
+        String newUserId = "M" + (101+userArr.size());
+        NonMember nm = new NonMember (firstName, lastName, age, newUserId);
+        userArr.add(nm);
+        return nm;
     }
 
     //Feature 2: Check in

@@ -16,6 +16,12 @@ public class NonMember extends User {
         this.hasPromo = hasPromo;
     }
 
+    public NonMember(String firstName, String lastName, int age, String userId) {
+        super(firstName, lastName, age, userId);
+        this.bookingCount = 0;
+        this.hasPromo = true;
+    }
+
     //Getter and Setters
     public int getBookingCount() { return bookingCount; }
     public void setBookingCount(int bookingCount) { this.bookingCount = bookingCount; }
