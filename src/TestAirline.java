@@ -177,10 +177,17 @@ public class TestAirline {
     public static void checkoutLoyalty(Scanner input, ArrayList<User> userArr, FlightBooking flightBooking){
         double discount = 0.0;
         double pointsRedeem = 0;
+        User u = null;
 
         System.out.print("Enter user Id (or '-' to sign up): ");
         String inputUserId = input.nextLine();
-        User u = matchUser(userArr, inputUserId);
+
+        if (inputUserId.equals("-")){
+            //call method to sign up
+        }
+        else{
+            u = matchUser(userArr, inputUserId);
+        }
 
         if (u instanceof Member){
             Member m = (Member) u;
@@ -219,7 +226,7 @@ public class TestAirline {
             }
         }
 
-        if (u instanceof NonMember){
+        else if (u instanceof NonMember){
             System.out.print("Continue without loyalty programme >>>\n");
             NonMember nm = (NonMember) u;
             System.out.print("Non-member profile found!");
@@ -260,9 +267,6 @@ public class TestAirline {
                 }
             }
         }
-        else{
-            System.out.println("Sign up pls i need to retire");
-        }
     }
 
     //Feature 1: Match user id if member/non-member
@@ -273,7 +277,7 @@ public class TestAirline {
             }
         }
         System.out.println("No matching member profiles");
-        System.out.println("Please sign up to continue to checkout >>>");
+        System.out.println("\nPlease sign up to continue to checkout >>>");
         return null;
     }
 
