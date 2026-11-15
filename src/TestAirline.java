@@ -137,8 +137,8 @@ public class TestAirline {
 
         //Odd days 5 flights, even days 5 flights
         int hyphenIndex = inputDepDate.indexOf("-"); //Find index of first hyphen
-        String extractedDate = inputDepDate.substring(0, hyphenIndex); //Extract the date from inputCabin
-        int date = Integer.parseInt(extractedDate); //Convert string to integer for Date
+        String extractedDepDate = inputDepDate.substring(0, hyphenIndex); //Extract the date from inputCabin
+        int date = Integer.parseInt(extractedDepDate); //Convert string to integer for Date
 
         if (date % 2 == 0){
             for (int i=0; i<5; i++){
@@ -176,6 +176,11 @@ public class TestAirline {
         String optMeal = input.nextLine();
 
         FlightDatabase selectedFlight = matchFlight(flightDatabaseArr, inputFlight);
+
+        //Round trip
+        if (inputTypeTrip.equalsIgnoreCase("round trip")){
+            //match location again
+        }
 
         int bookingNum = random.nextInt(10000, 99999);
         double totalAmount = 0;
