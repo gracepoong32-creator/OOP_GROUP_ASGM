@@ -270,6 +270,8 @@ public class TestAirline {
             }
         }
         System.out.println("No matching member profiles");
+        System.out.println("Please sign up to continue to checkout >>>");
+
         return null;
     }
 
