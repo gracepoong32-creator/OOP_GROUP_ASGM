@@ -72,8 +72,7 @@ public class TestAirline {
                 case 1:
                     System.out.print("\n-----Flight Booking-----");
                     FlightBooking currentFlight = bookFlight(flightDatabaseArr, flightBookingArr, input, random, checkInArr);
-                    checkoutLoyalty(input, userArr, currentFlight);
-
+                    checkoutLoyalty(input, userArr, currentFlight, flightBookingArr);
                     break;
                 case 2:
                     System.out.print("-----Check In-----");
@@ -81,6 +80,7 @@ public class TestAirline {
                     break;
                 case 3:
                     System.out.print("Flight cancellation");
+                    flightCancellation(flightBookingArr, input);
                     break;
                 case 4:
                     System.out.print("Summary of upcoming flight schedule");
@@ -165,7 +165,8 @@ public class TestAirline {
         FlightDatabase selectedFlight = matchFlight(flightDatabaseArr, inputFlight);
 
         int bookingNum = random.nextInt(10000, 99999);
-        FlightBooking flightBooking = new FlightBooking(bookingNum, lastName, selectedFlight, inputTypeTrip, inputDepDate, inputCabinClass, optMeal, optBaggage);
+        double totalAmount = 0;
+        FlightBooking flightBooking = new FlightBooking(bookingNum, lastName, selectedFlight, inputTypeTrip, inputDepDate, inputCabinClass, optMeal, optBaggage, totalAmount);
         flightBookingArr.add(flightBooking);
 
         boolean checkIn = false;
@@ -189,7 +190,7 @@ public class TestAirline {
     }
 
     //Feature 1: Check user (member/non-member) during checkout
-    public static void checkoutLoyalty(Scanner input, ArrayList<User> userArr, FlightBooking flightBooking){
+    public static void checkoutLoyalty(Scanner input, ArrayList<User> userArr, FlightBooking flightBooking, ArrayList<FlightBooking> flightBookingArr){
         double discount = 0.0;
         double pointsRedeem = 0;
         User u = null;
@@ -236,7 +237,9 @@ public class TestAirline {
 
             if (confirmPayment.equalsIgnoreCase("Y")){
                 double amountPaid = flightBooking.calcTotalFare() - discount;
-                System.out.print(flightBooking.printPostCheckoutMember(discount));
+                double totalAmount = flightBooking.CheckoutMember(discount);
+                flightBookingArr.getLast().setTotalPaid(totalAmount);
+                System.out.print(flightBooking.printPayment(totalAmount));
                 System.out.print(m.updatedMemberProfile(amountPaid, discount));
             }
         }
@@ -266,7 +269,9 @@ public class TestAirline {
             String confirmPayment = input.nextLine();
 
             if (confirmPayment.equalsIgnoreCase("Y")){
-                System.out.print(flightBooking.printPostCheckoutNonMember(usedPromo));
+                double totalAmount = flightBooking.CheckoutNonMember(usedPromo);
+                flightBookingArr.getLast().setTotalPaid(totalAmount);
+                System.out.print(flightBooking.printPayment(totalAmount));
                 System.out.print(nm.updatedNonMemberProfile(usedPromo));
 
                 //Check if bookingCount >= 10, upgrade to member
@@ -390,6 +395,99 @@ public class TestAirline {
 
         }
         System.out.println(checkIn.toString(flightBookingArr,bookingIndex,checkInArr));
+    }
+    //Feature 3: Flight Cancellation
+    public static void flightCancellation(ArrayList<FlightBooking> flightBookingArr, Scanner input) {
+
+    //variables
+        boolean checkBookingNumber = false;
+        boolean checkLastName = false;
+        int bookingIndex = 0;
+        int reset = 0;
+        String lastName = "";
+        String cancelFlight = "";
+
+        //check last name
+        do {
+            if (reset == 0) {
+                System.out.print("\nEnter your last name: ");
+                input.nextLine();
+                lastName = input.nextLine();
+                reset++;
+            } else {
+                System.out.print("\nEnter your last name: ");
+                lastName = input.nextLine();
+            }
+            for (bookingIndex = 0; bookingIndex < flightBookingArr.size(); bookingIndex++) {
+                if (lastName.equals(flightBookingArr.get(bookingIndex).getLastName())) {
+                    checkLastName = true;
+                    break;
+                }
+            }
+            if (!checkLastName) {
+                System.out.println("The name you enter is not exists. Please try again");
+            }
+        } while (!checkLastName);
+
+        //check Booking Number
+        do {
+            System.out.print("Enter booking number: ");
+            int bookingNumber = input.nextInt();
+            if (bookingNumber == flightBookingArr.get(bookingIndex).getBookingNumber()) {
+                checkBookingNumber = true;
+                break;
+            }
+            System.out.println("The booking number you enter is not exists. Please try again");
+
+        } while (!checkBookingNumber);
+
+
+        //Print flight Details
+
+        System.out.println("\n-----Flight Details-----" +
+                "\nFlight Id: " + flightBookingArr.get(bookingIndex).getFlightId().getFlightNum() +
+                "\nRoute: " + flightBookingArr.get(bookingIndex).getFlightId().getFrom() + " -> " + flightBookingArr.get(bookingIndex).getFlightId().getTo() +
+                "\nDeparture: " + flightBookingArr.get(bookingIndex).getDepDate() + " at " + flightBookingArr.get(bookingIndex).getFlightId().getDepartureTime() +
+                "\nTrip type: " + flightBookingArr.get(bookingIndex).getTripType() +
+                "\nCabin class: " + flightBookingArr.get(bookingIndex).getCabinClass());
+
+        boolean cancelProcess = false;
+        do{
+            if (reset == 1){
+                System.out.println("\nCancel a flight only will refund 80% of the total amount paid.");
+                System.out.print("Are you sure to cancel this flight (y for yes/ n for no): ");
+                input.nextLine();
+                cancelFlight = input.nextLine();
+                reset++;
+            }else {
+                System.out.println("\nCancel a flight only will refund 80% of the total amount paid.");
+                System.out.print("Are you sure to cancel this flight (y for yes/ n for no): ");
+                cancelFlight = input.nextLine();
+            }
+
+
+
+            if (cancelFlight.equalsIgnoreCase("y")) {
+                //Cancel Flight
+                double flightRefund = (flightBookingArr.get(bookingIndex).getTotalPaid()) * 0.8;
+                System.out.print("Your refund for this flight is " + flightRefund);
+                System.out.println("The refund is success.");
+                flightBookingArr.remove(bookingIndex);
+                cancelProcess = true;
+                break;
+
+            } else if (cancelFlight.equalsIgnoreCase("n")) {
+                //Cancel cancel Flight
+                System.out.print("You cancel this process.");
+                cancelProcess = true;
+                break;
+
+            } else {
+                //Exception
+                System.out.print("Please enter y or n only.");
+            }
+        }while(!cancelProcess);
+
     }
 
     //Feature4 Flight Schedule

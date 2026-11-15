@@ -8,6 +8,7 @@ public class FlightBooking {
     private String cabinClass;
     private String optMeals;
     private String optBaggage;
+    private double totalPaid;
 
     public FlightBooking(String lastName, int bookingNumber){
         this.lastName = lastName;
@@ -15,7 +16,7 @@ public class FlightBooking {
     }
 
     //Parameterized constructor for one-way
-    public FlightBooking(int bookingNumber, String lastName, FlightDatabase flightId, String tripType, String depDate, String cabinClass, String optMeals, String optBaggage){
+    public FlightBooking(int bookingNumber, String lastName, FlightDatabase flightId, String tripType, String depDate, String cabinClass, String optMeals, String optBaggage, double totalPaid){
         this.bookingNumber = bookingNumber;
         this.flightId = flightId;
         this.lastName = lastName;
@@ -24,10 +25,11 @@ public class FlightBooking {
         this.cabinClass = cabinClass;
         this.optMeals = optMeals;
         this.optBaggage = optBaggage;
+        this.totalPaid = totalPaid;
     }
 
     //Parameterized constructor for round trip
-    public FlightBooking(int bookingNumber, FlightDatabase flightId, String lastName, String tripType, String depDate, String returnDate, String cabinClass, String optMeals, String optBaggage){
+    public FlightBooking(int bookingNumber, FlightDatabase flightId, String lastName, String tripType, String depDate, String returnDate, String cabinClass, String optMeals, String optBaggage, double totalPaid){
         this.bookingNumber = bookingNumber;
         this.flightId = flightId;
         this.lastName = lastName;
@@ -37,6 +39,7 @@ public class FlightBooking {
         this.cabinClass = cabinClass;
         this.optMeals = optMeals;
         this.optBaggage = optBaggage;
+        this.totalPaid = totalPaid;
     }
 
     public FlightBooking() {
@@ -71,6 +74,14 @@ public class FlightBooking {
 
     public String getOptBaggage() { return optBaggage; }
     public void setOptBaggage(String optBaggage) { this.optBaggage = optBaggage; }
+
+    public double getTotalPaid() {
+        return totalPaid;
+    }
+
+    public void setTotalPaid(double totalPaid) {
+        this.totalPaid = totalPaid;
+    }
 
     @Override
     public String toString(){
@@ -143,26 +154,24 @@ public class FlightBooking {
     }
 
 
-    public String printPostCheckoutMember(double discount){
-        return "\n\n\n==========================================\n"
-                +"            PAYMENT SUCCESSFUL!!            \n"
-                +"=========================================="
-                + "\nBooking reference: " + bookingNumber
-                + "\nAmount paid: RM" + String.format("%.2f", (calcTotalFare()-discount))
-                + "\n------------------------------------------";
+    public double CheckoutMember(double discount){
+        return (calcTotalFare()-discount);
     }
 
-    public String printPostCheckoutNonMember(boolean hasPromo){
+    public double CheckoutNonMember(boolean hasPromo){
         double totalPayment = calcTotalFare();
         if (hasPromo){
             totalPayment = calcTotalFare()*0.9;
         }
+        return totalPayment;
+    }
 
+    public String printPayment(double totalPayment){
         return "\n\n\n==========================================\n"
                 +"            PAYMENT SUCCESSFUL!!            \n"
                 +"=========================================="
                 + "\nBooking reference: " + bookingNumber
                 + "\nAmount paid: RM" + String.format("%.2f", totalPayment)
-                + "\n------------------------------------------\n";
+                + "\n------------------------------------------";
     }
 }
