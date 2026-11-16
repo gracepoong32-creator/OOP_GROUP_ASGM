@@ -148,7 +148,7 @@ public class FlightBooking {
                 + "\n------------------------------------------"
                 + "\nTotal to pay: RM" + String.format("%.2f", (calcTotalFare()-discount))
                 + "\n=========================================="
-                + "\nContinue to payment >>>\n";
+                + "\nContinue to payment >>>";
     }
 
     public String printPreCheckoutNonMember(double totalPayable, boolean hasPromo){
@@ -167,7 +167,7 @@ public class FlightBooking {
                 + "\n------------------------------------------"
                 + "\nTotal to pay: RM" + String.format("%.2f", promoTotal)
                 + "\n=========================================="
-                + "\nContinue to payment >>>\n";
+                + "\nContinue to payment >>>";
     }
 
 

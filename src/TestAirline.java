@@ -192,7 +192,7 @@ public class TestAirline {
 
 
         //User's name and additional option
-        System.out.print("\nEnter last name: ");
+        System.out.print("Enter last name: ");
         String lastName = input.nextLine();
         System.out.print("Add-Ons: \nBaggage (Y/N): ");
         String optBaggage = input.nextLine();
@@ -215,7 +215,7 @@ public class TestAirline {
         String boardingGate = null;
         String seatNumber = null;
         checkInArr.add(new CheckIn(lastName, bookingNum, checkIn, boardingGate, seatNumber));
-
+        System.out.print(flightBooking.toString());
 
         return flightBooking;
     }
@@ -264,7 +264,7 @@ public class TestAirline {
         double pointsRedeem = 0;
         User u = null;
 
-        System.out.print("Enter user Id (or '-' to sign up): ");
+        System.out.print("\nEnter user Id (or '-' to sign up): ");
         String inputUserId = input.nextLine();
 
         if (inputUserId.equals("-")) {
@@ -298,7 +298,7 @@ public class TestAirline {
                 System.out.print("Oops, no points available to redeem\n");
             }
 
-            System.out.print("Confirm payment? (Y/N): ");
+            System.out.print("\nConfirm payment? (Y/N): ");
             String confirmPayment = input.nextLine();
 
             if (confirmPayment.equalsIgnoreCase("Y")) {
@@ -379,9 +379,27 @@ public class TestAirline {
         String firstName = input.nextLine();
         System.out.print("Enter last name: ");
         String lastName = input.nextLine();
-        System.out.print("Enter age: ");
-        int age = input.nextInt();
-        input.nextLine(); //clears leftover newline from age input
+
+        int age = 0;
+        boolean valid = false;
+        while (!valid){
+            try{
+                System.out.print("\nEnter age: ");
+                age = input.nextInt();
+                input.nextLine(); //clears leftover newline from age input
+
+                if (age <= 0){
+                    System.out.print("Invalid input, please enter again");
+                }
+                else {
+                    valid = true;
+                }
+            }
+            catch (Exception e){
+                System.out.print("Invalid input, please enter again");
+                input.nextLine(); //clears leftover newline from age input
+            }
+        }
 
         String newUserId = "M" + (101 + userArr.size());
         NonMember nm = new NonMember(firstName, lastName, age, newUserId);
