@@ -264,13 +264,19 @@ public class TestAirline {
         double pointsRedeem = 0;
         User u = null;
 
-        System.out.print("\nEnter user Id (or '-' to sign up): ");
-        String inputUserId = input.nextLine();
+        while (u == null) {
+            System.out.print("\nEnter user Id (or '-' to sign up): ");
+            String inputUserId = input.nextLine();
 
-        if (inputUserId.equals("-")) {
-            u = signUpNonMember(input, userArr);
-        } else {
-            u = matchUser(userArr, inputUserId);
+            if (inputUserId.equals("-")) {
+                u = signUpNonMember(input, userArr);
+            } else {
+                u = matchUser(userArr, inputUserId);
+            }
+
+            if (u == null){
+                System.out.print("Invalid input, please enter again");
+            }
         }
 
         if (u instanceof Member) {
