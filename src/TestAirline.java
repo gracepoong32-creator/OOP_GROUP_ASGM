@@ -209,13 +209,13 @@ public class TestAirline {
             flightBooking = new FlightBooking(bookingNum, lastName, selectedFlight, inputTypeTrip, inputDepDate, inputCabinClass, optMeal, optBaggage, totalAmount);
         }
         flightBookingArr.add(flightBooking);
+        System.out.print(flightBooking.toString());
 
         //For check in purpose
         boolean checkIn = false;
         String boardingGate = null;
         String seatNumber = null;
         checkInArr.add(new CheckIn(lastName, bookingNum, checkIn, boardingGate, seatNumber));
-        System.out.print(flightBooking.toString());
 
         return flightBooking;
     }
