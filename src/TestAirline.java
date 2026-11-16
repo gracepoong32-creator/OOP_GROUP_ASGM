@@ -114,12 +114,14 @@ public class TestAirline {
 
     //Feature 1: Flight booking
     public static FlightBooking bookFlight(ArrayList<FlightDatabase> flightDatabaseArr, ArrayList<FlightBooking> flightBookingArr, Scanner input, Random random, ArrayList<CheckIn> checkInArr) {
+
+        //Variables
         String inputReturnDate = null;
         String inputReturnFlight;
         FlightDatabase selectedReturnFlight = null;
         FlightBooking flightBooking;
 
-        //Gather all user input for flight booking
+        //Gather all user input for flight booking (change when exception, 1 time add input.nextLine, 2 no need)
         System.out.print("\nEnter trip type (one-way/round trip): ");
         input.nextLine();
         String inputTypeTrip = input.nextLine();
@@ -171,10 +173,9 @@ public class TestAirline {
             }
         }
         //User choose flight option
-        System.out.print("\nEnter last name: ");
-        String lastName = input.nextLine();
         System.out.print("Enter departure flight Id: ");
         String inputFlight = input.nextLine();
+        FlightDatabase selectedFlight = matchFlight(flightDatabaseArr, inputFlight); //Check for one-way and the first trip
 
         if (inputTypeTrip.equalsIgnoreCase("round trip")) {
             System.out.print("\n\nRETURNING FLIGHTS");
@@ -186,16 +187,19 @@ public class TestAirline {
             System.out.print("\nEnter returning flight Id: ");
             inputReturnFlight = input.nextLine();
             //Match return flight with database
-            selectedReturnFlight = matchFlight(flightDatabaseArr, inputReturnFlight);//for round-trip
+            selectedReturnFlight = matchFlight(flightDatabaseArr, inputReturnFlight); //Check for round-trip
         }
 
+
+        //User's name and additional option
+        System.out.print("\nEnter last name: ");
+        String lastName = input.nextLine();
         System.out.print("Add-Ons: \nBaggage (Y/N): ");
         String optBaggage = input.nextLine();
         System.out.print("Meal (Y/N): ");
         String optMeal = input.nextLine();
 
-        FlightDatabase selectedFlight = matchFlight(flightDatabaseArr, inputFlight); //for one-way
-
+        //Random booking Number in 5 digits
         int bookingNum = random.nextInt(10000, 99999);
         double totalAmount = 0;
 
@@ -206,11 +210,12 @@ public class TestAirline {
         }
         flightBookingArr.add(flightBooking);
 
+        //For check in purpose
         boolean checkIn = false;
         String boardingGate = null;
         String seatNumber = null;
         checkInArr.add(new CheckIn(lastName, bookingNum, checkIn, boardingGate, seatNumber));
-        System.out.println(flightBooking);
+
 
         return flightBooking;
     }
