@@ -397,7 +397,7 @@ public class TestAirline {
             }
             catch (Exception e){
                 System.out.print("Invalid input, please enter again");
-                input.nextLine(); //clears leftover newline from age input
+                input.nextLine(); //clears leftover newline
             }
         }
 
