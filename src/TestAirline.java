@@ -121,11 +121,23 @@ public class TestAirline {
         FlightDatabase selectedReturnFlight = null;
         FlightBooking flightBooking;
         boolean valid = false;
+        String inputTypeTrip = "";
+        String inputCabinClass = "";
 
         //Gather all user input for flight booking (change when exception, 1 time add input.nextLine, 2 no need)
-        System.out.print("\nEnter trip type (one-way/round trip): ");
+
         input.nextLine();
-        String inputTypeTrip = input.nextLine();
+        while (!valid){
+            System.out.print("\nEnter trip type (one-way/round trip): ");
+            inputTypeTrip = input.nextLine();
+
+            if (inputTypeTrip.equalsIgnoreCase("one-way") || inputTypeTrip.equalsIgnoreCase("round trip")){
+                valid = true;
+            } else {
+                System.out.println("Invalid input, please enter again");
+            }
+        }
+
         System.out.print("Enter departure date (DD-MM-YYYY): ");
         String inputDepDate = input.nextLine();
 
@@ -135,8 +147,17 @@ public class TestAirline {
             inputReturnDate = input.nextLine();
         }
 
-        System.out.print("Enter cabin class (Business/Economy): ");
-        String inputCabinClass = input.nextLine();
+        valid = false;
+        while (!valid){
+            System.out.print("Enter cabin class (Business/Economy): ");
+            inputCabinClass = input.nextLine();
+
+            if (inputCabinClass.equalsIgnoreCase("Economy") || inputCabinClass.equalsIgnoreCase("Business")){
+                valid = true;
+            } else {
+                System.out.println("Invalid input, please enter again");
+            }
+        }
 
         //for loop to display available flights for booking
         System.out.print("\nFLIGHT     AIRLINE      FROM   TO     CLASS        PRICE        TIME");
@@ -200,6 +221,7 @@ public class TestAirline {
         String lastName = input.nextLine();
         System.out.print("\nAdd-Ons:");
 
+        valid = false;
         while (!valid){
             System.out.print("\nBaggage (Y/N): ");
             optBaggage = input.nextLine();
