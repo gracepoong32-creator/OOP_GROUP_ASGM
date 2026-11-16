@@ -263,31 +263,43 @@ public class TestAirline {
         double discount = 0.0;
         double pointsRedeem = 0;
         User u = null;
+        boolean valid = false;
 
         while (u == null) {
             System.out.print("\nEnter user Id (or '-' to sign up): ");
             String inputUserId = input.nextLine();
 
             if (inputUserId.equals("-")) {
+                System.out.println("\nPlease sign up to continue to checkout >>>");
                 u = signUpNonMember(input, userArr);
             } else {
                 u = matchUser(userArr, inputUserId);
             }
 
             if (u == null){
-                System.out.print("Invalid input, please enter again");
+                System.out.print("Invalid input, please enter again\n");
             }
         }
 
         if (u instanceof Member) {
+            String optPoints = "";
             Member m = (Member) u;
             System.out.print("Loyalty member profile found!");
             System.out.println(m.toString());
 
             if (m.pointsRedeem() > 0) {
                 System.out.print("Points redeemable to cash: RM" + String.format("%.2f", m.pointsRedeem()));
-                System.out.print("\nWould you like to use loyalty points as discount? (Y/N): ");
-                String optPoints = input.nextLine();
+
+                while (!valid){
+                    System.out.print("\nWould you like to use loyalty points as discount? (Y/N): ");
+                    optPoints = input.nextLine();
+
+                    if (optPoints.equalsIgnoreCase("Y") || optPoints.equalsIgnoreCase("N")){
+                        valid = true;
+                    } else {
+                        System.out.println("Invalid input, please enter again");
+                    }
+                }
 
                 if (optPoints.equalsIgnoreCase("Y")) {
                     discount = m.pointsRedeem();
@@ -304,13 +316,24 @@ public class TestAirline {
                 System.out.print("Oops, no points available to redeem\n");
             }
 
-            System.out.print("\nConfirm payment? (Y/N): ");
-            String confirmPayment = input.nextLine();
+            String confirmPayment = "";
+            valid = false;
+            while (!valid){
+                System.out.print("\nConfirm payment? (Y/N): ");
+                confirmPayment = input.nextLine();
+
+                if (confirmPayment.equalsIgnoreCase("Y") || confirmPayment.equalsIgnoreCase("N")){
+                    valid = true;
+                } else {
+                    System.out.println("Invalid input, please enter again");
+                }
+            }
 
             if (confirmPayment.equalsIgnoreCase("Y")) {
                 double amountPaid = flightBooking.calcTotalFare() - discount;
                 double totalAmount = flightBooking.CheckoutMember(discount);
                 flightBookingArr.getLast().setTotalPaid(totalAmount);
+
                 System.out.print(flightBooking.printPayment(totalAmount));
                 System.out.print(m.updatedMemberProfile(amountPaid, discount));
             }
@@ -324,8 +347,18 @@ public class TestAirline {
             double totalPayable = flightBooking.calcTotalFare();
 
             if (nm.isHasPromo()) {
-                System.out.print("Would you like to use the one-time discount? (Y/N): ");
-                String optNewUserPromo = input.nextLine();
+                String optNewUserPromo = "";
+                valid = false;
+                while (!valid){
+                    System.out.print("Would you like to use the one-time discount? (Y/N): ");
+                    optNewUserPromo = input.nextLine();
+
+                    if (optNewUserPromo.equalsIgnoreCase("Y") || optNewUserPromo.equalsIgnoreCase("N")){
+                        valid = true;
+                    } else {
+                        System.out.println("Invalid input, please enter again\n");
+                    }
+                }
 
                 if (optNewUserPromo.equalsIgnoreCase("Y")) {
                     usedPromo = true;
@@ -334,8 +367,19 @@ public class TestAirline {
                     System.out.print("\nContinue without one-time new user promo");
                 }
             }
-            System.out.print("\n\nConfirm payment? (Y/N): ");
-            String confirmPayment = input.nextLine();
+
+            String confirmPayment = "";
+            valid = false;
+            while (!valid){
+                System.out.print("\nConfirm payment? (Y/N): ");
+                confirmPayment = input.nextLine();
+
+                if (confirmPayment.equalsIgnoreCase("Y") || confirmPayment.equalsIgnoreCase("N")){
+                    valid = true;
+                } else {
+                    System.out.println("Invalid input, please enter again");
+                }
+            }
 
             if (confirmPayment.equalsIgnoreCase("Y")) {
                 double totalAmount = flightBooking.CheckoutNonMember(usedPromo);
@@ -361,8 +405,6 @@ public class TestAirline {
             } else {
                 System.out.print("Payment cancelled. Returning to main menu...\n\n");
             }
-        } else {
-            System.out.print("User ID not found. Returning to main menu...");
         }
     }
 
@@ -373,8 +415,6 @@ public class TestAirline {
                 return u;
             }
         }
-        System.out.println("No matching member profiles");
-        System.out.println("\nPlease sign up to continue to checkout >>>");
         return null;
     }
 
