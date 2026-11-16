@@ -197,7 +197,7 @@ public class TestAirline {
         System.out.print("Add-Ons: \nBaggage (Y/N): ");
         String optBaggage = input.nextLine();
         System.out.print("Meal (Y/N): ");
-        String optMeal = input.nextLine();
+        String optMeal = input.nextLine(); //end here exception
 
         //Random booking Number in 5 digits
         int bookingNum = random.nextInt(10000, 99999);
