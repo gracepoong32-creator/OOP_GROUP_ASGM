@@ -120,6 +120,7 @@ public class TestAirline {
         String inputReturnFlight;
         FlightDatabase selectedReturnFlight = null;
         FlightBooking flightBooking;
+        boolean valid = false;
 
         //Gather all user input for flight booking (change when exception, 1 time add input.nextLine, 2 no need)
         System.out.print("\nEnter trip type (one-way/round trip): ");
@@ -190,14 +191,37 @@ public class TestAirline {
             selectedReturnFlight = matchFlight(flightDatabaseArr, inputReturnFlight); //Check for round-trip
         }
 
+        //Variables
+        String optMeal = "";
+        String optBaggage = "";
 
         //User's name and additional option
         System.out.print("Enter last name: ");
         String lastName = input.nextLine();
-        System.out.print("Add-Ons: \nBaggage (Y/N): ");
-        String optBaggage = input.nextLine();
-        System.out.print("Meal (Y/N): ");
-        String optMeal = input.nextLine(); //end here exception
+        System.out.print("\nAdd-Ons:");
+
+        while (!valid){
+            System.out.print("\nBaggage (Y/N): ");
+            optBaggage = input.nextLine();
+
+            if (optBaggage.equalsIgnoreCase("Y") || optBaggage.equalsIgnoreCase("N")){
+                valid = true;
+            } else {
+                System.out.println("Invalid input, please enter again");
+            }
+        }
+
+        valid = false;
+        while (!valid){
+            System.out.print("Meal (Y/N): ");
+            optMeal = input.nextLine();
+
+            if (optMeal.equalsIgnoreCase("Y") || optMeal.equalsIgnoreCase("N")){
+                valid = true;
+            } else {
+                System.out.println("Invalid input, please enter again");
+            }
+        }
 
         //Random booking Number in 5 digits
         int bookingNum = random.nextInt(10000, 99999);
