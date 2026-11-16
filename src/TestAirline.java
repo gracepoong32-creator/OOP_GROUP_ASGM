@@ -173,7 +173,7 @@ public class TestAirline {
             }
         }
         //User choose flight option
-        System.out.print("Enter departure flight Id: ");
+        System.out.print("\nEnter departure flight Id: ");
         String inputFlight = input.nextLine();
         FlightDatabase selectedFlight = matchFlight(flightDatabaseArr, inputFlight); //Check for one-way and the first trip
 
