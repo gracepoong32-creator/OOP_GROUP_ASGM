@@ -123,6 +123,7 @@ public class TestAirline {
         String inputTypeTrip = "";
         String inputCabinClass = "";
         String lastName = "";
+        String firstName = "";
 
         //Gather all user input for flight booking
         input.nextLine();
@@ -247,9 +248,9 @@ public class TestAirline {
         double totalAmount = 0;
 
         if (inputTypeTrip.equalsIgnoreCase("round trip")) {
-            flightBooking = new FlightBooking(bookingNum, selectedFlight, selectedReturnFlight, lastName, inputTypeTrip, inputDepDate, inputReturnDate, inputCabinClass, optMeal, optBaggage, totalAmount);
+            flightBooking = new FlightBooking(bookingNum, selectedFlight, selectedReturnFlight, firstName, lastName, inputTypeTrip, inputDepDate, inputReturnDate, inputCabinClass, optMeal, optBaggage, totalAmount);
         } else {
-            flightBooking = new FlightBooking(bookingNum, lastName, selectedFlight, inputTypeTrip, inputDepDate, inputCabinClass, optMeal, optBaggage, totalAmount);
+            flightBooking = new FlightBooking(bookingNum, firstName, lastName, selectedFlight, inputTypeTrip, inputDepDate, inputCabinClass, optMeal, optBaggage, totalAmount);
         }
         flightBookingArr.add(flightBooking);
         System.out.print(flightBooking);
@@ -278,7 +279,7 @@ public class TestAirline {
         return null;
     }
 
-    //Feature 1: Match return flight with chosen flight locations (reverse from, to)
+    //Feature 1: Match return flight with chosen flight locations (reverse from, 1to)
     public static void matchReturnFlight(ArrayList<FlightDatabase> flightDatabaseArr, String inputFlight) {
         FlightDatabase selectedFlight = matchFlight(flightDatabaseArr, inputFlight);
 

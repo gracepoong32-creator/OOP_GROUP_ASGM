@@ -2,6 +2,7 @@ public class FlightBooking {
     private int bookingNumber; //random generated
     private FlightDatabase flightId; //from flightDatabase
     private FlightDatabase returnFlightId;
+    private String firstName;
     private String lastName;
     private String tripType;
     private String depDate;
@@ -17,9 +18,10 @@ public class FlightBooking {
     }
 
     //Parameterized constructor for one-way
-    public FlightBooking(int bookingNumber, String lastName, FlightDatabase flightId, String tripType, String depDate, String cabinClass, String optMeals, String optBaggage, double totalPaid){
+    public FlightBooking(int bookingNumber, String firstName, String lastName, FlightDatabase flightId, String tripType, String depDate, String cabinClass, String optMeals, String optBaggage, double totalPaid){
         this.bookingNumber = bookingNumber;
         this.flightId = flightId;
+        this.firstName = firstName;
         this.lastName = lastName;
         this.tripType = tripType;
         this.depDate = depDate;
@@ -30,10 +32,11 @@ public class FlightBooking {
     }
 
     //Parameterized constructor for round trip
-    public FlightBooking(int bookingNumber, FlightDatabase flightId, FlightDatabase returnFlightId, String lastName, String tripType, String depDate, String returnDate, String cabinClass, String optMeals, String optBaggage, double totalPaid){
+    public FlightBooking(int bookingNumber, FlightDatabase flightId, FlightDatabase returnFlightId, String firstName ,String lastName, String tripType, String depDate, String returnDate, String cabinClass, String optMeals, String optBaggage, double totalPaid){
         this.bookingNumber = bookingNumber;
         this.flightId = flightId;
         this.returnFlightId = returnFlightId;
+        this.firstName = firstName;
         this.lastName = lastName;
         this.tripType = tripType;
         this.depDate = depDate;
@@ -56,6 +59,14 @@ public class FlightBooking {
 
     public FlightDatabase getReturnFlightId() { return returnFlightId; }
     public void setReturnFlightId(FlightDatabase returnFlightId) { this.returnFlightId = returnFlightId; }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
     public String getLastName() { return lastName; }
     public void setLastName(String lastName) { this.lastName = lastName; }
