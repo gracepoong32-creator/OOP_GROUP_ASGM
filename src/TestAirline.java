@@ -6,7 +6,7 @@ import java.util.Random;
 //if suddenly a lot of red, then file-> repair IDE
 
 public class TestAirline {
-    public static void main(String[] args) {
+    static void main(String[] args) {
         Scanner input = new Scanner(System.in); //Input scanner
         Random random = new Random(); //Random
 
@@ -252,11 +252,18 @@ public class TestAirline {
             flightBooking = new FlightBooking(bookingNum, lastName, selectedFlight, inputTypeTrip, inputDepDate, inputCabinClass, optMeal, optBaggage, totalAmount);
         }
         flightBookingArr.add(flightBooking);
-        System.out.print(flightBooking.toString());
+        System.out.print(flightBooking);
 
         FlightBooking currentFlight = flightBooking;
         int userIndex = checkoutLoyalty(input, userArr, currentFlight, flightBookingArr);
         flightBookingArr.getLast().setLastName(userArr.get(userIndex).getLastName());
+
+
+        //For check in purpose
+        boolean checkIn = false;
+        String boardingGate = null;
+        String seatNumber = null;
+        checkInArr.add(new CheckIn(lastName, bookingNum, checkIn, boardingGate, seatNumber));
 
     }
 
@@ -328,11 +335,10 @@ public class TestAirline {
         }
 
         //Have member
-        if (u instanceof Member) { //Is a member
+        if (u instanceof Member m) { //Is a member
             String optPoints = "";
-            Member m = (Member) u;
             System.out.print("Loyalty member profile found!");
-            System.out.println(m.toString());
+            System.out.println(m);
 
             if (m.pointsRedeem() > 0) {
                 System.out.print("Points redeemable to cash: RM" + String.format("%.2f", m.pointsRedeem()));
@@ -383,11 +389,10 @@ public class TestAirline {
                 System.out.print(m.updatedMemberProfile(amountPaid, discount));
             }
 
-        } else if (u instanceof NonMember) { // For nonmember
-            NonMember nm = (NonMember) u;
+        } else if (u instanceof NonMember nm) { // For nonmember
 
             System.out.print("Non-member profile found!");
-            System.out.println(nm.toString());
+            System.out.println(nm);
 
             boolean usedPromo = false;
             double totalPayable = flightBooking.calcTotalFare();
@@ -518,9 +523,8 @@ public class TestAirline {
         int bookingNumber = 0;
 
         //Check Booking Number
-        input.nextLine();
         do {
-            System.out.print("Enter your booking number: ");
+            System.out.print("\nEnter your booking number: ");
             bookingNumber = input.nextInt();
             for (bookingIndex = 0; bookingIndex < flightBookingArr.size(); bookingIndex++) {
                 if (bookingNumber == flightBookingArr.get(bookingIndex).getBookingNumber()) {
@@ -528,23 +532,17 @@ public class TestAirline {
                     break;
                 }
             }
-            System.out.println("The booking number is invalid or not found. Please try again.");
+            if (!checkBookingNumber){
+                System.out.println("The booking number is invalid or not found. Please try again.");
+            }
         } while (!checkBookingNumber);
 
         //Check Name
+        input.nextLine();
         do {
-            System.out.print("\nEnter your last name: ");
+            System.out.print("Enter your last name: ");
             name = input.nextLine();
             if (name.equalsIgnoreCase(flightBookingArr.get(bookingIndex).getLastName())) {
-                //Check member age (need to ask member id)
-                for (int userCheck = 0; userCheck < userArr.size(); userCheck++) {
-                    if (name.equals(userArr.get(userCheck).getLastName())) {
-                        if (userArr.get(userCheck).getAge() < 16) {
-                            ageRestrict++;
-                            checkBookingNumber = true;
-                        }
-                    }
-                }
                 checkName = true;
                 break;
             }
@@ -556,45 +554,19 @@ public class TestAirline {
         } while (!checkName); //If check name is true, break from while loop
 
 
-        if (ageRestrict == 1) {
-            System.out.
-
-                    println("User under 16 can't do online check in. Please check in during the day at the counter.\n");
-        } else if (checkInArr.
-
-                get(bookingIndex).
-
-                isCheckIn()) {
-            System.out.
-
-                    println("You have been checked in.");
+        if (checkInArr.get(bookingIndex).isCheckIn()) {
+            System.out.println("You have been checked in.");
         } else {
             String boardingGate = checkIn.randomBoardingGate();
             String seatNumber = checkIn.randomSeatNumber(flightBookingArr, bookingIndex);
-            System.out.
-
-                    println("Your seat has been automatically given as " + seatNumber);
-            checkInArr.
-
-                    get(bookingIndex).
-
-                    setCheckIn(true);
-            checkInArr.
-
-                    get(bookingIndex).
-
-                    setBoardingGate(boardingGate);
-            checkInArr.
-
-                    get(bookingIndex).
-
-                    setSeatNumber(seatNumber);
+            System.out.println("Your seat has been automatically given as " + seatNumber);
+            checkInArr.get(bookingIndex).setCheckIn(true);
+            checkInArr.get(bookingIndex).setBoardingGate(boardingGate);
+            checkInArr.get(bookingIndex).setSeatNumber(seatNumber);
 
         }
         if (ageRestrict != 1) {
-            System.out.
-
-                    println(checkIn.toString(flightBookingArr, bookingIndex, checkInArr));
+            System.out.println(checkIn.toString(flightBookingArr, bookingIndex, checkInArr));
         }
     }
 
