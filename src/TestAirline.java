@@ -605,39 +605,36 @@ public class TestAirline {
         String lastName = "";
         String cancelFlight = "";
 
-        //check last name
+        //Check Booking Number
         do {
-            if (reset == 0) {
-                System.out.print("\nEnter your last name: ");
-                input.nextLine();
-                lastName = input.nextLine();
-                reset++;
-            } else {
-                System.out.print("\nEnter your last name: ");
-                lastName = input.nextLine();
-            }
+            System.out.print("\nEnter your booking number: ");
+            int bookingNumber = input.nextInt();
             for (bookingIndex = 0; bookingIndex < flightBookingArr.size(); bookingIndex++) {
-                if (lastName.equals(flightBookingArr.get(bookingIndex).getLastName())) {
-                    checkLastName = true;
+                if (bookingNumber == flightBookingArr.get(bookingIndex).getBookingNumber()) {
+                    checkBookingNumber = true;
                     break;
                 }
             }
-            if (!checkLastName) {
-                System.out.println("The name you enter is not exists. Please try again");
+            if (!checkBookingNumber){
+                System.out.println("The booking number is invalid or not found. Please try again.");
             }
-        } while (!checkLastName);
+        } while (!checkBookingNumber);
 
-        //check Booking Number
+        //Check Name
+        input.nextLine();
         do {
-            System.out.print("Enter booking number: ");
-            int bookingNumber = input.nextInt();
-            if (bookingNumber == flightBookingArr.get(bookingIndex).getBookingNumber()) {
-                checkBookingNumber = true;
+            System.out.print("Enter your last name: ");
+            lastName = input.nextLine();
+            if (lastName.equalsIgnoreCase(flightBookingArr.get(bookingIndex).getLastName())) {
+                checkLastName = true;
                 break;
             }
-            System.out.println("The booking number you enter is not exists. Please try again");
 
-        } while (!checkBookingNumber);
+            if (!checkLastName) {
+                System.out.println("The name you entered is not found. Please try again");
+            }
+
+        } while (!checkLastName); //If check name is true, break from while loop
 
         //Print flight Details
         System.out.println("\n-----Flight Details-----" +
@@ -649,10 +646,9 @@ public class TestAirline {
 
         boolean cancelProcess = false;
         do {
-            if (reset == 1) {
+            if (reset == 0) {
                 System.out.println("\nCancel a flight only will refund 80% of the total amount paid.");
                 System.out.print("Are you sure to cancel this flight (y for yes/ n for no): ");
-                input.nextLine();
                 cancelFlight = input.nextLine();
                 reset++;
             } else {
@@ -668,13 +664,11 @@ public class TestAirline {
                 System.out.println("The refund is success.");
                 flightBookingArr.remove(bookingIndex);
                 cancelProcess = true;
-                break;
 
             } else if (cancelFlight.equalsIgnoreCase("n")) {
                 //Cancel cancel Flight
-                System.out.print("You cancel this process.");
+                System.out.print("You cancel this process.\n");
                 cancelProcess = true;
-                break;
 
             } else {
                 //Exception
