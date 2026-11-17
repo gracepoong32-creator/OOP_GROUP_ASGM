@@ -63,10 +63,10 @@ public class CheckIn{  //find implement user interface
     //Online Boarding Pass
     public String toString(ArrayList<FlightBooking> flightBookingArr, int bookingIndex, ArrayList<CheckIn> checkInArr) {
         return "\n\n-----Boarding Pass-------" +
-                "\nName: " + flightBookingArr.get(bookingIndex).getFirstName() + " " + lastName +
+                "\nName: " + flightBookingArr.get(bookingIndex).getFirstName() + " " + checkInArr.get(bookingIndex).getLastName() +
                 "\n" + flightBookingArr.get(bookingIndex).getFlightId().getFrom() + "  ------>  " + flightBookingArr.get(bookingIndex).getFlightId().getTo()+
                 "\nDeparture Date: " + flightBookingArr.get(bookingIndex).getDepDate() +
-                "\nFlight Id:  " + flightBookingArr.get(bookingIndex).getFlightId() +
+                "\nCabin Class:  " + flightBookingArr.get(bookingIndex).getCabinClass() +
                 "\nBoarding time: " + flightBookingArr.get(bookingIndex).getFlightId().getDepartureTime() +
                 "\nBoarding Gate: " + checkInArr.get(bookingIndex).getBoardingGate() +
                 "\n\nSeat: " + checkInArr.get(bookingIndex).getSeatNumber();

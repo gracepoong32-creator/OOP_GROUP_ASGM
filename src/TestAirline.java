@@ -198,6 +198,11 @@ public class TestAirline {
         System.out.print("\nEnter departure flight Id: ");
         String inputFlight = input.nextLine();
         FlightDatabase selectedFlight = matchFlight(flightDatabaseArr, inputFlight); //Check for one-way and the first trip
+        while (selectedFlight == null){
+            System.out.print("\nEnter departure flight Id: ");
+            inputFlight = input.nextLine();
+            selectedFlight = matchFlight(flightDatabaseArr, inputFlight);
+        }
 
         if (inputTypeTrip.equalsIgnoreCase("round trip")) {
             System.out.print("\n\nRETURNING FLIGHTS");
@@ -210,6 +215,11 @@ public class TestAirline {
             inputReturnFlight = input.nextLine();
             //Match return flight with database
             selectedReturnFlight = matchFlight(flightDatabaseArr, inputReturnFlight); //Check for round-trip
+            while (selectedReturnFlight == null){
+                System.out.print("\nEnter returning flight Id: ");
+                inputReturnFlight = input.nextLine();
+                selectedReturnFlight = matchFlight(flightDatabaseArr, inputReturnFlight);
+            }
         }
 
         //Variables
@@ -264,7 +274,7 @@ public class TestAirline {
         boolean checkIn = false;
         String boardingGate = " ";
         String seatNumber = " ";
-        checkInArr.add(new CheckIn(lastName, bookingNum, checkIn, boardingGate, seatNumber));
+        checkInArr.add(new CheckIn(userArr.get(userIndex).getLastName(), bookingNum, checkIn, boardingGate, seatNumber));
 
     }
 
@@ -566,7 +576,7 @@ public class TestAirline {
         if (ageRestrict > 0){
             System.out.println("User under 16 is not allowed to check in online. Please proceed to the check-in counter. ");
         }
-        if (checkInArr.get(bookingIndex).isCheckIn()) {
+        else if (checkInArr.get(bookingIndex).isCheckIn()) {
             System.out.println("You have been checked in.");
         } else {
             String boardingGate = checkIn.randomBoardingGate();
