@@ -87,5 +87,4 @@ public class CheckIn extends FlightBooking{  //find implement user interface
         return boardingGate = randomNum + boardingGateAlphabet[randomBoardingGateAlphabet];
     }
 
-
 }
