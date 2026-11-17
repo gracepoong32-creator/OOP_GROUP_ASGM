@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
 public class CheckIn extends FlightBooking{  //find implement user interface
     private boolean checkIn = false;

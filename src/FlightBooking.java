@@ -102,8 +102,7 @@ public class FlightBooking {
         }
 
         return "\n==========================================\n             CHECKOUT SUMMARY       \n=========================================="
-                + "\nBooking reference: " + bookingNumber + "\nPassenger last name: " + lastName
-                + "\n------------------------------------------" + "\nFLIGHT DETAILS"
+                + "\nFLIGHT DETAILS"
                 + "\nDeparture Flight Id: " + getFlightId().getFlightNum() + "\nRoute: " + getFlightId().getFrom() + " -> " + getFlightId().getTo()
                 + "\nDeparture: " + depDate + " at " + getFlightId().getDepartureTime()
                 + roundTripLine
@@ -148,7 +147,7 @@ public class FlightBooking {
                 + "\n------------------------------------------"
                 + "\nTotal to pay: RM" + String.format("%.2f", (calcTotalFare()-discount))
                 + "\n=========================================="
-                + "\nContinue to payment >>>";
+                + "\nContinue to payment >>>\n";
     }
 
     public String printPreCheckoutNonMember(double totalPayable, boolean hasPromo){

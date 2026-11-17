@@ -47,7 +47,8 @@ public class NonMember extends User {
                 + "\nFull name: " + super.getFirstName() + " " + super.getLastName()
                 + "\n------------------------------------------"
                 + "\nNew User Promo: " + newUserPromoCheck()
-                + "\nBooking count: " + bookingCount + "/10";
+                + "\nBooking count: " + bookingCount + "/10"
+                + "\n==========================================";
     }
 
     public String updatedNonMemberProfile(boolean usedPromo){
