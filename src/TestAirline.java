@@ -258,12 +258,12 @@ public class TestAirline {
         FlightBooking currentFlight = flightBooking;
         int userIndex = checkoutLoyalty(input, userArr, currentFlight, flightBookingArr);
         flightBookingArr.getLast().setLastName(userArr.get(userIndex).getLastName());
-
+        flightBookingArr.getLast().setFirstName(userArr.get(userIndex).getFirstName());
 
         //For check in purpose
         boolean checkIn = false;
-        String boardingGate = null;
-        String seatNumber = null;
+        String boardingGate = " ";
+        String seatNumber = " ";
         checkInArr.add(new CheckIn(lastName, bookingNum, checkIn, boardingGate, seatNumber));
 
     }
@@ -544,6 +544,15 @@ public class TestAirline {
             System.out.print("Enter your last name: ");
             name = input.nextLine();
             if (name.equalsIgnoreCase(flightBookingArr.get(bookingIndex).getLastName())) {
+                //check user age, if under 16 can't online check in
+                for (int checkAge = 1; checkAge < userArr.size(); checkAge++){
+                    if (flightBookingArr.get(bookingIndex).getFirstName().equalsIgnoreCase(userArr.get(checkAge).getFirstName())){
+                        if (userArr.get(checkAge).getAge() < 16){
+                            ageRestrict ++;
+                        }
+                    }
+
+                }
                 checkName = true;
                 break;
             }
@@ -554,7 +563,9 @@ public class TestAirline {
 
         } while (!checkName); //If check name is true, break from while loop
 
-
+        if (ageRestrict > 0){
+            System.out.println("User under 16 is not allowed to check in online. Please proceed to the check-in counter. ");
+        }
         if (checkInArr.get(bookingIndex).isCheckIn()) {
             System.out.println("You have been checked in.");
         } else {

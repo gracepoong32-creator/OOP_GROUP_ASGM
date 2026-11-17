@@ -1,22 +1,20 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-public class CheckIn extends FlightBooking{  //find implement user interface
+public class CheckIn{  //find implement user interface
     private boolean checkIn = false;
     private String boardingGate;
     private String seatNumber;
+    private String lastName;
+    private int bookingNumber;
 
     //default constructor
     public CheckIn(){
     }
 
-    public CheckIn(String lastName, int bookingNumber, boolean checkIn){
-        super(lastName, bookingNumber);
-        this.checkIn = checkIn;
-    }
-
     public CheckIn(String lastName, int bookingNumber, boolean checkIn, String boardingGate, String seatNumber){
-        super(lastName,bookingNumber);
+        this.lastName = lastName;
+        this.bookingNumber = bookingNumber;
         this.checkIn = checkIn;
         this.boardingGate = boardingGate;
         this.seatNumber = seatNumber;
@@ -46,13 +44,29 @@ public class CheckIn extends FlightBooking{  //find implement user interface
         this.seatNumber = seatNumber;
     }
 
+    public int getBookingNumber() {
+        return bookingNumber;
+    }
+
+    public void setBookingNumber(int bookingNumber) {
+        this.bookingNumber = bookingNumber;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     //Online Boarding Pass
     public String toString(ArrayList<FlightBooking> flightBookingArr, int bookingIndex, ArrayList<CheckIn> checkInArr) {
         return "\n\n-----Boarding Pass-------" +
-                "\nName: " + flightBookingArr.get(bookingIndex).getLastName() +
+                "\nName: " + flightBookingArr.get(bookingIndex).getFirstName() + " " + lastName +
                 "\n" + flightBookingArr.get(bookingIndex).getFlightId().getFrom() + "  ------>  " + flightBookingArr.get(bookingIndex).getFlightId().getTo()+
                 "\nDeparture Date: " + flightBookingArr.get(bookingIndex).getDepDate() +
-                "\n " +
+                "\nFlight Id:  " + flightBookingArr.get(bookingIndex).getFlightId() +
                 "\nBoarding time: " + flightBookingArr.get(bookingIndex).getFlightId().getDepartureTime() +
                 "\nBoarding Gate: " + checkInArr.get(bookingIndex).getBoardingGate() +
                 "\n\nSeat: " + checkInArr.get(bookingIndex).getSeatNumber();
@@ -85,5 +99,6 @@ public class CheckIn extends FlightBooking{  //find implement user interface
         int randomBoardingGateAlphabet = random.nextInt(0,5);
         return boardingGate = randomNum + boardingGateAlphabet[randomBoardingGateAlphabet];
     }
+
 
 }
