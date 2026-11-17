@@ -573,12 +573,13 @@ public class TestAirline {
 
         } while (!checkName); //If check name is true, break from while loop
 
+        //Age under 16 cannot online check in
         if (ageRestrict > 0){
             System.out.println("User under 16 is not allowed to check in online. Please proceed to the check-in counter. ");
-        }
+        } //Check if check in before
         else if (checkInArr.get(bookingIndex).isCheckIn()) {
             System.out.println("You have been checked in.");
-        } else {
+        } else { //First time check in
             String boardingGate = checkIn.randomBoardingGate();
             String seatNumber = checkIn.randomSeatNumber(flightBookingArr, bookingIndex);
             System.out.println("Your seat has been automatically given as " + seatNumber);
@@ -587,6 +588,7 @@ public class TestAirline {
             checkInArr.get(bookingIndex).setSeatNumber(seatNumber);
 
         }
+        //Avoid age under 16 print boarding pass
         if (ageRestrict != 1) {
             System.out.println(checkIn.toString(flightBookingArr, bookingIndex, checkInArr));
         }
