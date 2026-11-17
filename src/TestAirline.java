@@ -272,9 +272,15 @@ public class TestAirline {
 
         //For check in purpose
         boolean checkIn = false;
+        boolean roundCheckIn = false;
         String boardingGate = " ";
         String seatNumber = " ";
-        checkInArr.add(new CheckIn(userArr.get(userIndex).getLastName(), bookingNum, checkIn, boardingGate, seatNumber));
+
+        if (flightBookingArr.getLast().getTripType().equalsIgnoreCase("one-way")){
+            checkInArr.add(new CheckIn(userArr.get(userIndex).getLastName(), bookingNum, checkIn, boardingGate, seatNumber));
+        }else {
+            checkInArr.add(new CheckIn(userArr.get(userIndex).getLastName(), bookingNum, roundCheckIn,checkIn, boardingGate, seatNumber));
+        }
 
     }
 
@@ -561,7 +567,6 @@ public class TestAirline {
                             ageRestrict ++;
                         }
                     }
-
                 }
                 checkName = true;
                 break;
@@ -577,7 +582,7 @@ public class TestAirline {
         if (ageRestrict > 0){
             System.out.println("User under 16 is not allowed to check in online. Please proceed to the check-in counter. ");
         } //Check if check in before
-        else if (checkInArr.get(bookingIndex).isCheckIn()) {
+        else if (checkInArr.get(bookingIndex).isCheckIn() && flightBookingArr.get(bookingIndex).getTripType().equalsIgnoreCase("one-way")) {
             System.out.println("You have been checked in.");
         } else { //First time check in
             String boardingGate = checkIn.randomBoardingGate();
@@ -591,6 +596,19 @@ public class TestAirline {
         //Avoid age under 16 print boarding pass
         if (ageRestrict != 1) {
             System.out.println(checkIn.toString(flightBookingArr, bookingIndex, checkInArr));
+        }
+
+        if (flightBookingArr.get(bookingIndex).getTripType().equalsIgnoreCase("round trip")){
+            System.out.print("\nDo you want to check in for the return trip (Y for yes/ N for no): ");
+            String checkInReturn = input.nextLine();
+            if (checkInReturn.equalsIgnoreCase("y")){
+                String boardingGateReturn = checkIn.randomBoardingGate();
+                String seatNumberReturn = checkIn.randomSeatNumber(flightBookingArr, bookingIndex);
+                System.out.println("Your seat has been automatically given as " + seatNumberReturn);
+                checkInArr.get(bookingIndex).setRoundCheckIn(true);
+                checkInArr.get(bookingIndex).setBoardingGate(boardingGateReturn);
+                checkInArr.get(bookingIndex).setSeatNumber(seatNumberReturn);
+            }
         }
     }
 
