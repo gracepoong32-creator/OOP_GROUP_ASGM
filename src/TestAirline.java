@@ -95,7 +95,7 @@ public class TestAirline {
                     break;
                 case 2:
                     System.out.print("-----Check In-----");
-                    checkIn(flightBookingArr, checkInArr, userArr, input);
+                    checkIn(flightBookingArr, checkInArr, userArr, input, boardingGateArr);
                     break;
                 case 3:
                     System.out.print("-----Flight cancellation-----");
@@ -499,7 +499,7 @@ public class TestAirline {
     }
 
     //Feature 2: Check in
-    public static void checkIn(ArrayList<FlightBooking> flightBookingArr, ArrayList<CheckIn> checkInArr, ArrayList<User> userArr, Scanner input) {
+    public static void checkIn(ArrayList<FlightBooking> flightBookingArr, ArrayList<CheckIn> checkInArr, ArrayList<User> userArr, Scanner input, ArrayList<CheckIn> boardingGateArr) {
         CheckIn checkIn = new CheckIn();
 
         //Variables
