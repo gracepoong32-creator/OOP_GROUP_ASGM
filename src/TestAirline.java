@@ -667,9 +667,6 @@ public class TestAirline {
 
     // Feature 4: Flight Schedule
     public static void displayFlightSchedule(ArrayList<FlightSchedule> flightSchedulesArr) {
-
-        System.out.println("===== Upcoming Flight Schedule =====");
-
         LocalDateTime today = LocalDateTime.of(2026, 11, 20, 0, 0);
         LocalDateTime threeDaysLater = today.plusDays(3);
 
