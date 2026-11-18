@@ -325,7 +325,6 @@ public class TestAirline {
 
     //Feature 1: Check user (member/non-member) during checkout
     public static int checkoutLoyalty(Scanner input, ArrayList<User> userArr, FlightBooking flightBooking, ArrayList<FlightBooking> flightBookingArr) {
-        User user = new NonMember();
         double discount = 0.0;
         double pointsRedeem = 0;
         User u = null;
@@ -674,7 +673,6 @@ public class TestAirline {
 
     //Feature 5: Loyalty member
     public static void loyaltyMember(Scanner input, ArrayList <User> userArr){
-        User user = new NonMember();
 
         System.out.println("\n1. Sign up as a new user" +
                 "\n2. Check user details");

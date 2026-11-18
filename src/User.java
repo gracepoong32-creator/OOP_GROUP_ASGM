@@ -42,10 +42,12 @@ public abstract class User {
         String userId = input.nextLine();
 
         if (userId.equalsIgnoreCase("-")){
-
-
+            signUpNonMember(input, userArr);
         } else if (userId.equalsIgnoreCase("?")) {
-
+            System.out.print("Enter first name: ");
+            String firstName = input.nextLine();
+            System.out.print("Enter last name: ");
+            String lastName = input.nextLine();
         } else{
 
         }
