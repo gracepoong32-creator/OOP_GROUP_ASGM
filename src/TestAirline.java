@@ -10,7 +10,7 @@ public class TestAirline {
         Scanner input = new Scanner(System.in); //Input scanner
         Random random = new Random(); //Random
 
-        //Arraylist for preset flight schedules, flights booked, loyalty members
+        //Arraylist for preset flight schedules, flights booked, checked in, loyalty members, upcoming flight schedule
         ArrayList<FlightDatabase> flightDatabaseArr = new ArrayList<>();
         ArrayList<FlightBooking> flightBookingArr = new ArrayList<>();
         ArrayList<CheckIn> checkInArr = new ArrayList<>();
