@@ -161,11 +161,11 @@ public class FlightBooking {
                 + "\nContinue to payment >>>\n";
     }
 
-    public String printPreCheckoutNonMember(double totalPayable, boolean usedPromo){
+    public String printPreCheckoutNonMember(double totalPayable, boolean usePromo){
         String promoLine = "";
         double promoTotal = calcTotalFare();
 
-        if (!usedPromo){
+        if (usePromo){
             promoLine = "\nOne-time user promo: 10%";
             promoTotal = calcTotalFare()*0.9;
         }
@@ -185,9 +185,9 @@ public class FlightBooking {
         return (calcTotalFare()-discount);
     }
 
-    public double CheckoutNonMember(boolean usedPromo){
+    public double CheckoutNonMember(boolean usePromo){
         double totalPayment = calcTotalFare();
-        if (usedPromo){
+        if (usePromo){
             totalPayment = calcTotalFare()*0.9;
         }
         return totalPayment;

@@ -411,7 +411,7 @@ public class TestAirline {
             System.out.print("Non-member profile found!");
             System.out.println(nm);
 
-            boolean usedPromo = false;
+            boolean usePromo = false;
             double totalPayable = flightBooking.calcTotalFare();
 
             if (nm.isHasPromo()) {
@@ -429,8 +429,8 @@ public class TestAirline {
                 }
 
                 if (optNewUserPromo.equalsIgnoreCase("Y")) {
-                    System.out.print(flightBooking.printPreCheckoutNonMember(totalPayable, usedPromo));
-                    usedPromo = true;
+                    usePromo = true;
+                    System.out.print(flightBooking.printPreCheckoutNonMember(totalPayable, usePromo));
 
                 } else {
                     System.out.print("\nContinue without one-time new user promo");
@@ -451,10 +451,10 @@ public class TestAirline {
             }
 
             if (confirmPayment.equalsIgnoreCase("Y")) {
-                double totalAmount = flightBooking.CheckoutNonMember(usedPromo);
+                double totalAmount = flightBooking.CheckoutNonMember(usePromo);
                 flightBookingArr.getLast().setTotalPaid(totalAmount);
                 System.out.print(flightBooking.printPayment(totalAmount));
-                System.out.print(nm.updatedNonMemberProfile(usedPromo));
+                System.out.print(nm.updatedNonMemberProfile(usePromo));
 
                 //Check if bookingCount >= 10, upgrade to member
                 if (nm.getBookingCount() >= 10) {
