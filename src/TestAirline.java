@@ -383,6 +383,7 @@ public class TestAirline {
             } else {
                 System.out.print("Oops, no points available to redeem\n");
             }
+
             String confirmPayment = "";
             valid = false;
             while (!valid) {

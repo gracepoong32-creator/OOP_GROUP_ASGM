@@ -165,7 +165,7 @@ public class FlightBooking {
         String promoLine = "";
         double promoTotal = calcTotalFare();
 
-        if (hasPromo){
+        if (!hasPromo){
             promoLine = "\nOne-time user promo: 10%";
             promoTotal = calcTotalFare()*0.9;
         }
