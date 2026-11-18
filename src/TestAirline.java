@@ -96,6 +96,7 @@ public class TestAirline {
                     break;
                 case 4:
                     System.out.print("-----Summary of upcoming flight schedule-----");
+                    displayFlightSchedule(flightScheduleArr);
                     break;
                 case 5:
                     System.out.print("-----Loyalty Programme-----");
@@ -664,11 +665,33 @@ public class TestAirline {
         } while (!cancelProcess);
     }
 
-    //Feature 4: Flight Schedule
+    // Feature 4: Flight Schedule
     public static void displayFlightSchedule(ArrayList<FlightSchedule> flightSchedulesArr) {
+
         System.out.println("===== Upcoming Flight Schedule =====");
+
+        LocalDateTime today = LocalDateTime.of(2026, 11, 20, 0, 0);
+        LocalDateTime threeDaysLater = today.plusDays(3);
+
+        boolean foundFlight = false;
+
         for (FlightSchedule schedule : flightSchedulesArr) {
 
+            if (!schedule.getDateTime().isBefore(today) && schedule.getDateTime().isBefore(threeDaysLater)) {
+
+                foundFlight = true;
+
+                System.out.println("Flight Number: " + schedule.getFlight().getFlightNum());
+                System.out.println("Date and Time: " + schedule.getDateTime());
+                System.out.println("Gate: " + schedule.getGate());
+                System.out.println("Status: " + schedule.getStatus());
+                System.out.println("-------------------------");
+
+            }
+        }
+
+        if (!foundFlight) {
+            System.out.println("No upcoming flights");
         }
     }
 
