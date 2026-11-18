@@ -598,7 +598,7 @@ public class TestAirline {
             System.out.println(checkIn.toString(flightBookingArr, bookingIndex, checkInArr));
         }
 
-        if (flightBookingArr.get(bookingIndex).getTripType().equalsIgnoreCase("round trip")){
+        if (!checkInArr.get(bookingIndex).isRoundCheckIn()){
             System.out.print("\nDo you want to check in for the return trip (Y for yes/ N for no): ");
             String checkInReturn = input.nextLine();
             if (checkInReturn.equalsIgnoreCase("y")){
@@ -608,6 +608,10 @@ public class TestAirline {
                 checkInArr.get(bookingIndex).setRoundCheckIn(true);
                 checkInArr.get(bookingIndex).setBoardingGate(boardingGateReturn);
                 checkInArr.get(bookingIndex).setSeatNumber(seatNumberReturn);
+                System.out.println(checkIn.toString(flightBookingArr, bookingIndex, checkInArr));
+
+            } else if (checkInReturn.equalsIgnoreCase("N")) {
+                System.out.println("WOR WODWMOEEOIWFJFWIOEJfio");
             }
         }
     }

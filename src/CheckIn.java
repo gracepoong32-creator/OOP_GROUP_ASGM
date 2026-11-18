@@ -94,7 +94,7 @@ public class CheckIn {  //find implement user interface
             boardingPass = "\n\n-----Boarding Pass-------" +
                     "\nName: " + flightBookingArr.get(bookingIndex).getFirstName() + " " + checkInArr.get(bookingIndex).getLastName() +
                     "\n" + flightBookingArr.get(bookingIndex).getReturnFlightId().getFrom() + "  ------>  " + flightBookingArr.get(bookingIndex).getReturnFlightId().getTo() +
-                    "\nDeparture Date: " + flightBookingArr.get(bookingIndex).getDepDate() +
+                    "\nDeparture Date: " + flightBookingArr.get(bookingIndex).getReturnDate() +
                     "\nCabin Class:  " + flightBookingArr.get(bookingIndex).getCabinClass() +
                     "\nBoarding time: " + flightBookingArr.get(bookingIndex).getReturnFlightId().getDepartureTime() +
                     "\nBoarding Gate: " + checkInArr.get(bookingIndex).getBoardingGate() +
