@@ -660,7 +660,7 @@ public class TestAirline {
 
             } else {
                 //Exception
-                System.out.print("Please enter y or n only.");
+                System.out.print("Please enter Y/N only.");
             }
         } while (!cancelProcess);
     }
