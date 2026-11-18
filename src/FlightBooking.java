@@ -185,9 +185,9 @@ public class FlightBooking {
         return (calcTotalFare()-discount);
     }
 
-    public double CheckoutNonMember(boolean hasPromo){
+    public double CheckoutNonMember(boolean usedPromo){
         double totalPayment = calcTotalFare();
-        if (hasPromo){
+        if (usedPromo){
             totalPayment = calcTotalFare()*0.9;
         }
         return totalPayment;

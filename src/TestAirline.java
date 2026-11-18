@@ -677,7 +677,9 @@ public class TestAirline {
 
         System.out.println("\n1. Sign up as a new user" +
                 "\n2. Check user details");
+
         System.out.print("Enter your choice (1-2): ");
+
         int choice = input.nextInt();
         switch (choice){
             case 1:
