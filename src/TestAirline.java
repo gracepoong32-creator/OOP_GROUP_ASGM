@@ -200,6 +200,7 @@ public class TestAirline {
         System.out.print("\nEnter departure flight Id: ");
         String inputFlight = input.nextLine();
         FlightDatabase selectedFlight = matchFlight(flightDatabaseArr, inputFlight); //Check for one-way and the first trip
+
         while (selectedFlight == null){
             System.out.print("\nEnter departure flight Id: ");
             inputFlight = input.nextLine();
@@ -217,6 +218,7 @@ public class TestAirline {
             inputReturnFlight = input.nextLine();
             //Match return flight with database
             selectedReturnFlight = matchFlight(flightDatabaseArr, inputReturnFlight); //Check for round-trip
+
             while (selectedReturnFlight == null){
                 System.out.print("\nEnter returning flight Id: ");
                 inputReturnFlight = input.nextLine();
