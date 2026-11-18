@@ -325,8 +325,7 @@ public class TestAirline {
 
     //Feature 1: Check user (member/non-member) during checkout
     public static int checkoutLoyalty(Scanner input, ArrayList<User> userArr, FlightBooking flightBooking, ArrayList<FlightBooking> flightBookingArr) {
-
-        //Variables
+        User user = new NonMember();
         double discount = 0.0;
         double pointsRedeem = 0;
         User u = null;
@@ -340,7 +339,7 @@ public class TestAirline {
 
             if (inputUserId.equals("-")) {
                 System.out.println("\nPlease sign up to continue to checkout >>>");
-                u = signUpNonMember(input, userArr);
+                u = User.signUpNonMember(input, userArr);
                 userIndex = userArr.indexOf(u);
             } else {
                 u = matchUser(userArr, inputUserId);
@@ -487,45 +486,6 @@ public class TestAirline {
             }
         }
         return null;
-    }
-
-    //Feature 1: Sign up during checkout & Feature 5: Sign up as a user
-    public static NonMember signUpNonMember(Scanner input, ArrayList<User> userArr) {
-        System.out.print("\n\nNEW NON MEMBER SIGN UP\n------------------------\n");
-        System.out.print("Enter first name: ");
-        String firstName = input.nextLine();
-        System.out.print("Enter last name: ");
-        String lastName = input.nextLine();
-
-        int age = 0;
-        boolean valid = false;
-        while (!valid) {
-            try {
-                System.out.print("Enter age: ");
-                age = input.nextInt();
-                input.nextLine(); //clears leftover newline from age input
-
-                if (age <= 0) {
-                    System.out.println("Invalid input, please enter again");
-                } else {
-                    valid = true;
-                }
-            } catch (Exception e) {
-                System.out.println("Invalid input, please enter again");
-                input.nextLine(); //clears leftover newline
-            }
-        }
-
-        String newUserId = "M" + (101 + userArr.size());
-        NonMember nm = new NonMember(firstName, lastName, age, newUserId);
-        userArr.add(nm);
-
-        System.out.println("\n------------------------------------------");
-        System.out.println("Account created successfully!");
-        System.out.println("Your new User Id: " + newUserId);
-        System.out.println("==========================================\n");
-
-        return nm;
     }
 
     //Feature 2: Check in
@@ -714,6 +674,8 @@ public class TestAirline {
 
     //Feature 5: Loyalty member
     public static void loyaltyMember(Scanner input, ArrayList <User> userArr){
+        User user = new NonMember();
+
         System.out.println("\n1. Sign up as a new user" +
                 "\n2. Check user details");
         System.out.print("Enter your choice (1-2): ");
@@ -721,7 +683,7 @@ public class TestAirline {
         switch (choice){
             case 1:
                 input.nextLine();
-                NonMember nm = signUpNonMember(input, userArr);
+                NonMember nm = User.signUpNonMember(input, userArr);
                 break;
             case 2:
 
