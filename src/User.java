@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public abstract class User {
     private String firstName;
     private String lastName;
@@ -31,4 +34,8 @@ public abstract class User {
 
     @Override
     public abstract String toString();
+
+    public void findUser(Scanner input, ArrayList <User> userArr){
+
+    }
 }

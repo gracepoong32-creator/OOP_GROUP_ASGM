@@ -91,17 +91,18 @@ public class TestAirline {
                     checkIn(flightBookingArr, checkInArr, userArr, input);
                     break;
                 case 3:
-                    System.out.print("Flight cancellation");
+                    System.out.print("-----Flight cancellation-----");
                     flightCancellation(flightBookingArr, input);
                     break;
                 case 4:
-                    System.out.print("Summary of upcoming flight schedule");
+                    System.out.print("-----Summary of upcoming flight schedule-----");
                     break;
                 case 5:
-                    System.out.print("Loyalty Programme");
+                    System.out.print("-----Loyalty Programme-----");
+                    loyaltyMember(input, userArr);
                     break;
                 case 6:
-                    System.out.print("Exit");
+                    System.out.print("-----Exit------");
                     break;
                 default:
                     System.out.println("Please enter again");
@@ -500,17 +501,17 @@ public class TestAirline {
         boolean valid = false;
         while (!valid) {
             try {
-                System.out.print("\nEnter age: ");
+                System.out.print("Enter age: ");
                 age = input.nextInt();
                 input.nextLine(); //clears leftover newline from age input
 
                 if (age <= 0) {
-                    System.out.print("Invalid input, please enter again");
+                    System.out.println("Invalid input, please enter again");
                 } else {
                     valid = true;
                 }
             } catch (Exception e) {
-                System.out.print("Invalid input, please enter again");
+                System.out.println("Invalid input, please enter again");
                 input.nextLine(); //clears leftover newline
             }
         }
@@ -519,7 +520,7 @@ public class TestAirline {
         NonMember nm = new NonMember(firstName, lastName, age, newUserId);
         userArr.add(nm);
 
-        System.out.println("------------------------------------------");
+        System.out.println("\n------------------------------------------");
         System.out.println("Account created successfully!");
         System.out.println("Your new User Id: " + newUserId);
         System.out.println("==========================================\n");
@@ -712,13 +713,21 @@ public class TestAirline {
     }
 
     //Feature 5: Loyalty member
-    public static void loyaltyMember(Scanner input){
+    public static void loyaltyMember(Scanner input, ArrayList <User> userArr){
         System.out.println("\n1. Sign up as a new user" +
                 "\n2. Check user details");
         System.out.print("Enter your choice (1-2): ");
         int choice = input.nextInt();
+        switch (choice){
+            case 1:
+                input.nextLine();
+                NonMember nm = signUpNonMember(input, userArr);
+                break;
+            case 2:
 
-
-
+                break;
+            default:
+                System.out.println("Please enter 1 or 2 only.");
+        }
     }
 }
