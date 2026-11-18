@@ -488,7 +488,7 @@ public class TestAirline {
         return null;
     }
 
-    //Feature 1: Sign up during checkout
+    //Feature 1: Sign up during checkout & Feature 5: Sign up as a user
     public static NonMember signUpNonMember(Scanner input, ArrayList<User> userArr) {
         System.out.print("\n\nNEW NON MEMBER SIGN UP\n------------------------\n");
         System.out.print("Enter first name: ");
@@ -709,5 +709,16 @@ public class TestAirline {
         for (FlightSchedule schedule : flightSchedulesArr) {
 
         }
+    }
+
+    //Feature 5: Loyalty member
+    public static void loyaltyMember(Scanner input){
+        System.out.println("\n1. Sign up as a new user" +
+                "\n2. Check user details");
+        System.out.print("Enter your choice (1-2): ");
+        int choice = input.nextInt();
+
+
+
     }
 }
