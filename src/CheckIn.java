@@ -131,6 +131,4 @@ public String randomBoardingGate() {
     int randomBoardingGateAlphabet = random.nextInt(0, 5);
     return boardingGate = randomNum + boardingGateAlphabet[randomBoardingGateAlphabet];
 }
-
-
 }
