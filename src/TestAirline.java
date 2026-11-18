@@ -9,10 +9,12 @@ public class TestAirline {
     static void main(String[] args) {
         Scanner input = new Scanner(System.in); //Input scanner
         Random random = new Random(); //Random
+        CheckIn checkIn = new CheckIn();
 
         //Arraylist for preset flight schedules, flights booked, checked in, loyalty members, upcoming flight schedule
         ArrayList<FlightDatabase> flightDatabaseArr = new ArrayList<>();
         ArrayList<FlightBooking> flightBookingArr = new ArrayList<>();
+        ArrayList <CheckIn> boardingGateArr = new ArrayList<>();
         ArrayList<CheckIn> checkInArr = new ArrayList<>();
         ArrayList<User> userArr = new ArrayList<>();
         ArrayList<FlightSchedule> flightScheduleArr = new ArrayList<>();
@@ -54,6 +56,11 @@ public class TestAirline {
         flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(7), LocalDateTime.of(2026, 11, 22, 7, 0), "G11", "On Time"));
         flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(8), LocalDateTime.of(2026, 11, 22, 9, 0), "D3", "On Time"));
         flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(9), LocalDateTime.of(2026, 11, 22, 11, 0), "C1", "On Time"));
+
+        //Preset the boarding Gate today
+        for (int i = 0 ; i < flightDatabaseArr.size(); i++){
+            boardingGateArr.add(new CheckIn(flightDatabaseArr.get(i).getFlightNum(), LocalDateTime.now().getDayOfMonth() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getYear(), checkIn.randomBoardingGate()));
+        }
 
         //Preset 5 loyalty members
         userArr.add(new Member("Jane", "Smith", 18, "M101", 50, "Bronze Tier", 700.00));

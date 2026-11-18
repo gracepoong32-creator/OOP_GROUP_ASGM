@@ -8,9 +8,17 @@ public class CheckIn {  //find implement user interface
     private String seatNumber;
     private String lastName;
     private int bookingNumber;
+    private String flightId;
+    private String depDate;
 
     //default constructor
     public CheckIn() {
+    }
+
+    public CheckIn(String flightId, String depDate, String boardingGate){
+        this.boardingGate = boardingGate;
+        this.flightId = flightId;
+        this.depDate = depDate;
     }
 
     public CheckIn(String lastName, int bookingNumber, boolean checkIn, String boardingGate, String seatNumber) {
@@ -76,6 +84,22 @@ public class CheckIn {  //find implement user interface
 
     public void setRoundCheckIn(boolean roundCheckIn) {
         this.roundCheckIn = roundCheckIn;
+    }
+
+    public String getFlightId(){
+        return flightId;
+    }
+
+    public void setFlightId(String flightId) {
+        this.flightId = flightId;
+    }
+
+    public String getDepDate() {
+        return depDate;
+    }
+
+    public void setDepDate(String depDate) {
+        this.depDate = depDate;
     }
 
     //Online Boarding Pass
