@@ -611,8 +611,12 @@ public class TestAirline {
                 System.out.println(checkIn.toString(flightBookingArr, bookingIndex, checkInArr));
 
             } else if (checkInReturn.equalsIgnoreCase("N")) {
-                System.out.println("WOR WODWMOEEOIWFJFWIOEJfio");
+                System.out.println("You can check in for the return trip 24 hours before the flight.");
+            }else {
+                System.out.println("Please enter again.");
             }
+        }else{
+            System.out.println(checkIn.toString(flightBookingArr, bookingIndex, checkInArr));
         }
     }
 
