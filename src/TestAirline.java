@@ -285,7 +285,7 @@ public class TestAirline {
         //For check in purpose
         boolean checkIn = false; //exception if cancel booking dont come in this check in add
         boolean roundCheckIn = false;
-        String boardingGate = " ";
+        String boardingGate = null;
         String seatNumber = " ";
 
         if (flightBookingArr.getLast().getTripType().equalsIgnoreCase("one-way")){
@@ -511,6 +511,7 @@ public class TestAirline {
         int ageRestrict = 0;
         String name;
         int bookingNumber = 0;
+        String boardingGate = null;
 
         //Check Booking Number
         do {
@@ -558,12 +559,11 @@ public class TestAirline {
         else if (checkInArr.get(bookingIndex).isCheckIn() && flightBookingArr.get(bookingIndex).getTripType().equalsIgnoreCase("one-way")) {
             System.out.println("You have been checked in.");
         } else { //First time check in
-            String boardingGate = checkIn.checkBoardingGate(boardingGateArr, flightBookingArr.get(bookingIndex).getDepDate());
             String seatNumber = checkIn.randomSeatNumber(flightBookingArr, bookingIndex);
             System.out.println("Your seat has been automatically given as " + seatNumber);
             checkInArr.get(bookingIndex).setCheckIn(true);
-            checkInArr.get(bookingIndex).setBoardingGate(boardingGate);
             checkInArr.get(bookingIndex).setSeatNumber(seatNumber);
+            checkInArr.get(bookingIndex).setBoardingGate(boardingGate);
 
         }
         //Avoid age under 16 print boarding pass

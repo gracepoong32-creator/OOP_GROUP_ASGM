@@ -8,16 +8,16 @@ public class CheckIn {  //find implement user interface
     private String seatNumber;
     private String lastName;
     private int bookingNumber;
-    private String flightId;
+    private String flightNum;
     private String depDate;
 
     //default constructor
     public CheckIn() {
     }
 
-    public CheckIn(String flightId, String depDate, String boardingGate) {
+    public CheckIn(String flightNum, String depDate, String boardingGate) {
         this.boardingGate = boardingGate;
-        this.flightId = flightId;
+        this.flightNum = flightNum;
         this.depDate = depDate;
     }
 
@@ -86,12 +86,12 @@ public class CheckIn {  //find implement user interface
         this.roundCheckIn = roundCheckIn;
     }
 
-    public String getFlightId() {
-        return flightId;
+    public String getFlightNum() {
+        return flightNum;
     }
 
-    public void setFlightId(String flightId) {
-        this.flightId = flightId;
+    public void setFlightNum(String flightNum) {
+        this.flightNum = flightNum;
     }
 
     public String getDepDate() {
@@ -169,7 +169,7 @@ public class CheckIn {  //find implement user interface
                 boolean crash = false; //Initial did not crash
 
                 for (int i = 0; i < boardingGateArr.size(); i++) { //Check in the Array
-                    if (boardingGateArr.get(i).getBoardingGate().equalsIgnoreCase(boardingGate) && boardingGateArr.get(i).getDepDate().equals(localDate)) {
+                    if (boardingGateArr.get(i).getBoardingGate() != null && boardingGateArr.get(i).getBoardingGate().equalsIgnoreCase(boardingGate) && boardingGateArr.get(i).getDepDate().equals(localDate)) {
                         crash = true;
                         break;
                     }
