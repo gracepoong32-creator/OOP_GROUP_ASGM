@@ -168,8 +168,8 @@ public class CheckIn {  //find implement user interface
             if (!boardingGateArr.isEmpty()) {
                 boolean crash = false; //Initial did not crash
 
-                for (int i = 0; i < boardingGateArr.size(); i++) { //Check in the Array
-                    if (boardingGateArr.get(i).getBoardingGate() != null && boardingGateArr.get(i).getBoardingGate().equalsIgnoreCase(boardingGate) && boardingGateArr.get(i).getDepDate().equals(localDate)) {
+                for (int i = 0; i < boardingGateArr.size(); i++) {//Check in the Array
+                    if (boardingGateArr.get(i).getBoardingGate().equalsIgnoreCase(boardingGate) && boardingGateArr.get(i).getDepDate().equals(localDate)) {
                         crash = true;
                         break;
                     }
