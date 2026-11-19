@@ -158,27 +158,33 @@ public class CheckIn {  //find implement user interface
     }
 
     //Check Boarding Gate crash or not
-    public String checkBoardingGate(ArrayList<CheckIn> boardingGateArr) {
-        //Preset a random Boarding Gate
-        boardingGate = randomBoardingGate();
+    public String checkBoardingGate(ArrayList<CheckIn> boardingGateArr, String localDate) {
 
-        while (true){
+        while (true) {
+            //Preset a random Boarding Gate
+            boardingGate = randomBoardingGate();
+
+            //Alr have information, maybe crash
             if (!boardingGateArr.isEmpty()) {
-                int count = 0;
-                for (int i = 0; i < boardingGateArr.size(); i++) { //Alr have information, maybe crash
-                    if (boardingGateArr.get(i).getBoardingGate().equalsIgnoreCase(boardingGate)) {
-                        boardingGate = randomBoardingGate();
+                boolean crash = false; //Initial did not crash
+
+                for (int i = 0; i < boardingGateArr.size(); i++) { //Check in the Array
+                    if (boardingGateArr.get(i).getBoardingGate().equalsIgnoreCase(boardingGate) && boardingGateArr.get(i).getDepDate().equals(localDate)) {
+                        crash = true;
                         break;
-                    }else {
-                        count++;
                     }
                 }
-                if (count > 0){
+                //If did not crash than jump out
+                if (!crash) {
                     break;
                 }
 
+            //If is empty just jump out of loop
+            } else {
+                break;
             }
         }
+
         return boardingGate;
     }
 

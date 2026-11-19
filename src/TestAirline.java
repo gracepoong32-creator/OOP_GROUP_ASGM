@@ -58,8 +58,9 @@ public class TestAirline {
         flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(9), LocalDateTime.of(2026, 11, 22, 11, 0), "C1", "On Time"));
 
         //Preset the boarding Gate today
+        String localDate = LocalDateTime.now().getDayOfMonth() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getYear();
         for (int i = 0 ; i < flightDatabaseArr.size(); i++){
-            boardingGateArr.add(new CheckIn(flightDatabaseArr.get(i).getFlightNum(), LocalDateTime.now().getDayOfMonth() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getYear(), checkIn.randomBoardingGate()));
+            boardingGateArr.add(new CheckIn(flightDatabaseArr.get(i).getFlightNum(), localDate , checkIn.checkBoardingGate(boardingGateArr, localDate)));
         }
 
         //Preset 5 loyalty members
@@ -91,7 +92,7 @@ public class TestAirline {
             switch (option) {
                 case 1:
                     System.out.print("\n-----Flight Booking-----");
-                    bookFlight(flightDatabaseArr, flightBookingArr, input, random, checkInArr, userArr);
+                    bookFlight(flightDatabaseArr, flightBookingArr, input, random, checkInArr, userArr, boardingGateArr);
                     break;
                 case 2:
                     System.out.print("-----Check In-----");
@@ -121,7 +122,7 @@ public class TestAirline {
     }
 
     //Feature 1: Flight booking
-    public static void bookFlight(ArrayList<FlightDatabase> flightDatabaseArr, ArrayList<FlightBooking> flightBookingArr, Scanner input, Random random, ArrayList<CheckIn> checkInArr, ArrayList<User> userArr) {
+    public static void bookFlight(ArrayList<FlightDatabase> flightDatabaseArr, ArrayList<FlightBooking> flightBookingArr, Scanner input, Random random, ArrayList<CheckIn> checkInArr, ArrayList<User> userArr, ArrayList <CheckIn> boardingGateArr) {
 
         //Variables
         String inputReturnDate = null;
@@ -282,7 +283,7 @@ public class TestAirline {
         flightBookingArr.getLast().setFirstName(userArr.get(userIndex).getFirstName());
 
         //For check in purpose
-        boolean checkIn = false;
+        boolean checkIn = false; //exception if cancel booking dont come in this check in add
         boolean roundCheckIn = false;
         String boardingGate = " ";
         String seatNumber = " ";
@@ -292,6 +293,7 @@ public class TestAirline {
         }else {
             checkInArr.add(new CheckIn(userArr.get(userIndex).getLastName(), bookingNum, roundCheckIn,checkIn, boardingGate, seatNumber));
         }
+        boardingGateArr.add(new CheckIn(flightBookingArr.getLast().getFlightId().getFlightNum(), flightBookingArr.getLast().getDepDate(),boardingGate ));
 
     }
 
@@ -556,7 +558,7 @@ public class TestAirline {
         else if (checkInArr.get(bookingIndex).isCheckIn() && flightBookingArr.get(bookingIndex).getTripType().equalsIgnoreCase("one-way")) {
             System.out.println("You have been checked in.");
         } else { //First time check in
-            String boardingGate = checkIn.randomBoardingGate();
+            String boardingGate = checkIn.checkBoardingGate(boardingGateArr, flightBookingArr.get(bookingIndex).getDepDate());
             String seatNumber = checkIn.randomSeatNumber(flightBookingArr, bookingIndex);
             System.out.println("Your seat has been automatically given as " + seatNumber);
             checkInArr.get(bookingIndex).setCheckIn(true);
@@ -569,7 +571,7 @@ public class TestAirline {
             System.out.println(checkIn.toString(flightBookingArr, bookingIndex, checkInArr));
         }
 
-        if (!checkInArr.get(bookingIndex).isRoundCheckIn()){
+        if (!checkInArr.get(bookingIndex).isRoundCheckIn() && flightBookingArr.get(bookingIndex).getTripType().equalsIgnoreCase("round trip")){
             System.out.print("\nDo you want to check in for the return trip (Y for yes/ N for no): ");
             String checkInReturn = input.nextLine();
             if (checkInReturn.equalsIgnoreCase("y")){
@@ -586,8 +588,6 @@ public class TestAirline {
             }else {
                 System.out.println("Please enter again.");
             }
-        }else{
-            System.out.println(checkIn.toString(flightBookingArr, bookingIndex, checkInArr));
         }
     }
 
