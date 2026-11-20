@@ -142,17 +142,14 @@ public class TestAirline {
 
         //Variables
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy"); //date format
-        String todayDate = LocalDate.now().getDayOfMonth() + "-" + LocalDate.now().getMonthValue() + "-" + LocalDate.now().getYear(); //initial today date
+        String todayDate = LocalDate.now().getDayOfMonth() + "-" + LocalDate.now().getMonthValue() + "-" + LocalDate.now().getYear(); //initialize today's date
         LocalDate initialDate = LocalDate.parse(LocalDate.now().getDayOfMonth() + "-" + LocalDate.now().getMonthValue() + "-" + LocalDate.now().getYear(), dateFormat); //change format and save
         String inputReturnDate = null;
         String inputReturnFlight;
         FlightDatabase selectedReturnFlight = null;
         FlightBooking flightBooking;
         boolean valid = false;
-        String inputTypeTrip = "";
-        String inputCabinClass = "";
-        String lastName = "";
-        String firstName = "";
+        String firstName = "", lastName = "", inputTypeTrip = "", inputCabinClass = "";
         String inputDepDate = "";
         LocalDate depDate;
 
