@@ -107,7 +107,6 @@ public class TestAirline {
                     displayFlightSchedule(flightScheduleArr);
                     break;
                 case 5:
-                    System.out.print("-----Loyalty Programme-----");
                     loyaltyMember(input, userArr);
                     break;
                 case 6:
@@ -722,29 +721,39 @@ public class TestAirline {
 
     //Feature 5: Loyalty member
     public static void loyaltyMember(Scanner input, ArrayList <User> userArr){
-
-        System.out.println("\n\n1. Sign up as a new user" +
-                "\n2. Check user details");
-
-        System.out.print("Enter your choice (1-2): ");
-
-        int choice = input.nextInt();
-        switch (choice){
-            case 1:
-                input.nextLine();
-                NonMember nm = User.signUpNonMember(input, userArr);
-                System.out.println(nm.toString());
-                break;
-            case 2:
-                User user = User.findUser(input, userArr);
-                if (user instanceof Member member){
-                    System.out.println(member.toString());
-                }else if (user instanceof NonMember nonMember){
-                    System.out.println(nonMember.toString());
+        int choice = 0;
+        while (true){
+            System.out.println("\n-----Loyalty Programme-----");
+            System.out.println("1. Sign up as a new user" +
+                    "\n2. Check user details");
+            System.out.print("Enter your choice (1-2): ");
+            try{
+                choice = input.nextInt();
+                switch (choice) {
+                    case 1:
+                        input.nextLine();
+                        NonMember nm = User.signUpNonMember(input, userArr);
+                        System.out.println(nm.toString());
+                        break;
+                    case 2:
+                        User user = User.findUser(input, userArr);
+                        if (user instanceof Member member) {
+                            System.out.println(member.toString());
+                        } else if (user instanceof NonMember nonMember) {
+                            System.out.println(nonMember.toString());
+                        }
+                        break;
+                    default:
+                        System.out.println("Please enter 1 or 2 only.");
                 }
-                break;
-            default:
-                System.out.println("Please enter 1 or 2 only.");
+                if (choice == 1 || choice == 2){
+                    break;
+                }
+            } catch (Exception e) {
+                System.out.println("Please enter again.");
+                input.nextLine(); //Clear
+            }
         }
+
     }
 }
