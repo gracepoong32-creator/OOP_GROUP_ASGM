@@ -171,7 +171,7 @@ public class TestAirline {
             }
         }
 
-        //Depature date
+        //Departure date
         while (true){
             try{
                 System.out.print("Enter departure date (DD-MM-YYYY): ");
@@ -437,7 +437,7 @@ public class TestAirline {
 
             if (confirmPayment.equalsIgnoreCase("Y")) {
                 double amountPaid = flightBooking.calcTotalFare() - discount;
-                double totalAmount = flightBooking.CheckoutMember(discount);
+                double totalAmount = flightBooking.checkoutMember(discount);
                 flightBookingArr.getLast().setTotalPaid(totalAmount);
 
                 System.out.print(flightBooking.printPayment(totalAmount));
@@ -489,7 +489,7 @@ public class TestAirline {
             }
 
             if (confirmPayment.equalsIgnoreCase("Y")) {
-                double totalAmount = flightBooking.CheckoutNonMember(usePromo);
+                double totalAmount = flightBooking.checkoutNonMember(usePromo);
                 flightBookingArr.getLast().setTotalPaid(totalAmount);
                 System.out.print(flightBooking.printPayment(totalAmount));
                 System.out.print(nm.updatedNonMemberProfile(usePromo));
@@ -505,7 +505,7 @@ public class TestAirline {
                     System.out.print("\n\n=========================================="
                             + "\n       LOYALTY TIER UPGRADE!        "
                             + "\n=========================================="
-                            + "\nCongrats!! You have reached 10 booking"
+                            + "\nCongrats!! You have reached 10 bookings"
                             + "\nAccount (" + nm.getUserId() + ") upgraded to Loyalty Member (Bronze)"
                             + "\n==========================================\n\n");
                 }
