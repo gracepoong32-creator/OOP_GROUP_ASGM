@@ -31,7 +31,7 @@ public class Member extends User{
     //Method to print out all member details
     @Override
     public String toString(){
-        return "\n\n\n==========================================\n"
+        return "\n\n==========================================\n"
                 +"           LOYALTY MEMBER DETAILS         \n"
                 +"=========================================="
                 + "\nUser Id: " + super.getUserId()

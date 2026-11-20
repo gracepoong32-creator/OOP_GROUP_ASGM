@@ -46,15 +46,15 @@ public abstract class User {
     }
 
     //Find user member id in Arraylist
-    public static void findUser(Scanner input, ArrayList <User> userArr){
+    public static User findUser(Scanner input, ArrayList <User> userArr){
         input.nextLine();
-
+        User u = null;
         while (true){
             System.out.print("\nEnter member id (- if dont have, ? for forgot): ");
             String userId = input.nextLine();
 
             if (userId.equalsIgnoreCase("-")){
-                signUpNonMember(input, userArr);
+                u = signUpNonMember(input, userArr);
                 break;
             } else if (userId.equalsIgnoreCase("?")) {
                 System.out.print("Enter first name: ");
@@ -65,6 +65,7 @@ public abstract class User {
                 for (User user: userArr){
                     if (user.getFirstName().equalsIgnoreCase(firstName) && user.getLastName().equalsIgnoreCase(lastName)){
                         System.out.println("Your member id is found: " + user.getUserId());
+                        u = user;
                         userCheck = true;
                         break;
                     }
@@ -76,15 +77,16 @@ public abstract class User {
                 }
 
             } else{
-                User u = matchUser(userArr, userId);
+                u = matchUser(userArr, userId);
                 if (u != null){
+                    System.out.println("Member id found.");
                     break;
                 }else{
                     System.out.println("The member id you entered is not found. Please enter again.");
                 }
             }
         }
-
+        return u;
     }
 
     //Feature 1: Sign up during checkout & Feature 5: Sign up as a user
@@ -125,4 +127,6 @@ public abstract class User {
 
         return nm;
     }
+
+
 }

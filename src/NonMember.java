@@ -40,7 +40,7 @@ public class NonMember extends User {
 
     @Override
     public String toString(){
-        return "\n\n\n==========================================\n"
+        return "\n\n==========================================\n"
                 +"           NON MEMBER DETAILS         \n"
                 +"=========================================="
                 + "\nUser Id: " + super.getUserId()

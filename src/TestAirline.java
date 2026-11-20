@@ -735,7 +735,12 @@ public class TestAirline {
                 NonMember nm = User.signUpNonMember(input, userArr);
                 break;
             case 2:
-                User.findUser(input, userArr);
+                User user = User.findUser(input, userArr);
+                if (user instanceof Member member){
+                    System.out.println(member.toString());
+                }else if (user instanceof NonMember nonMember){
+                    System.out.println(nonMember.toString());
+                }
                 break;
             default:
                 System.out.println("Please enter 1 or 2 only.");
