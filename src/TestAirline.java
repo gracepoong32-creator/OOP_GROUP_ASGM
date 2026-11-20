@@ -1,4 +1,6 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Random;
@@ -135,6 +137,9 @@ public class TestAirline {
     public static void bookFlight(ArrayList<FlightDatabase> flightDatabaseArr, ArrayList<FlightBooking> flightBookingArr, Scanner input, Random random, ArrayList<CheckIn> checkInArr, ArrayList<User> userArr, ArrayList <CheckIn> boardingGateArr) {
 
         //Variables
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String todayDate = LocalDate.now().getDayOfMonth() + "-" + LocalDate.now().getMonthValue() + "-" + LocalDate.now().getYear();
+        LocalDate initialDate = LocalDate.parse(LocalDate.now().getDayOfMonth() + "-" + LocalDate.now().getMonthValue() + "-" + LocalDate.now().getYear(), dateFormat);
         String inputReturnDate = null;
         String inputReturnFlight;
         FlightDatabase selectedReturnFlight = null;
@@ -144,6 +149,8 @@ public class TestAirline {
         String inputCabinClass = "";
         String lastName = "";
         String firstName = "";
+        String inputDepDate = "";
+        LocalDate depDate;
 
         //Gather all user input for flight booking
         input.nextLine();
@@ -158,13 +165,41 @@ public class TestAirline {
             }
         }
 
-        System.out.print("Enter departure date (DD-MM-YYYY): ");
-        String inputDepDate = input.nextLine();
+        while (true){
+            try{
+                System.out.print("Enter departure date (DD-MM-YYYY): ");
+                inputDepDate = input.nextLine();
+                depDate = LocalDate.parse(inputDepDate, dateFormat);
+                if (depDate.isBefore((initialDate)) || depDate.isEqual(initialDate)){
+                    System.out.println("Please enter a date after " + todayDate);
+                }else {
+                    break;
+                }
+            } catch (Exception e) {
+                System.out.println("Please enter a valid date.");
+            }
+
+        }
+
 
         //Round trip requires returning date input
         if (inputTypeTrip.equalsIgnoreCase("round trip")) {
-            System.out.print("Enter returning date (DD-MM-YYYY): ");
-            inputReturnDate = input.nextLine();
+            while (true){
+                try{
+                    System.out.print("Enter returning date (DD-MM-YYYY): ");
+                    inputReturnDate = input.nextLine();
+                    LocalDate returnDate = LocalDate.parse(inputReturnDate, dateFormat);
+                    if (returnDate.isBefore(depDate) || returnDate.isEqual(depDate)){
+                        System.out.println("Please enter a date after " + inputDepDate);
+                    }else {
+                        break;
+                    }
+                }catch (Exception e){
+                    System.out.println("Please enter a valid date.");
+                }
+            }
+
+
         }
 
         valid = false; //reinitialize
