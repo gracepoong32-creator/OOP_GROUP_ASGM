@@ -86,9 +86,6 @@ public class TestAirline {
         //Airline Management System Menu UI
         int option = 0;
         do {
-            for (FlightBooking fb : flightBookingArr){
-                System.out.println(fb.toString());
-            }
             System.out.print("\nWelcome to AirWorld. Please choose the option below to proceed:" +
                     "\n1. Flight Booking" +
                     "\n2. Flight Check In" +
@@ -587,17 +584,22 @@ public class TestAirline {
 
         //Check Booking Number
         do {
-            System.out.print("\nEnter your booking number: ");
-            bookingNumber = input.nextInt();
-            for (bookingIndex = 0; bookingIndex < flightBookingArr.size(); bookingIndex++) {
-                if (bookingNumber == flightBookingArr.get(bookingIndex).getBookingNumber()) {
-                    checkBookingNumber = true;
-                    break;
+            try{
+                System.out.print("\nEnter your booking number: ");
+                bookingNumber = input.nextInt();
+                for (bookingIndex = 0; bookingIndex < flightBookingArr.size(); bookingIndex++) {
+                    if (bookingNumber == flightBookingArr.get(bookingIndex).getBookingNumber()) {
+                        checkBookingNumber = true;
+                        break;
+                    }
                 }
+                if (!checkBookingNumber){
+                    System.out.println("The booking number is invalid or not found. Please try again.");
+                }
+            } catch (Exception e) {
+                System.out.println("Please enter a valid booking number");
             }
-            if (!checkBookingNumber){
-                System.out.println("The booking number is invalid or not found. Please try again.");
-            }
+
         } while (!checkBookingNumber);
 
         //Check Name
