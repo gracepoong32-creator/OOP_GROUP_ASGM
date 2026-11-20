@@ -333,15 +333,25 @@ public class TestAirline {
         flightBookingArr.add(flightBooking);
         System.out.print(flightBooking); //Print pre check-out summary
 
-        //Enter check loyalty member
-        int userIndex = checkoutLoyalty(input, userArr, flightBooking, flightBookingArr);
-
-        //For check in purpose
-        //Variables
         boolean checkIn = false; //exception if cancel booking dont come in this check in add
         boolean roundCheckIn = false;
         String boardingGate = "To be Determined";
         String seatNumber = " ";
+        int userIndex = 0;
+
+        if (flightBookingArr.getLast().getTripType().equalsIgnoreCase("one-way")){
+            checkInArr.add(new CheckIn(userArr.get(userIndex).getLastName(), bookingNum, checkIn, boardingGate, seatNumber));
+        }else {
+            checkInArr.add(new CheckIn(userArr.get(userIndex).getLastName(), bookingNum, roundCheckIn,checkIn, boardingGate, seatNumber));
+        }
+
+        //Enter check loyalty member
+        userIndex = checkoutLoyalty(input, userArr, flightBooking, flightBookingArr);
+
+        //For check in purpose
+        //Variables
+
+
 
         //Add in checkInArr
         if (flightBookingArr.getLast().getTripType().equalsIgnoreCase("one-way")){
@@ -513,6 +523,7 @@ public class TestAirline {
                 flightBookingArr.getLast().setFirstName(userArr.get(userIndex).getFirstName());
 
             } else {
+                flightBookingArr.remove(flightBookingArr.getLast());
                 System.out.print("Payment cancelled. Returning to main menu...\n\n");
             }
         }
