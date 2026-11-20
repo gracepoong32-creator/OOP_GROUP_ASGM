@@ -38,7 +38,7 @@ public class TestAirline {
         flightDatabaseArr.add(new FlightDatabase("MH237", "MAS", "BKI", "KUL", "Economy", 733.00, "1200"));
         flightDatabaseArr.add(new FlightDatabase("MH128", "MAS", "BKI", "KUL", "Economy", 673.00, "2300"));
         flightDatabaseArr.add(new FlightDatabase("AK384", "AirAsia", "TPE", "KUL", "Economy", 769, "1730"));
-        flightDatabaseArr.add(new FlightDatabase("AK120", "AirAsia", "SGN", "KUL", "Business", 1029.00, "!400"));
+        flightDatabaseArr.add(new FlightDatabase("AK120", "AirAsia", "SGN", "KUL", "Business", 1029.00, "1400"));
         flightDatabaseArr.add(new FlightDatabase("OD184", "Batik Air", "DPS", "KUL", "Economy", 574.00, "1300"));
 
         flightDatabaseArr.add(new FlightDatabase("AK123", "AirAsia", "PEN", "KUL", "Economy", 230.00, "1130"));
@@ -598,6 +598,7 @@ public class TestAirline {
                 }
             } catch (Exception e) {
                 System.out.println("Please enter a valid booking number");
+                input.nextLine();
             }
 
         } while (!checkBookingNumber);
@@ -634,6 +635,8 @@ public class TestAirline {
         } //Check if check in before
         else if (checkInArr.get(bookingIndex).isCheckIn() && flightBookingArr.get(bookingIndex).getTripType().equalsIgnoreCase("one-way")) {
             System.out.println("You have been checked in.");
+        }else if (checkInArr.get(bookingIndex).isCheckIn() && checkInArr.get(bookingIndex).isRoundCheckIn()){
+            System.out.println("You have been checked in this round trip.");
         } else { //First time check in
             for (boardingGateIndex =0; boardingGateIndex < boardingGateArr.size(); boardingGateIndex++){
                 if (boardingGateArr.get(boardingGateIndex).getFlightNum().equalsIgnoreCase(flightBookingArr.get(bookingIndex).getFlightId().getFlightNum())){ //If flight booking Array Flight Number is same as boardingGate Array Flight Number
