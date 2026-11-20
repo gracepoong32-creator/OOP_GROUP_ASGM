@@ -95,12 +95,20 @@ public class TestAirline {
                     bookFlight(flightDatabaseArr, flightBookingArr, input, random, checkInArr, userArr, boardingGateArr);
                     break;
                 case 2:
-                    System.out.print("-----Check In-----");
-                    checkIn(flightBookingArr, checkInArr, userArr, input, boardingGateArr);
+                    if (flightBookingArr.isEmpty()){
+                        System.out.println("There is no booking to check in.");
+                    }else {
+                        System.out.print("-----Check In-----");
+                        checkIn(flightBookingArr, checkInArr, userArr, input, boardingGateArr);
+                    }
                     break;
                 case 3:
-                    System.out.print("-----Flight cancellation-----");
-                    flightCancellation(flightBookingArr, input);
+                    if (flightBookingArr.isEmpty()){
+                        System.out.println("There is no booking to check in.");
+                    }else {
+                        System.out.print("-----Flight cancellation-----");
+                        flightCancellation(flightBookingArr, input);
+                    }
                     break;
                 case 4:
                     System.out.print("-----Summary of upcoming flight schedule-----");
