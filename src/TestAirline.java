@@ -733,6 +733,7 @@ public class TestAirline {
             case 1:
                 input.nextLine();
                 NonMember nm = User.signUpNonMember(input, userArr);
+                System.out.println(nm.toString());
                 break;
             case 2:
                 User user = User.findUser(input, userArr);
