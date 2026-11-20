@@ -453,6 +453,11 @@ public class TestAirline {
 
                 System.out.print(flightBooking.printPayment(totalAmount));
                 System.out.print(m.updatedMemberProfile(amountPaid, discount));
+                flightBookingArr.getLast().setLastName(userArr.get(userIndex).getLastName());
+                flightBookingArr.getLast().setFirstName(userArr.get(userIndex).getFirstName());
+            } else {
+                flightBookingArr.removeLast();
+                System.out.println("You have cancelled the process");
             }
 
         } else if (u instanceof NonMember nm) { // For nonmember
