@@ -355,44 +355,6 @@ public class TestAirline {
         }
     }
 
-    //Feature 1: Match inputFlight with flightNum in FlightDatabase
-    public static FlightDatabase matchFlight(ArrayList<FlightDatabase> flightDatabaseArr, String inputFlight) {
-        for (FlightDatabase flight : flightDatabaseArr) {
-            if (flight.getFlightNum().equalsIgnoreCase(inputFlight)) {
-                return flight;
-            }
-        }
-        System.out.println("No matching flights");
-        return null;
-    }
-
-    //Feature 1: Match return flight with chosen flight locations (reverse from, 1to)
-    public static void matchReturnFlight(ArrayList<FlightDatabase> flightDatabaseArr, String inputFlight) {
-        FlightDatabase selectedFlight = matchFlight(flightDatabaseArr, inputFlight);
-
-        if (selectedFlight == null) {
-            return;
-        }
-        boolean foundReturn = false;
-
-        for (int i = 10; i < 20; i++) {
-
-            FlightDatabase returnFlight = flightDatabaseArr.get(i);
-
-            if (selectedFlight.getTo().equalsIgnoreCase(returnFlight.getFrom()) && selectedFlight.getFrom().equalsIgnoreCase(returnFlight.getTo())) {
-                foundReturn = true;
-                System.out.printf("%-10s %-12s %-6s %-6s %-12s RM%-10.2f %-6s\n",
-                        returnFlight.getFlightNum(), returnFlight.getAirline(),
-                        returnFlight.getFrom(), returnFlight.getTo(),
-                        returnFlight.getCabinClass(), returnFlight.getBasePrice(),
-                        returnFlight.getDepartureTime());
-            }
-        }
-        if (!foundReturn) {
-            System.out.print("No matching flights available");
-        }
-    }
-
     //Feature 1: Check user (member/non-member) during checkout
     public static int checkoutLoyalty(Scanner input, ArrayList<User> userArr, FlightBooking flightBooking, ArrayList<FlightBooking> flightBookingArr) {
         double discount = 0.0;
@@ -545,6 +507,44 @@ public class TestAirline {
             }
         }
         return userIndex;
+    }
+
+    //Feature 1: Match inputFlight with flightNum in FlightDatabase
+    public static FlightDatabase matchFlight(ArrayList<FlightDatabase> flightDatabaseArr, String inputFlight) {
+        for (FlightDatabase flight : flightDatabaseArr) {
+            if (flight.getFlightNum().equalsIgnoreCase(inputFlight)) {
+                return flight;
+            }
+        }
+        System.out.println("No matching flights");
+        return null;
+    }
+
+    //Feature 1: Match return flight with chosen flight locations (reverse from, 1to)
+    public static void matchReturnFlight(ArrayList<FlightDatabase> flightDatabaseArr, String inputFlight) {
+        FlightDatabase selectedFlight = matchFlight(flightDatabaseArr, inputFlight);
+
+        if (selectedFlight == null) {
+            return;
+        }
+        boolean foundReturn = false;
+
+        for (int i = 10; i < 20; i++) {
+
+            FlightDatabase returnFlight = flightDatabaseArr.get(i);
+
+            if (selectedFlight.getTo().equalsIgnoreCase(returnFlight.getFrom()) && selectedFlight.getFrom().equalsIgnoreCase(returnFlight.getTo())) {
+                foundReturn = true;
+                System.out.printf("%-10s %-12s %-6s %-6s %-12s RM%-10.2f %-6s\n",
+                        returnFlight.getFlightNum(), returnFlight.getAirline(),
+                        returnFlight.getFrom(), returnFlight.getTo(),
+                        returnFlight.getCabinClass(), returnFlight.getBasePrice(),
+                        returnFlight.getDepartureTime());
+            }
+        }
+        if (!foundReturn) {
+            System.out.print("No matching flights available");
+        }
     }
 
     //Feature 2: Check in
