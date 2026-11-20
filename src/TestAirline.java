@@ -514,6 +514,7 @@ public class TestAirline {
                 flightBookingArr.getLast().setFirstName(userArr.get(userIndex).getFirstName());
 
             } else {
+                flightBookingArr.remove(flightBookingArr.getLast());
                 System.out.print("Payment cancelled. Returning to main menu...\n\n");
             }
         }
