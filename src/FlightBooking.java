@@ -181,11 +181,11 @@ public class FlightBooking {
     }
 
 
-    public double CheckoutMember(double discount){
+    public double checkoutMember(double discount){
         return (calcTotalFare()-discount);
     }
 
-    public double CheckoutNonMember(boolean usePromo){
+    public double checkoutNonMember(boolean usePromo){
         double totalPayment = calcTotalFare();
         if (usePromo){
             totalPayment = calcTotalFare()*0.9;
