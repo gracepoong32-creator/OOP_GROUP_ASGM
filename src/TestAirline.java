@@ -347,8 +347,10 @@ public class TestAirline {
 
         //Enter check loyalty member
         userIndex = checkoutLoyalty(input, userArr, flightBooking, flightBookingArr);
+        if (flightBookingArr.isEmpty()){
+            checkInArr.removeLast();
 
-        if (flightBookingArr.getLast().getBookingNumber() == checkInArr.getLast().getBookingNumber()){
+        }else if (flightBookingArr.getLast().getBookingNumber() == checkInArr.getLast().getBookingNumber()){
             //Set back the user last name
             checkInArr.getLast().setLastName(userArr.get(userIndex).getLastName());
 
