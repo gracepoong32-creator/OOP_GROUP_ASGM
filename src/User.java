@@ -35,22 +35,56 @@ public abstract class User {
     @Override
     public abstract String toString();
 
-    public void findUser(Scanner input, ArrayList <User> userArr){
+    //Feature 1: Match user id if member/non-member
+    public static User matchUser(ArrayList<User> userArr, String inputUserId) {
+        for (User u : userArr) {
+            if (u.getUserId().equalsIgnoreCase(inputUserId)) {
+                return u;
+            }
+        }
+        return null;
+    }
+
+    //Find user member id in Arraylist
+    public static void findUser(Scanner input, ArrayList <User> userArr){
         input.nextLine();
 
-        System.out.print("Enter member id (- if dont have, ? for forgot): ");
-        String userId = input.nextLine();
+        while (true){
+            System.out.print("\nEnter member id (- if dont have, ? for forgot): ");
+            String userId = input.nextLine();
 
-        if (userId.equalsIgnoreCase("-")){
-            signUpNonMember(input, userArr);
-        } else if (userId.equalsIgnoreCase("?")) {
-            System.out.print("Enter first name: ");
-            String firstName = input.nextLine();
-            System.out.print("Enter last name: ");
-            String lastName = input.nextLine();
-        } else{
+            if (userId.equalsIgnoreCase("-")){
+                signUpNonMember(input, userArr);
+                break;
+            } else if (userId.equalsIgnoreCase("?")) {
+                System.out.print("Enter first name: ");
+                String firstName = input.nextLine();
+                System.out.print("Enter last name: ");
+                String lastName = input.nextLine();
+                boolean userCheck = false;
+                for (User user: userArr){
+                    if (user.getFirstName().equalsIgnoreCase(firstName) && user.getLastName().equalsIgnoreCase(lastName)){
+                        System.out.println("Your member id is found: " + user.getUserId());
+                        userCheck = true;
+                        break;
+                    }
+                }
+                if (!userCheck){
+                    System.out.println("The name you entered is not found. Please try again.");
+                }else {
+                    break;
+                }
 
+            } else{
+                User u = matchUser(userArr, userId);
+                if (u != null){
+                    break;
+                }else{
+                    System.out.println("The member id you entered is not found. Please enter again.");
+                }
+            }
         }
+
     }
 
     //Feature 1: Sign up during checkout & Feature 5: Sign up as a user

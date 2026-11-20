@@ -362,7 +362,7 @@ public class TestAirline {
                 u = User.signUpNonMember(input, userArr);
                 userIndex = userArr.indexOf(u);
             } else {
-                u = matchUser(userArr, inputUserId);
+                u = User.matchUser(userArr, inputUserId);
                 userIndex = userArr.indexOf(u);
             }
 
@@ -497,16 +497,6 @@ public class TestAirline {
             }
         }
         return userIndex;
-    }
-
-    //Feature 1: Match user id if member/non-member
-    public static User matchUser(ArrayList<User> userArr, String inputUserId) {
-        for (User u : userArr) {
-            if (u.getUserId().equalsIgnoreCase(inputUserId)) {
-                return u;
-            }
-        }
-        return null;
     }
 
     //Feature 2: Check in
@@ -733,7 +723,7 @@ public class TestAirline {
     //Feature 5: Loyalty member
     public static void loyaltyMember(Scanner input, ArrayList <User> userArr){
 
-        System.out.println("\n1. Sign up as a new user" +
+        System.out.println("\n\n1. Sign up as a new user" +
                 "\n2. Check user details");
 
         System.out.print("Enter your choice (1-2): ");
@@ -745,7 +735,7 @@ public class TestAirline {
                 NonMember nm = User.signUpNonMember(input, userArr);
                 break;
             case 2:
-
+                User.findUser(input, userArr);
                 break;
             default:
                 System.out.println("Please enter 1 or 2 only.");
