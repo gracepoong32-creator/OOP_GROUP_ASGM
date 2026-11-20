@@ -80,6 +80,9 @@ public class TestAirline {
         //Airline Management System Menu UI
         int option = 0;
         do {
+            for (FlightBooking fb : flightBookingArr){
+                System.out.println(fb.toString());
+            }
             System.out.print("\nWelcome to AirWorld. Please choose the option below to proceed:" +
                     "\n1. Flight Booking" +
                     "\n2. Flight Check In" +
