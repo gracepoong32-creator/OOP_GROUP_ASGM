@@ -338,25 +338,27 @@ public class TestAirline {
         int userIndex = checkoutLoyalty(input, userArr, flightBooking, flightBookingArr);
 
         //For check in purpose
+        //Variables
         boolean checkIn = false; //exception if cancel booking dont come in this check in add
         boolean roundCheckIn = false;
         String boardingGate = "To be Determined";
         String seatNumber = " ";
 
+        //Add in checkInArr
         if (flightBookingArr.getLast().getTripType().equalsIgnoreCase("one-way")){
             checkInArr.add(new CheckIn(userArr.get(userIndex).getLastName(), bookingNum, checkIn, boardingGate, seatNumber));
         }else {
             checkInArr.add(new CheckIn(userArr.get(userIndex).getLastName(), bookingNum, roundCheckIn,checkIn, boardingGate, seatNumber));
         }
         boolean checkSame = false;
-
+        //Check if there is any same flight Id and dep date
         for (int i = 0; i < boardingGateArr.size(); i++){
             if (flightBookingArr.getLast().getFlightId().getFlightNum().equalsIgnoreCase(boardingGateArr.get(i).getFlightNum()) && flightBookingArr.getLast().getDepDate().equalsIgnoreCase(boardingGateArr.get(i).getDepDate())){
                 checkSame = true;
                 break;
             }
         }
-        if (!checkSame){
+        if (!checkSame){ //Don't have the same flight Id and dep date, the boarding gate is not generated
             boardingGateArr.add(new CheckIn(flightBookingArr.getLast().getFlightId().getFlightNum(), flightBookingArr.getLast().getDepDate(),boardingGate ));
         }
     }
