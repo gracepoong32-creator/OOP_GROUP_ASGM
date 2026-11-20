@@ -344,29 +344,32 @@ public class TestAirline {
 
         //Enter check loyalty member
         userIndex = checkoutLoyalty(input, userArr, flightBooking, flightBookingArr);
+        if (flightBookingArr.isEmpty()){
+            checkInArr.removeLast();
 
-        //For check in purpose
-        //Variables
+        }else if (flightBookingArr.getLast().getBookingNumber() == checkInArr.getLast().getBookingNumber()){
+            //Set back the user last name
+            checkInArr.getLast().setLastName(userArr.get(userIndex).getLastName());
 
-
-
-        //Add in checkInArr
-        if (flightBookingArr.getLast().getTripType().equalsIgnoreCase("one-way")){
-            checkInArr.add(new CheckIn(userArr.get(userIndex).getLastName(), bookingNum, checkIn, boardingGate, seatNumber));
-        }else {
-            checkInArr.add(new CheckIn(userArr.get(userIndex).getLastName(), bookingNum, roundCheckIn,checkIn, boardingGate, seatNumber));
-        }
-        boolean checkSame = false;
-        //Check if there is any same flight Id and dep date
-        for (int i = 0; i < boardingGateArr.size(); i++){
-            if (flightBookingArr.getLast().getFlightId().getFlightNum().equalsIgnoreCase(boardingGateArr.get(i).getFlightNum()) && flightBookingArr.getLast().getDepDate().equalsIgnoreCase(boardingGateArr.get(i).getDepDate())){
-                checkSame = true;
-                break;
+            //Add in checkInArr
+            boolean checkSame = false;
+            //Check if there is any same flight Id and dep date
+            for (int i = 0; i < boardingGateArr.size(); i++){
+                if (flightBookingArr.getLast().getFlightId().getFlightNum().equalsIgnoreCase(boardingGateArr.get(i).getFlightNum()) && flightBookingArr.getLast().getDepDate().equalsIgnoreCase(boardingGateArr.get(i).getDepDate())){
+                    checkSame = true;
+                    break;
+                }
             }
+            if (!checkSame){ //Don't have the same flight Id and dep date, the boarding gate is not generated
+                boardingGateArr.add(new CheckIn(flightBookingArr.getLast().getFlightId().getFlightNum(), flightBookingArr.getLast().getDepDate(),boardingGate ));
+            }
+        }else {
+            checkInArr.removeLast();
         }
-        if (!checkSame){ //Don't have the same flight Id and dep date, the boarding gate is not generated
-            boardingGateArr.add(new CheckIn(flightBookingArr.getLast().getFlightId().getFlightNum(), flightBookingArr.getLast().getDepDate(),boardingGate ));
-        }
+
+
+
+
     }
 
     //Feature 1: Check user (member/non-member) during checkout
@@ -449,6 +452,11 @@ public class TestAirline {
 
                 System.out.print(flightBooking.printPayment(totalAmount));
                 System.out.print(m.updatedMemberProfile(amountPaid, discount));
+                flightBookingArr.getLast().setLastName(userArr.get(userIndex).getLastName());
+                flightBookingArr.getLast().setFirstName(userArr.get(userIndex).getFirstName());
+            } else {
+                flightBookingArr.removeLast();
+                System.out.println("You have cancelled the process");
             }
 
         } else if (u instanceof NonMember nm) { // For nonmember
@@ -520,7 +528,7 @@ public class TestAirline {
                 flightBookingArr.getLast().setFirstName(userArr.get(userIndex).getFirstName());
 
             } else {
-                flightBookingArr.remove(flightBookingArr.getLast());
+                flightBookingArr.removeLast();
                 System.out.print("Payment cancelled. Returning to main menu...\n\n");
             }
         }
