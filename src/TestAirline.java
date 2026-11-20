@@ -137,9 +137,9 @@ public class TestAirline {
     public static void bookFlight(ArrayList<FlightDatabase> flightDatabaseArr, ArrayList<FlightBooking> flightBookingArr, Scanner input, Random random, ArrayList<CheckIn> checkInArr, ArrayList<User> userArr, ArrayList <CheckIn> boardingGateArr) {
 
         //Variables
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        String todayDate = LocalDate.now().getDayOfMonth() + "-" + LocalDate.now().getMonthValue() + "-" + LocalDate.now().getYear();
-        LocalDate initialDate = LocalDate.parse(LocalDate.now().getDayOfMonth() + "-" + LocalDate.now().getMonthValue() + "-" + LocalDate.now().getYear(), dateFormat);
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy"); //date format
+        String todayDate = LocalDate.now().getDayOfMonth() + "-" + LocalDate.now().getMonthValue() + "-" + LocalDate.now().getYear(); //initial today date
+        LocalDate initialDate = LocalDate.parse(LocalDate.now().getDayOfMonth() + "-" + LocalDate.now().getMonthValue() + "-" + LocalDate.now().getYear(), dateFormat); //change format and save
         String inputReturnDate = null;
         String inputReturnFlight;
         FlightDatabase selectedReturnFlight = null;
@@ -154,6 +154,8 @@ public class TestAirline {
 
         //Gather all user input for flight booking
         input.nextLine();
+
+        //One-way or round trip
         while (!valid) {
             System.out.print("\nEnter trip type (one-way/round trip): ");
             inputTypeTrip = input.nextLine();
@@ -165,6 +167,7 @@ public class TestAirline {
             }
         }
 
+        //Depature date
         while (true){
             try{
                 System.out.print("Enter departure date (DD-MM-YYYY): ");
@@ -180,7 +183,6 @@ public class TestAirline {
             }
 
         }
-
 
         //Round trip requires returning date input
         if (inputTypeTrip.equalsIgnoreCase("round trip")) {
@@ -202,6 +204,7 @@ public class TestAirline {
 
         }
 
+        //Cabin class
         valid = false; //reinitialize
         while (!valid) {
             System.out.print("Enter cabin class (Business/Economy): ");
@@ -249,6 +252,7 @@ public class TestAirline {
                 }
             }
         }
+
         //User choose flight option
         System.out.print("\nEnter departure flight Id: ");
         String inputFlight = input.nextLine();
@@ -260,6 +264,7 @@ public class TestAirline {
             selectedFlight = matchFlight(flightDatabaseArr, inputFlight);
         }
 
+        //If is round trip
         if (inputTypeTrip.equalsIgnoreCase("round trip")) {
             System.out.print("\n\nRETURNING FLIGHTS");
             System.out.print("\nFLIGHT     AIRLINE      FROM   TO     CLASS        PRICE        TIME");
@@ -286,6 +291,7 @@ public class TestAirline {
         //Additional option
         System.out.print("\nAdd-Ons:");
 
+        //Add on baggage
         valid = false;
         while (!valid) {
             System.out.print("\nBaggage (Y/N): ");
@@ -298,6 +304,7 @@ public class TestAirline {
             }
         }
 
+        //Add on meals
         valid = false;
         while (!valid) {
             System.out.print("Meal (Y/N): ");
@@ -314,18 +321,17 @@ public class TestAirline {
         int bookingNum = random.nextInt(10000, 99999);
         double totalAmount = 0;
 
+        //Add into array
         if (inputTypeTrip.equalsIgnoreCase("round trip")) {
             flightBooking = new FlightBooking(bookingNum, selectedFlight, selectedReturnFlight, firstName, lastName, inputTypeTrip, inputDepDate, inputReturnDate, inputCabinClass, optMeal, optBaggage, totalAmount);
         } else {
             flightBooking = new FlightBooking(bookingNum, firstName, lastName, selectedFlight, inputTypeTrip, inputDepDate, inputCabinClass, optMeal, optBaggage, totalAmount);
         }
         flightBookingArr.add(flightBooking);
-        System.out.print(flightBooking);
+        System.out.print(flightBooking); //Print pre check-out summary
 
-        FlightBooking currentFlight = flightBooking;
-        int userIndex = checkoutLoyalty(input, userArr, currentFlight, flightBookingArr);
-        flightBookingArr.getLast().setLastName(userArr.get(userIndex).getLastName());
-        flightBookingArr.getLast().setFirstName(userArr.get(userIndex).getFirstName());
+        //Enter check loyalty member
+        int userIndex = checkoutLoyalty(input, userArr, flightBooking, flightBookingArr);
 
         //For check in purpose
         boolean checkIn = false; //exception if cancel booking dont come in this check in add
@@ -499,6 +505,9 @@ public class TestAirline {
                             + "\nAccount (" + nm.getUserId() + ") upgraded to Loyalty Member (Bronze)"
                             + "\n==========================================\n\n");
                 }
+                flightBookingArr.getLast().setLastName(userArr.get(userIndex).getLastName());
+                flightBookingArr.getLast().setFirstName(userArr.get(userIndex).getFirstName());
+
             } else {
                 System.out.print("Payment cancelled. Returning to main menu...\n\n");
             }
