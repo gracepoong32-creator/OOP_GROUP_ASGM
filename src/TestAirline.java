@@ -205,7 +205,6 @@ public class TestAirline {
                 }
             }
 
-
         }
 
         //Cabin class
@@ -260,7 +259,7 @@ public class TestAirline {
         //User choose flight option
         System.out.print("\nEnter departure flight Id: ");
         String inputFlight = input.nextLine();
-        FlightDatabase selectedFlight = matchFlight(flightDatabaseArr, inputFlight); //Check for one-way and the first trip
+        FlightDatabase selectedFlight = matchFlight(flightDatabaseArr, inputFlight); //Check for departure flight
 
         while (selectedFlight == null){
             System.out.print("\nEnter departure flight Id: ");
@@ -541,8 +540,7 @@ public class TestAirline {
         }
         boolean foundReturn = false;
 
-        for (int i = 10; i < 20; i++) {
-
+        for (int i = 10; i < flightDatabaseArr.size(); i++) {
             FlightDatabase returnFlight = flightDatabaseArr.get(i);
 
             if (selectedFlight.getTo().equalsIgnoreCase(returnFlight.getFrom()) && selectedFlight.getFrom().equalsIgnoreCase(returnFlight.getTo())) {
