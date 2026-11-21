@@ -373,14 +373,15 @@ public class TestAirline {
         boolean valid = false;
         int userIndex = 0;
 
-        //Check have member or not
+        //Check memberId / sign up / forget memberId process
         u = findUser(input, userArr);
 
-        //Have member
-        if (u instanceof Member m) { //Is a member
+        // check if user is member or nonMember
+        if (u instanceof Member m) { //User is a member
             String optPoints = "";
-            System.out.println(m);
+            System.out.println(m); //Print member info
 
+            //Ensure points balance > 0, display points redeemable, prompt user the option to redeem or not
             if (m.pointsRedeem() > 0) {
                 System.out.print("Points redeemable to cash: RM" + String.format("%.2f", m.pointsRedeem()));
 
@@ -395,6 +396,7 @@ public class TestAirline {
                     }
                 }
 
+                //Member choose to redeem points
                 if (optPoints.equalsIgnoreCase("Y")) {
                     discount = m.pointsRedeem();
                     //Only allow member to redeem the maximum points which is equal to total fare
@@ -410,7 +412,7 @@ public class TestAirline {
             }
 
             String confirmPayment = "";
-            valid = false;
+            valid = false; //Reinitialize boolean value of value so that valid variable can be reused for other exceptions
             while (!valid) {
                 System.out.print("\nConfirm payment? (Y/N): ");
                 confirmPayment = input.nextLine();
@@ -422,6 +424,7 @@ public class TestAirline {
                 }
             }
 
+            //User confirms to make payment
             if (confirmPayment.equalsIgnoreCase("Y")) {
                 double amountPaid = flightBooking.calcTotalFare() - discount;
                 double totalAmount = flightBooking.checkoutMember(discount);
@@ -432,11 +435,11 @@ public class TestAirline {
                 flightBookingArr.getLast().setLastName(userArr.get(userIndex).getLastName());
                 flightBookingArr.getLast().setFirstName(userArr.get(userIndex).getFirstName());
             } else {
-                flightBookingArr.removeLast();
+                flightBookingArr.removeLast(); //Remove the flight booking from array once user cancel payment
                 System.out.println("You have cancelled the process");
             }
 
-        } else if (u instanceof NonMember nm) { // For nonmember
+        } else if (u instanceof NonMember nm) { //User is a nonMember
 
             System.out.print("Non-member profile found!");
             System.out.println(nm);
