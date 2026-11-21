@@ -364,9 +364,6 @@ public class TestAirline {
             checkInArr.removeLast();
         }
 
-
-
-
     }
 
     //Feature 1: Check user (member/non-member) during checkout
@@ -377,28 +374,11 @@ public class TestAirline {
         int userIndex = 0;
 
         //Check have member or not
-        while (u == null) {
-            System.out.print("\nEnter user Id (or '-' to sign up): ");
-            String inputUserId = input.nextLine();
-
-            if (inputUserId.equals("-")) {
-                System.out.println("\nPlease sign up to continue to checkout >>>");
-                u = signUpNonMember(input, userArr);
-                userIndex = userArr.indexOf(u);
-            } else {
-                u = matchUser(userArr, inputUserId);
-                userIndex = userArr.indexOf(u);
-            }
-
-            if (u == null) {
-                System.out.print("Invalid input, please enter again\n");
-            }
-        }
+        u = findUser(input, userArr);
 
         //Have member
         if (u instanceof Member m) { //Is a member
             String optPoints = "";
-            System.out.print("Loyalty member profile found!");
             System.out.println(m);
 
             if (m.pointsRedeem() > 0) {
@@ -620,14 +600,13 @@ public class TestAirline {
 
     //Find user member id in Arraylist
     public static User findUser(Scanner input, ArrayList <User> userArr){
-        input.nextLine();
         User u = null;
         while (true){
-            System.out.print("\nEnter member id (Enter '-' to sign up, Enter '?' if you forget your memberId): ");
+            System.out.print("\nEnter member id (Enter '-' to sign up, or '?' if you forget your memberId): ");
             String userId = input.nextLine();
 
             if (userId.equalsIgnoreCase("-")){
-                u = TestAirline.signUpNonMember(input, userArr);
+                u = signUpNonMember(input, userArr);
                 break;
             } else if (userId.equalsIgnoreCase("?")) {
                 System.out.print("Enter first name: ");
@@ -637,14 +616,14 @@ public class TestAirline {
                 boolean userCheck = false;
                 for (User user: userArr){
                     if (user.getFirstName().equalsIgnoreCase(firstName) && user.getLastName().equalsIgnoreCase(lastName)){
-                        System.out.println("Your member id is found: " + user.getUserId());
+                        System.out.println("Member id found: " + user.getUserId());
                         u = user;
                         userCheck = true;
                         break;
                     }
                 }
                 if (!userCheck){
-                    System.out.println("The name you entered is not found. Please try again.");
+                    System.out.println("Name entered not found. Please try again.");
                 }else {
                     break;
                 }
@@ -652,7 +631,7 @@ public class TestAirline {
             } else{
                 u = TestAirline.matchUser(userArr, userId);
                 if (u != null){
-                    System.out.println("Member id found.");
+                    System.out.println("Loyalty member profile found!");
                     break;
                 }else{
                     System.out.println("The member id you entered is not found. Please enter again.");
@@ -661,7 +640,6 @@ public class TestAirline {
         }
         return u;
     }
-
 
     //Feature 2: Check in
     public static void checkIn(ArrayList<FlightBooking> flightBookingArr, ArrayList<CheckIn> checkInArr, ArrayList<User> userArr, Scanner input, ArrayList<CheckIn> boardingGateArr) {
