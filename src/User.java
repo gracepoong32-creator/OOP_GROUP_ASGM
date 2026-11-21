@@ -35,15 +35,7 @@ public abstract class User {
     @Override
     public abstract String toString();
 
-    //Feature 1: Match user id if member/non-member
-    public static User matchUser(ArrayList<User> userArr, String inputUserId) {
-        for (User u : userArr) {
-            if (u.getUserId().equalsIgnoreCase(inputUserId)) {
-                return u;
-            }
-        }
-        return null;
-    }
+
 
     //Find user member id in Arraylist
     public static User findUser(Scanner input, ArrayList <User> userArr){
@@ -54,7 +46,7 @@ public abstract class User {
             String userId = input.nextLine();
 
             if (userId.equalsIgnoreCase("-")){
-                u = signUpNonMember(input, userArr);
+                u = TestAirline.signUpNonMember(input, userArr);
                 break;
             } else if (userId.equalsIgnoreCase("?")) {
                 System.out.print("Enter first name: ");
@@ -77,7 +69,7 @@ public abstract class User {
                 }
 
             } else{
-                u = matchUser(userArr, userId);
+                u = TestAirline.matchUser(userArr, userId);
                 if (u != null){
                     System.out.println("Member id found.");
                     break;
@@ -89,42 +81,5 @@ public abstract class User {
         return u;
     }
 
-    //Feature 1: Sign up during checkout & Feature 5: Sign up as a user
-    public static NonMember signUpNonMember(Scanner input, ArrayList<User> userArr) {
-        System.out.print("\n\nNEW NON MEMBER SIGN UP\n------------------------\n");
-        System.out.print("Enter first name: ");
-        String firstName = input.nextLine();
-        System.out.print("Enter last name: ");
-        String lastName = input.nextLine();
 
-        int age = 0;
-        boolean valid = false;
-        while (!valid) {
-            try {
-                System.out.print("Enter age: ");
-                age = input.nextInt();
-                input.nextLine(); //clears leftover newline from age input
-
-                if (age <= 0) {
-                    System.out.println("Invalid input, please enter again");
-                } else {
-                    valid = true;
-                }
-            } catch (Exception e) {
-                System.out.println("Invalid input, please enter again");
-                input.nextLine(); //clears leftover newline
-            }
-        }
-
-        String newUserId = "M" + (101 + userArr.size());
-        NonMember nm = new NonMember(firstName, lastName, age, newUserId);
-        userArr.add(nm);
-
-        System.out.println("\n------------------------------------------");
-        System.out.println("Account created successfully!");
-        System.out.println("Your new User Id: " + newUserId);
-        System.out.println("==========================================\n");
-
-        return nm;
-    }
 }

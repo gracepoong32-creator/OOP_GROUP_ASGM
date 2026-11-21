@@ -383,10 +383,10 @@ public class TestAirline {
 
             if (inputUserId.equals("-")) {
                 System.out.println("\nPlease sign up to continue to checkout >>>");
-                u = User.signUpNonMember(input, userArr);
+                u = signUpNonMember(input, userArr);
                 userIndex = userArr.indexOf(u);
             } else {
-                u = User.matchUser(userArr, inputUserId);
+                u = matchUser(userArr, inputUserId);
                 userIndex = userArr.indexOf(u);
             }
 
@@ -567,6 +567,55 @@ public class TestAirline {
         if (!foundReturn) {
             System.out.print("No matching flights available");
         }
+    }
+
+    //Feature 1: Sign up during checkout & Feature 5: Sign up as a user
+    public static NonMember signUpNonMember(Scanner input, ArrayList<User> userArr) {
+        System.out.print("\n\nNEW NON MEMBER SIGN UP\n------------------------\n");
+        System.out.print("Enter first name: ");
+        String firstName = input.nextLine();
+        System.out.print("Enter last name: ");
+        String lastName = input.nextLine();
+
+        int age = 0;
+        boolean valid = false;
+        while (!valid) {
+            try {
+                System.out.print("Enter age: ");
+                age = input.nextInt();
+                input.nextLine(); //clears leftover newline from age input
+
+                if (age <= 0) {
+                    System.out.println("Invalid input, please enter again");
+                } else {
+                    valid = true;
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid input, please enter again");
+                input.nextLine(); //clears leftover newline
+            }
+        }
+
+        String newUserId = "M" + (101 + userArr.size());
+        NonMember nm = new NonMember(firstName, lastName, age, newUserId);
+        userArr.add(nm);
+
+        System.out.println("\n------------------------------------------");
+        System.out.println("Account created successfully!");
+        System.out.println("Your new User Id: " + newUserId);
+        System.out.println("==========================================\n");
+
+        return nm;
+    }
+
+    //Feature 1: Match user id if member/non-member
+    public static User matchUser(ArrayList<User> userArr, String inputUserId) {
+        for (User u : userArr) {
+            if (u.getUserId().equalsIgnoreCase(inputUserId)) {
+                return u;
+            }
+        }
+        return null;
     }
 
     //Feature 2: Check in
@@ -811,7 +860,7 @@ public class TestAirline {
                 switch (choice) {
                     case 1:
                         input.nextLine();
-                        NonMember nm = User.signUpNonMember(input, userArr);
+                        NonMember nm = signUpNonMember(input, userArr);
                         System.out.println(nm.toString());
                         break;
                     case 2:
