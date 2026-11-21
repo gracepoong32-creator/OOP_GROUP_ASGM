@@ -140,7 +140,7 @@ public class TestAirline {
         //Variables
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy"); //date format
         String todayDate = LocalDate.now().getDayOfMonth() + "-" + LocalDate.now().getMonthValue() + "-" + LocalDate.now().getYear(); //initialize today's date
-        LocalDate initialDate = LocalDate.parse(LocalDate.now().getDayOfMonth() + "-" + LocalDate.now().getMonthValue() + "-" + LocalDate.now().getYear(), dateFormat); //change format and save
+        LocalDate initialDate = LocalDate.parse(todayDate, dateFormat); //change format and save
         String inputReturnDate = null;
         String inputReturnFlight;
         FlightDatabase selectedReturnFlight = null;
@@ -597,7 +597,6 @@ public class TestAirline {
         }
         return null;
     }
-
 
     //Find user member id in Arraylist
     public static User findUser(Scanner input, ArrayList <User> userArr){

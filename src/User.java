@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.Scanner;
-
 public abstract class User {
     private String firstName;
     private String lastName;
