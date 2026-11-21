@@ -50,7 +50,7 @@ public abstract class User {
         input.nextLine();
         User u = null;
         while (true){
-            System.out.print("\nEnter member id (- if dont have, ? for forgot): ");
+            System.out.print("\nEnter member id (Enter '-' to sign up, Enter '?' if you forget your memberId): ");
             String userId = input.nextLine();
 
             if (userId.equalsIgnoreCase("-")){
@@ -127,6 +127,4 @@ public abstract class User {
 
         return nm;
     }
-
-
 }
