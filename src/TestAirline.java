@@ -432,8 +432,9 @@ public class TestAirline {
 
                 System.out.print(flightBooking.printPayment(totalAmount));
                 System.out.print(m.updatedMemberProfile(amountPaid, discount));
-                flightBookingArr.getLast().setLastName(userArr.get(userIndex).getLastName());
-                flightBookingArr.getLast().setFirstName(userArr.get(userIndex).getFirstName());
+                flightBookingArr.getLast().setLastName(m.getLastName());
+                flightBookingArr.getLast().setFirstName(m.getFirstName()); //is it ok i change userArr.get(userIndex) with m?
+
             } else {
                 flightBookingArr.removeLast(); //Remove the flight booking from array once user cancel payment
                 System.out.println("You have cancelled the process");
@@ -504,8 +505,8 @@ public class TestAirline {
                             + "\nAccount (" + nm.getUserId() + ") upgraded to Loyalty Member (Bronze)"
                             + "\n==========================================\n\n");
                 }
-                flightBookingArr.getLast().setLastName(userArr.get(userIndex).getLastName());
-                flightBookingArr.getLast().setFirstName(userArr.get(userIndex).getFirstName());
+                flightBookingArr.getLast().setLastName(nm.getLastName());
+                flightBookingArr.getLast().setFirstName(nm.getFirstName());
 
             } else {
                 flightBookingArr.removeLast();
