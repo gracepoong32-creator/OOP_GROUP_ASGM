@@ -1,7 +1,7 @@
 public class NonMember extends User {
     private int bookingCount;
     private boolean hasPromo;
-    private final double newUserPromo = 0.1;
+    private final double NEW_USER_PROMO = 0.1;
 
     //Default constructor
     public NonMember(){
@@ -31,7 +31,7 @@ public class NonMember extends User {
 
     public String newUserPromoCheck(){
         if (hasPromo){
-            return "Available (One-time discount)" + "\nNew user promo discount: " + newUserPromo*100 + "%";
+            return "Available (One-time discount)" + "\nNew user promo discount: " + NEW_USER_PROMO*100 + "%";
         }
         else{
             return "Already used";
