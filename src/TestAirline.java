@@ -598,6 +598,7 @@ public class TestAirline {
         return null;
     }
 
+
     //Find user member id in Arraylist
     public static User findUser(Scanner input, ArrayList <User> userArr){
         User u = null;
@@ -887,6 +888,7 @@ public class TestAirline {
                         System.out.println(nm.toString());
                         break;
                     case 2:
+                        input.nextLine();
                         User user = findUser(input, userArr);
                         if (user instanceof Member member) {
                             System.out.println(member.toString());
