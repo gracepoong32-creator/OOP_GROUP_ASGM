@@ -135,8 +135,7 @@ public class FlightBooking {
     public double getBaggage(){
         if (getOptBaggage().equalsIgnoreCase("Y")){
             return 50.0;
-        }
-        else{
+        } else{
             return 0.0;
         }
     }
@@ -144,8 +143,7 @@ public class FlightBooking {
     public double getMeal(){
         if(getOptMeals().equalsIgnoreCase("Y")){
             return 20.0;
-        }
-        else{
+        } else{
             return 0.0;
         }
     }
