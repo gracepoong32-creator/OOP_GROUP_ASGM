@@ -433,7 +433,7 @@ public class TestAirline {
                 System.out.print(flightBooking.printPayment(totalAmount));
                 System.out.print(m.updatedMemberProfile(amountPaid, discount));
                 flightBookingArr.getLast().setLastName(m.getLastName());
-                flightBookingArr.getLast().setFirstName(m.getFirstName()); //is it ok i change userArr.get(userIndex) with m?
+                flightBookingArr.getLast().setFirstName(m.getFirstName());
 
             } else {
                 flightBookingArr.removeLast(); //Remove the flight booking from array once user cancel payment
@@ -494,7 +494,7 @@ public class TestAirline {
                 if (nm.getBookingCount() >= 10) {
                     //Create new object (Member) for nonMember
                     Member m = new Member(nm.getFirstName(), nm.getLastName(), nm.getAge(), nm.getUserId(), 0.0, "Bronze Tier", 0.0);
-                    //Replace new object in array
+                    //Replace new object in array because previously user is a nonMember, now a Member
                     userArr.set(userArr.indexOf(nm), m);
 
                     //Upgraded to member message
@@ -817,12 +817,12 @@ public class TestAirline {
         boolean cancelProcess = false;
         do {
             if (reset == 0) {
-                System.out.println("\nCancel a flight only will refund 80% of the total amount paid.");
+                System.out.println("\nCancelling a flight will only refund 80% of the total amount paid.");
                 System.out.print("Are you sure to cancel this flight (y for yes/ n for no): ");
                 cancelFlight = input.nextLine();
                 reset++;
             } else {
-                System.out.println("\nCancel a flight only will refund 80% of the total amount paid.");
+                System.out.println("\nCancelling a flight will only refund 80% of the total amount paid.");
                 System.out.print("Are you sure to cancel this flight (y for yes/ n for no): ");
                 cancelFlight = input.nextLine();
             }
@@ -831,13 +831,13 @@ public class TestAirline {
                 //Cancel Flight
                 double flightRefund = (flightBookingArr.get(bookingIndex).getTotalPaid()) * 0.8;
                 System.out.print("Your refund for this flight is " + flightRefund);
-                System.out.println("The refund is success.");
+                System.out.println("The refund is successful.");
                 flightBookingArr.remove(bookingIndex);
                 cancelProcess = true;
 
             } else if (cancelFlight.equalsIgnoreCase("n")) {
                 //Cancel cancel Flight
-                System.out.print("You cancel this process.\n");
+                System.out.print("You cancelled this process.\n");
                 cancelProcess = true;
 
             } else {
