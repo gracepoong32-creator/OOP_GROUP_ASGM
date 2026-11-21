@@ -906,6 +906,5 @@ public class TestAirline {
                 input.nextLine(); //Clear
             }
         }
-
     }
 }

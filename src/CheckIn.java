@@ -186,5 +186,4 @@ public class CheckIn {  //find implement user interface
 
         return boardingGate;
     }
-
 }

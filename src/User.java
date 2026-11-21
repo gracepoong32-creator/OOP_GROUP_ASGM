@@ -31,7 +31,4 @@ public abstract class User {
 
     @Override
     public abstract String toString();
-
-
-
 }
