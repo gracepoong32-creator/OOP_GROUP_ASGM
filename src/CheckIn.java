@@ -128,7 +128,6 @@ public class CheckIn {  //find implement user interface
         return boardingPass;
     }
 
-
     //Random Seat Number
     public String randomSeatNumber(ArrayList<FlightBooking> flightBookingArr, int bookingIndex) {
         Random random = new Random();

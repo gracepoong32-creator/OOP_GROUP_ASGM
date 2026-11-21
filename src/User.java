@@ -35,8 +35,6 @@ public abstract class User {
     @Override
     public abstract String toString();
 
-
-
     //Find user member id in Arraylist
     public static User findUser(Scanner input, ArrayList <User> userArr){
         input.nextLine();
