@@ -125,9 +125,7 @@ public class CheckIn {  //find implement user interface
 
     //Online Boarding Pass
     public String toString(ArrayList<FlightBooking> flightBookingArr, int bookingIndex, ArrayList<CheckIn> checkInArr) {
-        String boardingPass = " ";
-        if (flightBookingArr.get(bookingIndex).getTripType().equalsIgnoreCase("one-way") || (!checkInArr.get(bookingIndex).isRoundCheckIn())) {
-            boardingPass = "\n\n-----Boarding Pass-------" +
+        String boardingPass = "\n\n-----Boarding Pass-------" +
                     "\nName: " + flightBookingArr.get(bookingIndex).getFirstName() + " " + flightBookingArr.get(bookingIndex).getLastName() +
                     "\n" + flightBookingArr.get(bookingIndex).getFlightId().getFrom() + "  ------>  " + flightBookingArr.get(bookingIndex).getFlightId().getTo() +
                     "\nDeparture Date: " + flightBookingArr.get(bookingIndex).getDepDate() +
@@ -135,8 +133,8 @@ public class CheckIn {  //find implement user interface
                     "\nBoarding time: " + flightBookingArr.get(bookingIndex).getFlightId().getDepartureTime() +
                     "\nBoarding Gate: " + checkInArr.get(bookingIndex).getBoardingGate() +
                     "\n\nSeat: " + checkInArr.get(bookingIndex).getSeatNumber();
-        }  else {
-            boardingPass = "\n\n-----Return Boarding Pass-------" +
+        if (checkInArr.get(bookingIndex).isRoundCheckIn()) {
+             boardingPass += "\n\n-----Return Boarding Pass-------" +
                     "\nName: " + flightBookingArr.get(bookingIndex).getFirstName() + " " + flightBookingArr.get(bookingIndex).getLastName() +
                     "\n" + flightBookingArr.get(bookingIndex).getReturnFlightId().getFrom() + "  ------>  " + flightBookingArr.get(bookingIndex).getReturnFlightId().getTo() +
                     "\nDeparture Date: " + flightBookingArr.get(bookingIndex).getReturnDate() +
