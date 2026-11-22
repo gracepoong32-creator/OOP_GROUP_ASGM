@@ -352,16 +352,26 @@ public class TestAirline {
             checkInArr.getLast().setLastName(userArr.get(userIndex).getLastName());
 
             //Add in checkInArr
-            boolean checkSame = false;
+            boolean checkFirstSame = false;
+            boolean checkSecondSame = false;
             //Check if there is any same flight Id and dep date
             for (int i = 0; i < boardingGateArr.size(); i++){
-                if (flightBookingArr.getLast().getFlightId().getFlightNum().equalsIgnoreCase(boardingGateArr.get(i).getFlightNum()) && flightBookingArr.getLast().getDepDate().equalsIgnoreCase(boardingGateArr.get(i).getDepDate())){
-                    checkSame = true;
-                    break;
+                //If the first trip/ one-way have alr the date in the ArrayList, no need add
+                if (flightBookingArr.getLast().getFlightId().getFlightNum().equalsIgnoreCase(boardingGateArr.get(i).getFlightNum()) && flightBookingArr.getLast().getDepDate().equalsIgnoreCase(boardingGateArr.get(i).getDate())){
+                    checkFirstSame = true;
+                }
+                //If is round trip, check if the return trip have the information in the ArrayList
+                if (flightBookingArr.getLast().getTripType().equalsIgnoreCase("round trip")){
+                    if (flightBookingArr.getLast().getReturnFlightId().getFlightNum().equalsIgnoreCase(boardingGateArr.get(i).getFlightNum()) && flightBookingArr.getLast().getReturnDate().equalsIgnoreCase(boardingGateArr.get(i).getDate())){
+                        checkSecondSame = true;
+                    }
                 }
             }
-            if (!checkSame){ //Don't have the same flight Id and dep date, the boarding gate is not generated
+            if (!checkFirstSame){ //Don't have the same flight Id and dep date, the boarding gate is not generated
                 boardingGateArr.add(new CheckIn(flightBookingArr.getLast().getFlightId().getFlightNum(), flightBookingArr.getLast().getDepDate(),boardingGate ));
+            }
+            if (!checkSecondSame){
+                boardingGateArr.add(new CheckIn(flightBookingArr.getLast().getReturnFlightId().getFlightNum(), flightBookingArr.getLast().getReturnDate(),boardingGate));
             }
         }else {
             checkInArr.removeLast();
@@ -660,6 +670,9 @@ public class TestAirline {
         String name;
         int bookingNumber = 0;
         String boardingGate = null;
+        boolean checkBoardingGate = false;
+        int boardingGateIndex = 0;
+
 
         //Check Booking Number
         do {
@@ -706,26 +719,29 @@ public class TestAirline {
 
         } while (!checkName); //If check name is true, break from while loop
 
+
         //Age under 16 cannot online check in
-        boolean checkBoardingGate = false;
-        int boardingGateIndex = 0;
         if (ageRestrict > 0){
             System.out.println("User under 16 is not allowed to check in online. Please proceed to the check-in counter. ");
-        } //Check if check in before
+        }
+        //Check if check in before
         else if (checkInArr.get(bookingIndex).isCheckIn() && flightBookingArr.get(bookingIndex).getTripType().equalsIgnoreCase("one-way")) {
             System.out.println("You have been checked in.");
+        // If 2 trip is being checked in
         }else if (checkInArr.get(bookingIndex).isCheckIn() && checkInArr.get(bookingIndex).isRoundCheckIn()){
             System.out.println("You have been checked in this round trip.");
-        } else { //First time check in
+        } //First time check in
+        else {
             for (boardingGateIndex =0; boardingGateIndex < boardingGateArr.size(); boardingGateIndex++){
                 if (boardingGateArr.get(boardingGateIndex).getFlightNum().equalsIgnoreCase(flightBookingArr.get(bookingIndex).getFlightId().getFlightNum())){ //If flight booking Array Flight Number is same as boardingGate Array Flight Number
-                    if (boardingGateArr.get(boardingGateIndex).getDepDate().equals(flightBookingArr.get(bookingIndex).getDepDate())){  //If flight Booking Array Departure date is same with boarding Gate Array Departure Date
+                    if (boardingGateArr.get(boardingGateIndex).getDate().equals(flightBookingArr.get(bookingIndex).getDepDate())){  //If flight Booking Array Departure date is same with boarding Gate Array Departure Date
                         if (boardingGateArr.get(boardingGateIndex).getBoardingGate().equalsIgnoreCase("To be Determined")){ //If boarding Gate Array is to be determined, the boarding Gate have not been random before
-                            boardingGate = checkIn.checkBoardingGate(boardingGateArr, boardingGateArr.get(boardingGateIndex).getDepDate());
-                            boardingGateArr.get(boardingGateIndex).setBoardingGate(boardingGate);
+                            boardingGate = checkIn.checkBoardingGate(boardingGateArr, boardingGateArr.get(boardingGateIndex).getDate());
+                            boardingGateArr.get(boardingGateIndex).setBoardingGate(boardingGate); //set the boarding Gate
                             checkBoardingGate = true;
                             break;
                         }else {
+                            //Alr have boardingGate
                             break;
                         }
                     }
@@ -733,25 +749,30 @@ public class TestAirline {
 
             }
             if (!checkBoardingGate){
-                boardingGate = boardingGateArr.get(boardingGateIndex).getBoardingGate();
+                boardingGate = boardingGateArr.get(boardingGateIndex).getBoardingGate(); //Get the boarding Gate that has alr generate
             }
-            String seatNumber = checkIn.randomSeatNumber(flightBookingArr, bookingIndex);
+            String seatNumber = checkIn.randomSeatNumber(flightBookingArr, bookingIndex); //Random seat number
             System.out.println("Your seat has been automatically given as " + seatNumber);
+
+            //Set back in arrayList
             checkInArr.get(bookingIndex).setCheckIn(true);
             checkInArr.get(bookingIndex).setSeatNumber(seatNumber);
             checkInArr.get(bookingIndex).setBoardingGate(boardingGate);
 
         }
+
         //Avoid age under 16 print boarding pass
         if (ageRestrict != 1) {
             System.out.println(checkIn.toString(flightBookingArr, bookingIndex, checkInArr));
         }
 
+        //Return trip
         if (!checkInArr.get(bookingIndex).isRoundCheckIn() && flightBookingArr.get(bookingIndex).getTripType().equalsIgnoreCase("round trip")){
             System.out.print("\nDo you want to check in for the return trip (Y for yes/ N for no): ");
             String checkInReturn = input.nextLine();
+            //Do the boarding pass for return trip
             if (checkInReturn.equalsIgnoreCase("y")){
-                String boardingGateReturn = checkIn.randomBoardingGate();
+                String boardingGateReturn = checkIn.checkBoardingGate(boardingGateArr, flightBookingArr.get(bookingIndex).getReturnDate());
                 String seatNumberReturn = checkIn.randomSeatNumber(flightBookingArr, bookingIndex);
                 System.out.println("Your seat has been automatically given as " + seatNumberReturn);
                 checkInArr.get(bookingIndex).setRoundCheckIn(true);
@@ -780,17 +801,23 @@ public class TestAirline {
 
         //Check Booking Number
         do {
-            System.out.print("\nEnter your booking number: ");
-            int bookingNumber = input.nextInt();
-            for (bookingIndex = 0; bookingIndex < flightBookingArr.size(); bookingIndex++) {
-                if (bookingNumber == flightBookingArr.get(bookingIndex).getBookingNumber()) {
-                    checkBookingNumber = true;
-                    break;
+            try{
+                System.out.print("\nEnter your booking number: ");
+                int bookingNumber = input.nextInt();
+                for (bookingIndex = 0; bookingIndex < flightBookingArr.size(); bookingIndex++) {
+                    if (bookingNumber == flightBookingArr.get(bookingIndex).getBookingNumber()) {
+                        checkBookingNumber = true;
+                        break;
+                    }
                 }
+                if (!checkBookingNumber){
+                    System.out.println("The booking number is invalid or not found. Please try again.");
+                }
+            } catch (Exception e) {
+                System.out.println("Please enter a valid booking number.");
+                input.nextLine();
             }
-            if (!checkBookingNumber){
-                System.out.println("The booking number is invalid or not found. Please try again.");
-            }
+
         } while (!checkBookingNumber);
 
         //Check Name
@@ -799,7 +826,6 @@ public class TestAirline {
             System.out.print("Enter your last name: ");
             lastName = input.nextLine();
             if (lastName.equalsIgnoreCase(flightBookingArr.get(bookingIndex).getLastName())) {
-                checkLastName = true;
                 break;
             }
 
@@ -819,16 +845,9 @@ public class TestAirline {
 
         boolean cancelProcess = false;
         do {
-            if (reset == 0) {
                 System.out.println("\nCancelling a flight will only refund 80% of the total amount paid.");
                 System.out.print("Are you sure to cancel this flight (y for yes/ n for no): ");
                 cancelFlight = input.nextLine();
-                reset++;
-            } else {
-                System.out.println("\nCancelling a flight will only refund 80% of the total amount paid.");
-                System.out.print("Are you sure to cancel this flight (y for yes/ n for no): ");
-                cancelFlight = input.nextLine();
-            }
 
             if (cancelFlight.equalsIgnoreCase("y")) {
                 //Cancel Flight

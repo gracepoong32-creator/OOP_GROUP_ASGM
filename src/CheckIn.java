@@ -9,17 +9,18 @@ public class CheckIn {  //find implement user interface
     private String lastName;
     private int bookingNumber;
     private String flightNum;
-    private String depDate;
+    private String date;
 
     //default constructor
     public CheckIn() {
     }
 
-    public CheckIn(String flightNum, String depDate, String boardingGate) {
+    public CheckIn(String flightNum, String date, String boardingGate) {
         this.boardingGate = boardingGate;
         this.flightNum = flightNum;
-        this.depDate = depDate;
+        this.date = date;
     }
+
 
     public CheckIn(String lastName, int bookingNumber, boolean checkIn, String boardingGate, String seatNumber) {
         this.lastName = lastName;
@@ -94,12 +95,12 @@ public class CheckIn {  //find implement user interface
         this.flightNum = flightNum;
     }
 
-    public String getDepDate() {
-        return depDate;
+    public String getDate() {
+        return date;
     }
 
-    public void setDepDate(String depDate) {
-        this.depDate = depDate;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     //Online Boarding Pass
@@ -168,7 +169,7 @@ public class CheckIn {  //find implement user interface
                 boolean crash = false; //Initial did not crash
 
                 for (int i = 0; i < boardingGateArr.size(); i++) {//Check in the Array
-                    if (boardingGateArr.get(i).getBoardingGate().equalsIgnoreCase(boardingGate) && boardingGateArr.get(i).getDepDate().equals(localDate)) {
+                    if (boardingGateArr.get(i).getBoardingGate().equalsIgnoreCase(boardingGate) && boardingGateArr.get(i).getDate().equals(localDate)) {
                         crash = true;
                         break;
                     }
