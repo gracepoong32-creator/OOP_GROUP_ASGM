@@ -51,6 +51,13 @@ public class TestAirline {
         flightDatabaseArr.add(new FlightDatabase("MH963", "MAS", "KCH", "KUL", "Business", 872.00, "1645"));
         flightDatabaseArr.add(new FlightDatabase("OD185", "Batik Air", "LGK", "KUL", "Economy", 312.00, "0930"));
 
+
+        //Preset the boarding Gate today
+        String localDate = LocalDateTime.now().getDayOfMonth() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getYear();
+        for (int i = 0 ; i < flightDatabaseArr.size(); i++){
+            boardingGateArr.add(new CheckIn(flightDatabaseArr.get(i).getFlightNum(), localDate , checkIn.checkBoardingGate(boardingGateArr, localDate)));
+        }
+
         //Present flight schedules
         flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(0), LocalDateTime.of(2026, 11, 20, 8, 0), "A12", "On Time"));
         flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(1), LocalDateTime.of(2026, 11, 20, 12, 0), "B6", "On Time"));
@@ -63,11 +70,6 @@ public class TestAirline {
         flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(8), LocalDateTime.of(2026, 11, 22, 9, 0), "D3", "On Time"));
         flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(9), LocalDateTime.of(2026, 11, 22, 11, 0), "C1", "On Time"));
 
-        //Preset the boarding Gate today
-        String localDate = LocalDateTime.now().getDayOfMonth() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getYear();
-        for (int i = 0 ; i < flightDatabaseArr.size(); i++){
-            boardingGateArr.add(new CheckIn(flightDatabaseArr.get(i).getFlightNum(), localDate , checkIn.checkBoardingGate(boardingGateArr, localDate)));
-        }
 
         //Preset 5 loyalty members
         userArr.add(new Member("Jane", "Smith", 18, "M101", 50, "Bronze Tier", 700.00));
