@@ -10,6 +10,8 @@ public class CheckIn {  //find implement user interface
     private int bookingNumber;
     private String flightNum;
     private String date;
+    private String returnBoardingGate;
+    private String returnSeatNumber;
 
     //default constructor
     public CheckIn() {
@@ -30,7 +32,9 @@ public class CheckIn {  //find implement user interface
         this.seatNumber = seatNumber;
     }
 
-    public CheckIn(String lastName, int bookingNumber, boolean roundCheckIn, boolean checkIn, String boardingGate, String seatNumber) {
+    public CheckIn(String lastName, int bookingNumber, boolean roundCheckIn, boolean checkIn, String boardingGate, String returnBoardingGate, String seatNumber, String returnSeatNumber) {
+        this.returnBoardingGate = returnBoardingGate;
+        this.returnSeatNumber = returnSeatNumber;
         this.lastName = lastName;
         this.bookingNumber = bookingNumber;
         this.checkIn = checkIn;
@@ -103,6 +107,22 @@ public class CheckIn {  //find implement user interface
         this.date = date;
     }
 
+    public String getReturnBoardingGate() {
+        return returnBoardingGate;
+    }
+
+    public void setReturnBoardingGate(String returnBoardingGate) {
+        this.returnBoardingGate = returnBoardingGate;
+    }
+
+    public String getReturnSeatNumber() {
+        return returnSeatNumber;
+    }
+
+    public void setReturnSeatNumber(String returnSeatNumber) {
+        this.returnSeatNumber = returnSeatNumber;
+    }
+
     //Online Boarding Pass
     public String toString(ArrayList<FlightBooking> flightBookingArr, int bookingIndex, ArrayList<CheckIn> checkInArr) {
         String boardingPass = " ";
@@ -115,15 +135,15 @@ public class CheckIn {  //find implement user interface
                     "\nBoarding time: " + flightBookingArr.get(bookingIndex).getFlightId().getDepartureTime() +
                     "\nBoarding Gate: " + checkInArr.get(bookingIndex).getBoardingGate() +
                     "\n\nSeat: " + checkInArr.get(bookingIndex).getSeatNumber();
-        } else {
-            boardingPass = "\n\n-----Boarding Pass-------" +
+        }  else {
+            boardingPass = "\n\n-----Return Boarding Pass-------" +
                     "\nName: " + flightBookingArr.get(bookingIndex).getFirstName() + " " + flightBookingArr.get(bookingIndex).getLastName() +
                     "\n" + flightBookingArr.get(bookingIndex).getReturnFlightId().getFrom() + "  ------>  " + flightBookingArr.get(bookingIndex).getReturnFlightId().getTo() +
                     "\nDeparture Date: " + flightBookingArr.get(bookingIndex).getReturnDate() +
                     "\nCabin Class:  " + flightBookingArr.get(bookingIndex).getCabinClass() +
                     "\nBoarding time: " + flightBookingArr.get(bookingIndex).getReturnFlightId().getDepartureTime() +
-                    "\nBoarding Gate: " + checkInArr.get(bookingIndex).getBoardingGate() +
-                    "\n\nSeat: " + checkInArr.get(bookingIndex).getSeatNumber();
+                    "\nBoarding Gate: " + checkInArr.get(bookingIndex).getReturnBoardingGate() +
+                    "\n\nSeat: " + checkInArr.get(bookingIndex).getReturnSeatNumber();
         }
 
         return boardingPass;

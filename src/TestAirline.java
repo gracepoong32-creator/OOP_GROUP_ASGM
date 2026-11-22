@@ -332,14 +332,16 @@ public class TestAirline {
 
         boolean checkIn = false; //exception if cancel booking dont come in this check in add
         boolean roundCheckIn = false;
-        String boardingGate = "To be Determined";
+        String boardingGate ="To be Determined";
+        String returnBoardingGate = "To be Determined";
         String seatNumber = " ";
+        String returnSeatNumber = " ";
         int userIndex = 0;
 
         if (flightBookingArr.getLast().getTripType().equalsIgnoreCase("one-way")){
             checkInArr.add(new CheckIn(userArr.get(userIndex).getLastName(), bookingNum, checkIn, boardingGate, seatNumber));
         }else {
-            checkInArr.add(new CheckIn(userArr.get(userIndex).getLastName(), bookingNum, roundCheckIn,checkIn, boardingGate, seatNumber));
+            checkInArr.add(new CheckIn(userArr.get(userIndex).getLastName(), bookingNum, roundCheckIn,checkIn, boardingGate, returnBoardingGate, seatNumber, returnSeatNumber));
         }
 
         //Enter check loyalty member
@@ -775,18 +777,17 @@ public class TestAirline {
                 String boardingGateReturn = checkIn.checkBoardingGate(boardingGateArr, flightBookingArr.get(bookingIndex).getReturnDate());
                 String seatNumberReturn = checkIn.randomSeatNumber(flightBookingArr, bookingIndex);
                 System.out.println("Your seat has been automatically given as " + seatNumberReturn);
+                checkInArr.get(bookingIndex).setReturnBoardingGate(boardingGateReturn);
+                checkInArr.get(bookingIndex).setReturnSeatNumber(seatNumberReturn);
                 checkInArr.get(bookingIndex).setRoundCheckIn(true);
-                checkInArr.get(bookingIndex).setBoardingGate(boardingGateReturn);
-                checkInArr.get(bookingIndex).setSeatNumber(seatNumberReturn);
                 System.out.println(checkIn.toString(flightBookingArr, bookingIndex, checkInArr));
+
 
             } else if (checkInReturn.equalsIgnoreCase("N")) {
                 System.out.println("You can check in for the return trip 24 hours before the flight.");
             }else {
                 System.out.println("Please enter again.");
             }
-        }else if (checkInArr.get(bookingIndex).isRoundCheckIn()){
-            System.out.println(checkIn.toString(flightBookingArr, bookingIndex, checkInArr));
         }
     }
 
