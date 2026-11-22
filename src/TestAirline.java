@@ -58,6 +58,7 @@ public class TestAirline {
             boardingGateArr.add(new CheckIn(flightDatabaseArr.get(i).getFlightNum(), localDate , checkIn.checkBoardingGate(boardingGateArr, localDate)));
         }
 
+
         //Present flight schedules
         flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(0), LocalDateTime.of(2026, 11, 20, 8, 0), "A12", "On Time"));
         flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(1), LocalDateTime.of(2026, 11, 20, 12, 0), "B6", "On Time"));
