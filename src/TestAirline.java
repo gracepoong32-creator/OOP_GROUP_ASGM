@@ -785,6 +785,8 @@ public class TestAirline {
             }else {
                 System.out.println("Please enter again.");
             }
+        }else if (checkInArr.get(bookingIndex).isRoundCheckIn()){
+            System.out.println(checkIn.toString(flightBookingArr, bookingIndex, checkInArr));
         }
     }
 
