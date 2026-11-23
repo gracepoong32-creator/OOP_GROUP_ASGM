@@ -124,22 +124,22 @@ public class CheckIn {  //find implement user interface
     }
 
     //Online Boarding Pass
-    public String toString(ArrayList<FlightBooking> flightBookingArr, int bookingIndex, ArrayList<CheckIn> checkInArr) {
+    public String toString(ArrayList<Flight> flightArr, int bookingIndex, ArrayList<CheckIn> checkInArr) {
         String boardingPass = "\n\n-----Boarding Pass-------" +
-                    "\nName: " + flightBookingArr.get(bookingIndex).getFirstName() + " " + flightBookingArr.get(bookingIndex).getLastName() +
-                    "\n" + flightBookingArr.get(bookingIndex).getFlightId().getFrom() + "  ------>  " + flightBookingArr.get(bookingIndex).getFlightId().getTo() +
-                    "\nDeparture Date: " + flightBookingArr.get(bookingIndex).getDepDate() +
-                    "\nCabin Class:  " + flightBookingArr.get(bookingIndex).getCabinClass() +
-                    "\nBoarding time: " + flightBookingArr.get(bookingIndex).getFlightId().getDepartureTime() +
+                    "\nName: " + flightArr.get(bookingIndex).getFirstName() + " " + flightArr.get(bookingIndex).getLastName() +
+                    "\n" + flightArr.get(bookingIndex).getFlightId().getFrom() + "  ------>  " + flightArr.get(bookingIndex).getFlightId().getTo() +
+                    "\nDeparture Date: " + flightArr.get(bookingIndex).getDepDate() +
+                    "\nCabin Class:  " + flightArr.get(bookingIndex).getCabinClass() +
+                    "\nBoarding time: " + flightArr.get(bookingIndex).getFlightId().getDepartureTime() +
                     "\nBoarding Gate: " + checkInArr.get(bookingIndex).getBoardingGate() +
                     "\n\nSeat: " + checkInArr.get(bookingIndex).getSeatNumber();
         if (checkInArr.get(bookingIndex).isRoundCheckIn()) {
              boardingPass += "\n\n-----Return Boarding Pass-------" +
-                    "\nName: " + flightBookingArr.get(bookingIndex).getFirstName() + " " + flightBookingArr.get(bookingIndex).getLastName() +
-                    "\n" + flightBookingArr.get(bookingIndex).getReturnFlightId().getFrom() + "  ------>  " + flightBookingArr.get(bookingIndex).getReturnFlightId().getTo() +
-                    "\nDeparture Date: " + flightBookingArr.get(bookingIndex).getReturnDate() +
-                    "\nCabin Class:  " + flightBookingArr.get(bookingIndex).getCabinClass() +
-                    "\nBoarding time: " + flightBookingArr.get(bookingIndex).getReturnFlightId().getDepartureTime() +
+                    "\nName: " + flightArr.get(bookingIndex).getFirstName() + " " + flightArr.get(bookingIndex).getLastName() +
+                    "\n" + flightArr.get(bookingIndex).getReturnFlightId().getFrom() + "  ------>  " + flightArr.get(bookingIndex).getReturnFlightId().getTo() +
+                    "\nDeparture Date: " + flightArr.get(bookingIndex).getReturnDate() +
+                    "\nCabin Class:  " + flightArr.get(bookingIndex).getCabinClass() +
+                    "\nBoarding time: " + flightArr.get(bookingIndex).getReturnFlightId().getDepartureTime() +
                     "\nBoarding Gate: " + checkInArr.get(bookingIndex).getReturnBoardingGate() +
                     "\n\nSeat: " + checkInArr.get(bookingIndex).getReturnSeatNumber();
         }
@@ -148,15 +148,15 @@ public class CheckIn {  //find implement user interface
     }
 
     //Random Seat Number
-    public String randomSeatNumber(ArrayList<FlightBooking> flightBookingArr, int bookingIndex) {
+    public String randomSeatNumber(ArrayList<Flight> flightArr, int bookingIndex) {
         Random random = new Random();
 
-        if (flightBookingArr.get(bookingIndex).getCabinClass().equalsIgnoreCase("Business")) { //Business class
+        if (flightArr.get(bookingIndex).getCabinClass().equalsIgnoreCase("Business")) { //Business class
             int randomNum = random.nextInt(1, 5); // Random Row
             String[] seatAlphabet = {"A", "C", "D", "F"};
             int randomAlphabet = random.nextInt(0, 4); //Random Seat A, C, D or F
             seatNumber = randomNum + seatAlphabet[randomAlphabet];
-        } else if (flightBookingArr.get(bookingIndex).getCabinClass().equalsIgnoreCase("economy")) {  //Economy
+        } else if (flightArr.get(bookingIndex).getCabinClass().equalsIgnoreCase("economy")) {  //Economy
             int randomNum = random.nextInt(5, 31); // Random Row
             String[] seatAlphabet = {"A", "B", "C", "D", "E", "F"};
             int randomAlphabet = random.nextInt(0, 6); //Random Seat A,B,C,D,E,F

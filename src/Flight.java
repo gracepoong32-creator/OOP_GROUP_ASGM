@@ -1,4 +1,4 @@
-public class FlightBooking {
+public class Flight {
     private int bookingNumber; //random generated
     private FlightDatabase flightId; //from flightDatabase
     private FlightDatabase returnFlightId;
@@ -12,16 +12,16 @@ public class FlightBooking {
     private String optBaggage;
     private double totalPaid;
 
-    public FlightBooking(){
+    public Flight(){
     }
 
-    public FlightBooking(String lastName, int bookingNumber){
+    public Flight(String lastName, int bookingNumber){
         this.lastName = lastName;
         this.bookingNumber = bookingNumber;
     }
 
     //Parameterized constructor for one-way
-    public FlightBooking(int bookingNumber, String firstName, String lastName, FlightDatabase flightId, String tripType, String depDate, String cabinClass, String optMeals, String optBaggage, double totalPaid){
+    public Flight(int bookingNumber, String firstName, String lastName, FlightDatabase flightId, String tripType, String depDate, String cabinClass, String optMeals, String optBaggage, double totalPaid){
         this.bookingNumber = bookingNumber;
         this.flightId = flightId;
         this.firstName = firstName;
@@ -35,7 +35,7 @@ public class FlightBooking {
     }
 
     //Parameterized constructor for round trip
-    public FlightBooking(int bookingNumber, FlightDatabase flightId, FlightDatabase returnFlightId, String firstName ,String lastName, String tripType, String depDate, String returnDate, String cabinClass, String optMeals, String optBaggage, double totalPaid){
+    public Flight(int bookingNumber, FlightDatabase flightId, FlightDatabase returnFlightId, String firstName , String lastName, String tripType, String depDate, String returnDate, String cabinClass, String optMeals, String optBaggage, double totalPaid){
         this.bookingNumber = bookingNumber;
         this.flightId = flightId;
         this.returnFlightId = returnFlightId;
