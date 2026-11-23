@@ -479,7 +479,7 @@ public class TestAirline {
 
                 if (optNewUserPromo.equalsIgnoreCase("Y")) {
                     usePromo = true;
-                    System.out.print(flightBooking.printPreCheckoutNonMember(totalPayable, usePromo));
+                    System.out.print(flightBooking.printPreCheckoutNonMember(usePromo));
 
                 } else {
                     System.out.print("\nContinue without one-time new user promo");

@@ -159,7 +159,7 @@ public class FlightBooking {
                 + "\nContinue to payment >>>\n";
     }
 
-    public String printPreCheckoutNonMember(double totalPayable, boolean usePromo){
+    public String printPreCheckoutNonMember(boolean usePromo){
         String promoLine = "";
         double promoTotal = calcTotalFare();
 
