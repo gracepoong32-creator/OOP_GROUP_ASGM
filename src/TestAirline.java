@@ -1,9 +1,7 @@
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.Random;
+import java.util.*;
+
 
 //if suddenly a lot of red, then file-> repair IDE
 
