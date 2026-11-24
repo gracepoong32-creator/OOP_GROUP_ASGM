@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -10,6 +11,12 @@ public class TestAirline {
         Scanner input = new Scanner(System.in); //Input scanner
         Random random = new Random(); //Random
         CheckIn checkIn = new CheckIn();
+
+        try {
+            ReadData();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
         //Arraylist for preset flight schedules, flights booked, checked in, loyalty members, upcoming flight schedule
         ArrayList<FlightDatabase> flightDatabaseArr = new ArrayList<>();
@@ -72,7 +79,6 @@ public class TestAirline {
 
         //Preset 5 loyalty members
         userArr.add(new Member("Jane", "Smith", 18, "M101", 50, "Bronze Tier", 700.00));
-        userArr.add(new Member("Shaun", "Wong", 20, "M102", 100, "Platinum Tier", 10001.00));
         userArr.add(new Member("Daniel", "Fong", 22, "M103", 110, "Bronze Tier", 1150.00));
         userArr.add(new Member("Marcus", "Lee", 35, "M104", 1120, "Gold Tier", 9200.00));
         userArr.add(new Member("Lucas", "Wong", 40, "M105", 1450, "Platinum Tier", 12500.00));
@@ -133,6 +139,21 @@ public class TestAirline {
             }
 
         } while (option != 6);
+    }
+
+    public static void ReadData() throws FileNotFoundException {
+        //Create a File instance
+        java.io.File file = new java.io.File("User.txt");
+        //Create a scanner for the file
+        Scanner input = new Scanner(file);
+
+        while(input.hasNext()){
+            String user = input.nextLine();
+            System.out.println(user);
+
+        }
+
+        input.close();
     }
 
     //Feature 1: Flight booking
