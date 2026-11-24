@@ -116,7 +116,6 @@ public class TestAirline {
                         System.out.println("There is no booking to check in.");
                     }else {
                         System.out.print("-----Flight cancellation-----");
-                        flightCancellation(flightArr, input);
                     }
                     break;
                 case 4:
@@ -791,86 +790,6 @@ public class TestAirline {
         }
     }
 
-    //Feature 3: Flight Cancellation
-    public static void flightCancellation(ArrayList<Flight> flightArr, Scanner input) {
-
-        //variables
-        boolean checkBookingNumber = false;
-        boolean checkLastName = false;
-        int bookingIndex = 0;
-        int reset = 0;
-        String lastName = "";
-        String cancelFlight = "";
-
-        //Check Booking Number
-        do {
-            try{
-                System.out.print("\nEnter your booking number: ");
-                int bookingNumber = input.nextInt();
-                for (bookingIndex = 0; bookingIndex < flightArr.size(); bookingIndex++) {
-                    if (bookingNumber == flightArr.get(bookingIndex).getBookingNumber()) {
-                        checkBookingNumber = true;
-                        break;
-                    }
-                }
-                if (!checkBookingNumber){
-                    System.out.println("The booking number is invalid or not found. Please try again.");
-                }
-            } catch (Exception e) {
-                System.out.println("Please enter a valid booking number.");
-                input.nextLine();
-            }
-
-        } while (!checkBookingNumber);
-
-        //Check Name
-        input.nextLine();
-        do {
-            System.out.print("Enter your last name: ");
-            lastName = input.nextLine();
-            if (lastName.equalsIgnoreCase(flightArr.get(bookingIndex).getLastName())) {
-                break;
-            }
-
-            if (!checkLastName) {
-                System.out.println("The name you entered is not found. Please try again");
-            }
-
-        } while (!checkLastName); //If check name is true, break from while loop
-
-        //Print flight Details
-        System.out.println("\n-----Flight Details-----" +
-                "\nFlight Id: " + flightArr.get(bookingIndex).getFlightId().getFlightNum() +
-                "\nRoute: " + flightArr.get(bookingIndex).getFlightId().getFrom() + " -> " + flightArr.get(bookingIndex).getFlightId().getTo() +
-                "\nDeparture: " + flightArr.get(bookingIndex).getDepDate() + " at " + flightArr.get(bookingIndex).getFlightId().getDepartureTime() +
-                "\nTrip type: " + flightArr.get(bookingIndex).getTripType() +
-                "\nCabin class: " + flightArr.get(bookingIndex).getCabinClass());
-
-        boolean cancelProcess = false;
-        do {
-                System.out.println("\nCancelling a flight will only refund 80% of the total amount paid.");
-                System.out.print("Are you sure to cancel this flight (y for yes/ n for no): ");
-                cancelFlight = input.nextLine();
-
-            if (cancelFlight.equalsIgnoreCase("y")) {
-                //Cancel Flight
-                double flightRefund = (flightArr.get(bookingIndex).getTotalPaid()) * 0.8;
-                System.out.print("Your refund for this flight is " + flightRefund);
-                System.out.println("The refund is successful.");
-                flightArr.remove(bookingIndex);
-                cancelProcess = true;
-
-            } else if (cancelFlight.equalsIgnoreCase("n")) {
-                //Cancel cancel Flight
-                System.out.print("You cancelled this process.\n");
-                cancelProcess = true;
-
-            } else {
-                //Exception
-                System.out.print("Please enter Y/N only.");
-            }
-        } while (!cancelProcess);
-    }
 
     // Feature 4: Flight Schedule
     public static void displayFlightSchedule(ArrayList<FlightSchedule> flightSchedulesArr) {
