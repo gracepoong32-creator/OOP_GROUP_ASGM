@@ -71,12 +71,9 @@ public class TestAirline {
         flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(9), LocalDateTime.of(2026, 11, 22, 11, 0), "C1", "On Time"));
 
 
-        //Preset 5 loyalty members
+        //Preset loyalty members in arraylist
         try {
-            ReadData(userArr);
-            for (int i = 0; i < userArr.size(); i++){
-                System.out.println(userArr.get(i).toString());
-            }
+            readUserData(userArr);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -132,7 +129,8 @@ public class TestAirline {
         } while (option != 6);
     }
 
-    public static void ReadData(ArrayList <User> userArr) throws FileNotFoundException {
+    //Read user txt Data
+    public static void readUserData(ArrayList <User> userArr) throws FileNotFoundException {
         //Create a File instance
         java.io.File file = new java.io.File("User.txt");
         //Create a scanner for the file
