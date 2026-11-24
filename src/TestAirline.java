@@ -12,12 +12,6 @@ public class TestAirline {
         Random random = new Random(); //Random
         CheckIn checkIn = new CheckIn();
 
-        try {
-            ReadData();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
         //Arraylist for preset flight schedules, flights booked, checked in, loyalty members, upcoming flight schedule
         ArrayList<FlightDatabase> flightDatabaseArr = new ArrayList<>();
         ArrayList<Flight> flightArr = new ArrayList<>();
@@ -78,17 +72,14 @@ public class TestAirline {
 
 
         //Preset 5 loyalty members
-        userArr.add(new Member("Jane", "Smith", 18, "M101", 50, "Bronze Tier", 700.00));
-        userArr.add(new Member("Daniel", "Fong", 22, "M103", 110, "Bronze Tier", 1150.00));
-        userArr.add(new Member("Marcus", "Lee", 35, "M104", 1120, "Gold Tier", 9200.00));
-        userArr.add(new Member("Lucas", "Wong", 40, "M105", 1450, "Platinum Tier", 12500.00));
-
-        //Preset 5 non Member
-        userArr.add(new NonMember("Gina", "Wang", 52, "M106", 3, false));
-        userArr.add(new NonMember("Jayden", "Cooper", 13, "M107", 7, false));
-        userArr.add(new NonMember("Isabelle", "Kong", 21, "M108", 0, true));
-        userArr.add(new NonMember("Miriam", "Grey", 48, "M109", 9, false));
-        userArr.add(new NonMember("Lily", "Ketchman", 34, "M110", 1, true));
+        try {
+            ReadData(userArr);
+            for (int i = 0; i < userArr.size(); i++){
+                System.out.println(userArr.get(i).toString());
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
         //Airline Management System Menu UI
         int option = 0;
@@ -141,15 +132,26 @@ public class TestAirline {
         } while (option != 6);
     }
 
-    public static void ReadData() throws FileNotFoundException {
+    public static void ReadData(ArrayList <User> userArr) throws FileNotFoundException {
         //Create a File instance
         java.io.File file = new java.io.File("User.txt");
         //Create a scanner for the file
         Scanner input = new Scanner(file);
 
         while(input.hasNext()){
-            String user = input.nextLine();
-            System.out.println(user);
+            String firstName = input.next();
+            String lastName = input.next();
+            int age = input.nextInt();
+            String userId = input.next();
+            int pointsCollected = input.nextInt();
+            if (input.hasNextBoolean()){
+                boolean hasPromo = input.nextBoolean();
+                userArr.add(new NonMember(firstName,lastName,age,userId,pointsCollected,hasPromo));
+            }else {
+                String memberTier = input.next() + input.next();
+                double totalSpent = input.nextDouble();
+                userArr.add(new Member(firstName, lastName, age,userId,pointsCollected,memberTier,totalSpent));
+            }
 
         }
 
