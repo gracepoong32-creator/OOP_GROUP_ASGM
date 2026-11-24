@@ -6,10 +6,10 @@ public class FlightSchedule {
     private String status;
 
     public FlightSchedule(FlightDatabase flight,LocalDateTime dateTime,String gate,String status){
-        this.flight=flight;
-        this.dateTime=dateTime;
-        this.gate=gate;
-        this.status=status;
+        this.flight = flight;
+        this.dateTime = dateTime;
+        this.gate = gate;
+        this.status = status;
     }
 
     public FlightDatabase getFlight() {

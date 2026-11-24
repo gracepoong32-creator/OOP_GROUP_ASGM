@@ -31,7 +31,7 @@ public class Member extends User{
     //Method to print out all member details
     @Override
     public String toString(){
-        return "\n\n\n==========================================\n"
+        return "\n\n==========================================\n"
                 +"           LOYALTY MEMBER DETAILS         \n"
                 +"=========================================="
                 + "\nUser Id: " + super.getUserId()
@@ -86,6 +86,6 @@ public class Member extends User{
                 + "\nPoints \nUsed: -" + (discount*100) + "pts | Earned: +" + pointsEarned + "pts"
                 + "\nNew point balance: " + pointsCollected + "pts"
                 + "\nTotal spent: RM" + String.format("%.2f", totalSpent)
-                + "\n==========================================\n\n";
+                + "\n==========================================\n\n\n";
     }
 }

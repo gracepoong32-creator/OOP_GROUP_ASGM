@@ -1,35 +1,57 @@
-public class FlightBooking {
-    private int bookingNumber; //random generated
-    private FlightDatabase flightId; //from flightDatabase
+public class Flight {
+    private String firstName;
     private String lastName;
+    private int bookingNumber; //random generated
     private String tripType;
-    private String depDate;
-    private String returnDate;
     private String cabinClass;
     private String optMeals;
     private String optBaggage;
 
-    public FlightBooking(String lastName, int bookingNumber){
+    private FlightDatabase flightId; //from flightDatabase
+    private String depDate;
+    private String seatNumber;
+    private String boardingGate;
+    private boolean checkIn = false;
+
+    private FlightDatabase returnFlightId;
+    private String returnDate;
+    private String returnSeatNumber;
+    private String returnBoardingGate;
+    private boolean returnCheckIn = false;
+
+    private double totalPaid;
+
+
+
+
+    public Flight(){
+    }
+
+    public Flight(String lastName, int bookingNumber){
         this.lastName = lastName;
         this.bookingNumber = bookingNumber;
     }
 
     //Parameterized constructor for one-way
-    public FlightBooking(int bookingNumber, String lastName, FlightDatabase flightId, String tripType, String depDate, String cabinClass, String optMeals, String optBaggage){
+    public Flight(int bookingNumber, String firstName, String lastName, FlightDatabase flightId, String tripType, String depDate, String cabinClass, String optMeals, String optBaggage, double totalPaid){
         this.bookingNumber = bookingNumber;
         this.flightId = flightId;
+        this.firstName = firstName;
         this.lastName = lastName;
         this.tripType = tripType;
         this.depDate = depDate;
         this.cabinClass = cabinClass;
         this.optMeals = optMeals;
         this.optBaggage = optBaggage;
+        this.totalPaid = totalPaid;
     }
 
     //Parameterized constructor for round trip
-    public FlightBooking(int bookingNumber, FlightDatabase flightId, String lastName, String tripType, String depDate, String returnDate, String cabinClass, String optMeals, String optBaggage){
+    public Flight(int bookingNumber, FlightDatabase flightId, FlightDatabase returnFlightId, String firstName , String lastName, String tripType, String depDate, String returnDate, String cabinClass, String optMeals, String optBaggage, double totalPaid){
         this.bookingNumber = bookingNumber;
         this.flightId = flightId;
+        this.returnFlightId = returnFlightId;
+        this.firstName = firstName;
         this.lastName = lastName;
         this.tripType = tripType;
         this.depDate = depDate;
@@ -37,9 +59,7 @@ public class FlightBooking {
         this.cabinClass = cabinClass;
         this.optMeals = optMeals;
         this.optBaggage = optBaggage;
-    }
-
-    public FlightBooking() {
+        this.totalPaid = totalPaid;
     }
 
     //Getter and Setters
@@ -48,6 +68,16 @@ public class FlightBooking {
 
     public FlightDatabase getFlightId(){ return flightId; }
     public void setFlightId(FlightDatabase flightId) { this.flightId = flightId; }
+
+    public FlightDatabase getReturnFlightId() { return returnFlightId; }
+    public void setReturnFlightId(FlightDatabase returnFlightId) { this.returnFlightId = returnFlightId; }
+
+    public String getFirstName() {
+        return firstName;
+    }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
     public String getLastName() { return lastName; }
     public void setLastName(String lastName) { this.lastName = lastName; }
@@ -72,16 +102,79 @@ public class FlightBooking {
     public String getOptBaggage() { return optBaggage; }
     public void setOptBaggage(String optBaggage) { this.optBaggage = optBaggage; }
 
+    public double getTotalPaid() {
+        return totalPaid;
+    }
+
+    public void setTotalPaid(double totalPaid) {
+        this.totalPaid = totalPaid;
+    }
+
+    public boolean isRoundCheckIn() {
+        return returnCheckIn;
+    }
+    public void setRoundCheckIn(boolean roundCheckIn) {
+        this.returnCheckIn = roundCheckIn;
+    }
+
+    public boolean isCheckIn() {
+        return checkIn;
+    }
+    public void setCheckIn(boolean checkIn) {
+        this.checkIn = checkIn;
+    }
+
+    public String getBoardingGate() {
+        return boardingGate;
+    }
+    public void setBoardingGate(String boardingGate) {
+        this.boardingGate = boardingGate;
+    }
+
+    public String getSeatNumber() {
+        return seatNumber;
+    }
+    public void setSeatNumber(String seatNumber) {
+        this.seatNumber = seatNumber;
+    }
+
+    public String getReturnBoardingGate() {
+        return returnBoardingGate;
+    }
+    public void setReturnBoardingGate(String returnBoardingGate) {
+        this.returnBoardingGate = returnBoardingGate;
+    }
+
+    public String getReturnSeatNumber() {
+        return returnSeatNumber;
+    }
+    public void setReturnSeatNumber(String returnSeatNumber) {
+        this.returnSeatNumber = returnSeatNumber;
+    }
+
+
+
     @Override
     public String toString(){
+        double basePrice = flightId.getBasePrice();
+        String roundTripLine = "";
+
+        if (tripType.equalsIgnoreCase("round trip")){
+            basePrice += returnFlightId.getBasePrice();
+            roundTripLine = "\n------------------------------------------"
+                    + "\nReturn Flight Id: " + getReturnFlightId().getFlightNum()
+                    + "\nRoute: " + getReturnFlightId().getFrom() + " -> " + getReturnFlightId().getTo()
+                    + "\nReturn: " + returnDate + " at " + getReturnFlightId().getDepartureTime();
+        }
+
         return "\n==========================================\n             CHECKOUT SUMMARY       \n=========================================="
-                + "\nBooking reference: " + bookingNumber + "\nPassenger last name: " + lastName
-                + "\n------------------------------------------" + "\nFLIGHT DETAILS"
-                + "\nFlight Id: " + getFlightId().getFlightNum() + "\nRoute: " + getFlightId().getFrom() + " -> " + getFlightId().getTo()
+                + "\nFLIGHT DETAILS"
+                + "\nDeparture Flight Id: " + getFlightId().getFlightNum() + "\nRoute: " + getFlightId().getFrom() + " -> " + getFlightId().getTo()
                 + "\nDeparture: " + depDate + " at " + getFlightId().getDepartureTime()
+                + roundTripLine
                 + "\nTrip type: " + tripType + "\nCabin class: " + cabinClass
                 + "\n------------------------------------------" + "\nPRICE BREAKDOWN"
-                + "\nBase fare: RM" + String.format("%.2f", flightId.getBasePrice()) + "\nAdd-ons \nBaggage: RM" + String.format("%.2f", getBaggage())
+                + "\nBase fare: RM" + String.format("%.2f", basePrice) + "\nAdd-ons \nBaggage: RM" + String.format("%.2f", getBaggage())
                 + "\nMeal: RM" + String.format("%.2f", getMeal()) + "\n------------------------------------------"
                 + "\nTotal: RM" + String.format("%.2f", calcTotalFare()) + "\n==========================================\nContinue to payment >>>";
     }
@@ -89,7 +182,7 @@ public class FlightBooking {
     public double calcTotalFare(){
         double basePrice = getFlightId().getBasePrice();
         if(tripType.equalsIgnoreCase("round trip")){
-            basePrice *= 2;
+            basePrice += getReturnFlightId().getBasePrice();
         }
         return basePrice + getMeal() + getBaggage();
     }
@@ -97,8 +190,7 @@ public class FlightBooking {
     public double getBaggage(){
         if (getOptBaggage().equalsIgnoreCase("Y")){
             return 50.0;
-        }
-        else{
+        } else{
             return 0.0;
         }
     }
@@ -106,8 +198,7 @@ public class FlightBooking {
     public double getMeal(){
         if(getOptMeals().equalsIgnoreCase("Y")){
             return 20.0;
-        }
-        else{
+        } else{
             return 0.0;
         }
     }
@@ -123,11 +214,11 @@ public class FlightBooking {
                 + "\nContinue to payment >>>\n";
     }
 
-    public String printPreCheckoutNonMember(double totalPayable, boolean hasPromo){
+    public String printPreCheckoutNonMember(boolean usePromo){
         String promoLine = "";
         double promoTotal = calcTotalFare();
 
-        if (hasPromo){
+        if (usePromo){
             promoLine = "\nOne-time user promo: 10%";
             promoTotal = calcTotalFare()*0.9;
         }
@@ -139,25 +230,23 @@ public class FlightBooking {
                 + "\n------------------------------------------"
                 + "\nTotal to pay: RM" + String.format("%.2f", promoTotal)
                 + "\n=========================================="
-                + "\nContinue to payment >>>\n";
+                + "\nContinue to payment >>>";
     }
 
 
-    public String printPostCheckoutMember(double discount){
-        return "\n\n\n==========================================\n"
-                +"            PAYMENT SUCCESSFUL!!            \n"
-                +"=========================================="
-                + "\nBooking reference: " + bookingNumber
-                + "\nAmount paid: RM" + String.format("%.2f", (calcTotalFare()-discount))
-                + "\n------------------------------------------";
+    public double checkoutMember(double discount){
+        return (calcTotalFare()-discount);
     }
 
-    public String printPostCheckoutNonMember(boolean hasPromo){
+    public double checkoutNonMember(boolean usePromo){
         double totalPayment = calcTotalFare();
-        if (hasPromo){
+        if (usePromo){
             totalPayment = calcTotalFare()*0.9;
         }
+        return totalPayment;
+    }
 
+    public String printPayment(double totalPayment){
         return "\n\n\n==========================================\n"
                 +"            PAYMENT SUCCESSFUL!!            \n"
                 +"=========================================="

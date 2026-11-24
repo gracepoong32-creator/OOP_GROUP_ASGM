@@ -1,5 +1,4 @@
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Random;
@@ -32,16 +31,16 @@ public class TestAirline {
         flightDatabaseArr.add(new FlightDatabase("AK275", "AirAsia", "KUL", "PEN", "Economy", 256.00, "1100"));
 
         //Present flight schedules
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(0), LocalDateTime.of(2026,11,17,8,0),"A12","On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(1), LocalDateTime.of(2026,11,18,12,0),"B6","On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(2), LocalDateTime.of(2026,11,19,17,30),"A1","Delayed"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(3), LocalDateTime.of(2026,11,20,9,10),"B9","On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(0), LocalDateTime.of(2026,11,20,8,0),"A12","On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(1), LocalDateTime.of(2026,11,20,12,0),"B6","On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(2), LocalDateTime.of(2026,11,20,17,30),"A1","Delayed"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(3), LocalDateTime.of(2026,11,21,9,10),"B9","On Time"));
         flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(4), LocalDateTime.of(2026,11,21,14,0),"C8","On Time"));
         flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(5), LocalDateTime.of(2026,11,21,20,0),"D3","Cancelled"));
         flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(6), LocalDateTime.of(2026,11,22,11,0),"H8","On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(7), LocalDateTime.of(2026,11,23,7,0),"G11","On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(8), LocalDateTime.of(2026,11,24,9,0),"D3","On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(9), LocalDateTime.of(2026,11,25,11,0),"C1","On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(7), LocalDateTime.of(2026,11,22,7,0),"G11","On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(8), LocalDateTime.of(2026,11,22,9,0),"D3","On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(9), LocalDateTime.of(2026,11,22,11,0),"C1","On Time"));
 
         //Preset 5 loyalty members
         userArr.add(new Member("Jane", "Smith", 18, "M101", 50, "Bronze Tier", 700.00));
@@ -85,7 +84,6 @@ public class TestAirline {
                     break;
                 case 4:
                     System.out.print("Summary of upcoming flight schedule");
-                    displayFlightSchedule(flightScheduleArr);
                     break;
                 case 5:
                     System.out.print("Loyalty Programme");
@@ -398,12 +396,7 @@ public class TestAirline {
     public static void displayFlightSchedule(ArrayList<FlightSchedule>flightSchedulesArr){
         System.out.println("===== Upcoming Flight Schedule =====");
         for (FlightSchedule schedule : flightSchedulesArr){
-          FlightDatabase flight = schedule.getFlight();
-          System.out.println("Flight Number :"+flight.getFlightNum());
-          DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy,hh:mm a");
-          System.out.println("Date & Time :" + schedule.getDateTime().format(formatter));
-          System.out.println("Gate : "+ schedule.getGate());
-          System.out.println("Status : "+ schedule.getStatus());
+          
         }
     }
 }

@@ -1,7 +1,7 @@
 public class NonMember extends User {
     private int bookingCount;
     private boolean hasPromo;
-    private final double newUserPromo = 0.1;
+    private final double NEW_USER_PROMO = 0.1;
 
     //Default constructor
     public NonMember(){
@@ -31,7 +31,7 @@ public class NonMember extends User {
 
     public String newUserPromoCheck(){
         if (hasPromo){
-            return "Available (One-time discount)" + "\nNew user promo discount: " + newUserPromo*100 + "%";
+            return "Available (One-time discount)" + "\nNew user promo discount: " + NEW_USER_PROMO*100 + "%";
         }
         else{
             return "Already used";
@@ -40,14 +40,15 @@ public class NonMember extends User {
 
     @Override
     public String toString(){
-        return "\n\n\n==========================================\n"
+        return "\n\n==========================================\n"
                 +"           NON MEMBER DETAILS         \n"
                 +"=========================================="
                 + "\nUser Id: " + super.getUserId()
                 + "\nFull name: " + super.getFirstName() + " " + super.getLastName()
                 + "\n------------------------------------------"
                 + "\nNew User Promo: " + newUserPromoCheck()
-                + "\nBooking count: " + bookingCount + "/10";
+                + "\nBooking count: " + bookingCount + "/10"
+                + "\n==========================================";
     }
 
     public String updatedNonMemberProfile(boolean usedPromo){
@@ -60,6 +61,6 @@ public class NonMember extends User {
                 + "\nName: " + getFirstName() + " " + getLastName()
                 + "\nBooking count: " + this.bookingCount
                 + "\nNew User Promo: " + newUserPromoCheck()
-                + "\n==========================================\n\n";
+                + "\n==========================================\n\n\n";
     }
 }
