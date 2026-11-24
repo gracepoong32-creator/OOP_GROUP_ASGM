@@ -179,7 +179,7 @@ public class TestAirline {
         while (!valid) {
             System.out.print("\nEnter trip type (one-way/round trip): ");
             inputTypeTrip = input.nextLine();
-
+            //Exception
             if (inputTypeTrip.equalsIgnoreCase("one-way") || inputTypeTrip.equalsIgnoreCase("round trip")) {
                 valid = true;
             } else {
@@ -228,7 +228,7 @@ public class TestAirline {
         while (!valid) {
             System.out.print("Enter cabin class (Business/Economy): ");
             inputCabinClass = input.nextLine();
-
+            //Exception
             if (inputCabinClass.equalsIgnoreCase("Economy") || inputCabinClass.equalsIgnoreCase("Business")) {
                 valid = true;
             } else {
@@ -273,16 +273,16 @@ public class TestAirline {
         }
 
         //User choose flight option
-        System.out.print("\nEnter departure flight Id: ");
-        String inputFlight = input.nextLine();
-        FlightDatabase selectedFlight = matchFlight(flightDatabaseArr, inputFlight); //Check for departure flight
-
-        while (selectedFlight == null){
+        String inputFlight = " ";
+        FlightDatabase selectedFlight = null;
+        while (true){
             System.out.print("\nEnter departure flight Id: ");
             inputFlight = input.nextLine();
-            selectedFlight = matchFlight(flightDatabaseArr, inputFlight);
+            selectedFlight = matchFlight(flightDatabaseArr, inputFlight);//Check for departure flight
+            if (selectedFlight != null){
+                break;
+            }
         }
-
         //If is round trip
         if (inputTypeTrip.equalsIgnoreCase("round trip")) {
             System.out.print("\n\nRETURNING FLIGHTS");
@@ -291,15 +291,13 @@ public class TestAirline {
 
             matchReturnFlight(flightDatabaseArr, inputFlight);
 
-            System.out.print("\nEnter returning flight Id: ");
-            inputReturnFlight = input.nextLine();
-            //Match return flight with database
-            selectedReturnFlight = matchFlight(flightDatabaseArr, inputReturnFlight); //Check for round-trip
-
-            while (selectedReturnFlight == null){
+            while (true){
                 System.out.print("\nEnter returning flight Id: ");
                 inputReturnFlight = input.nextLine();
-                selectedReturnFlight = matchFlight(flightDatabaseArr, inputReturnFlight);
+                selectedReturnFlight = matchFlight(flightDatabaseArr, inputReturnFlight); //Check for round-trip
+                if (selectedReturnFlight != null){
+                    break;
+                }
             }
         }
 
@@ -349,55 +347,40 @@ public class TestAirline {
         flightArr.add(flight);
         System.out.print(flight); //Print pre check-out summary
 
-        boolean checkIn = false; //exception if cancel booking dont come in this check in add
-        boolean roundCheckIn = false;
-        String boardingGate ="To be Determined";
-        String returnBoardingGate = "To be Determined";
-        String seatNumber = " ";
-        String returnSeatNumber = " ";
-        int userIndex = 0;
-
-        if (flightArr.getLast().getTripType().equalsIgnoreCase("one-way")){
-            checkInArr.add(new CheckIn(userArr.get(userIndex).getLastName(), bookingNum, checkIn, boardingGate, seatNumber));
-        }else {
-            checkInArr.add(new CheckIn(userArr.get(userIndex).getLastName(), bookingNum, roundCheckIn,checkIn, boardingGate, returnBoardingGate, seatNumber, returnSeatNumber));
-        }
-
         //Enter check loyalty member
-        userIndex = checkoutLoyalty(input, userArr, flight, flightArr);
-        if (flightArr.isEmpty()){
-            checkInArr.removeLast();
+        int userIndex = checkoutLoyalty(input, userArr, flight, flightArr);
+        if (flightArr.getLast().getBookingNumber() == bookingNum) {
+            boolean checkIn = false; //exception if cancel booking don't come in this check in add
+            boolean roundCheckIn = false;
+            String boardingGate = "To be Determined";
+            String returnBoardingGate = "To be Determined";
+            String seatNumber = " ";
+            String returnSeatNumber = " ";
 
-        }else if (flightArr.getLast().getBookingNumber() == checkInArr.getLast().getBookingNumber()){
-            //Set back the user last name
-            checkInArr.getLast().setLastName(userArr.get(userIndex).getLastName());
+            if (flightArr.getLast().getTripType().equalsIgnoreCase("one-way")) {
+                checkInArr.add(new CheckIn(userArr.get(userIndex).getLastName(), bookingNum, checkIn, boardingGate, seatNumber));
+            } else {
+                checkInArr.add(new CheckIn(userArr.get(userIndex).getLastName(), bookingNum, roundCheckIn, checkIn, boardingGate, returnBoardingGate, seatNumber, returnSeatNumber));
+            }
 
             //Add in checkInArr
             boolean checkFirstSame = false;
             boolean checkSecondSame = false;
-            //Check if there is any same flight Id and dep date
-            for (int i = 0; i < boardingGateArr.size(); i++){
+
+            //Check if there is any same flight ID and dep date
+            for (int i = 0; i < boardingGateArr.size(); i++) {
                 //If the first trip/ one-way have alr the date in the ArrayList, no need add
-                if (flightArr.getLast().getFlightId().getFlightNum().equalsIgnoreCase(boardingGateArr.get(i).getFlightNum()) && flightArr.getLast().getDepDate().equalsIgnoreCase(boardingGateArr.get(i).getDate())){
-                    checkFirstSame = true;
+                if (!(flightArr.getLast().getFlightId().getFlightNum().equalsIgnoreCase(boardingGateArr.get(i).getFlightNum())) && !(flightArr.getLast().getDepDate().equalsIgnoreCase(boardingGateArr.get(i).getDate()))) {
+                    boardingGateArr.add(new CheckIn(flightArr.getLast().getFlightId().getFlightNum(), flightArr.getLast().getDepDate(), boardingGate));
                 }
                 //If is round trip, check if the return trip have the information in the ArrayList
-                if (flightArr.getLast().getTripType().equalsIgnoreCase("round trip")){
-                    if (flightArr.getLast().getReturnFlightId().getFlightNum().equalsIgnoreCase(boardingGateArr.get(i).getFlightNum()) && flightArr.getLast().getReturnDate().equalsIgnoreCase(boardingGateArr.get(i).getDate())){
-                        checkSecondSame = true;
+                if (flightArr.getLast().getTripType().equalsIgnoreCase("round trip")) {
+                    if (!(flightArr.getLast().getReturnFlightId().getFlightNum().equalsIgnoreCase(boardingGateArr.get(i).getFlightNum())) && !(flightArr.getLast().getReturnDate().equalsIgnoreCase(boardingGateArr.get(i).getDate()))) {
+                        boardingGateArr.add(new CheckIn(flightArr.getLast().getReturnFlightId().getFlightNum(), flightArr.getLast().getReturnDate(), returnBoardingGate));
                     }
                 }
             }
-            if (!checkFirstSame){ //Don't have the same flight Id and dep date, the boarding gate is not generated
-                boardingGateArr.add(new CheckIn(flightArr.getLast().getFlightId().getFlightNum(), flightArr.getLast().getDepDate(),boardingGate ));
-            }
-            if (!checkSecondSame){
-                boardingGateArr.add(new CheckIn(flightArr.getLast().getReturnFlightId().getFlightNum(), flightArr.getLast().getReturnDate(),boardingGate));
-            }
-        }else {
-            checkInArr.removeLast();
         }
-
     }
 
     //Feature 1: Check user (member/non-member) during checkout
