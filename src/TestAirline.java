@@ -129,11 +129,8 @@ public class TestAirline {
 
     //Read user txt Data
     public static void readUserData(ArrayList <User> userArr) throws FileNotFoundException {
-        //Create a File instance
-        java.io.File file = new java.io.File("User.txt");
-        //Create a scanner for the file
-        Scanner input = new Scanner(file);
-
+        java.io.File file = new java.io.File("User.txt");         //Create a File instance
+        Scanner input = new Scanner(file);        //Create a scanner for the file
         while(input.hasNext()){
             String firstName = input.next();
             String lastName = input.next();
@@ -148,9 +145,7 @@ public class TestAirline {
                 double totalSpent = input.nextDouble();
                 userArr.add(new Member(firstName, lastName, age,userId,pointsCollected,memberTier,totalSpent));
             }
-
         }
-
         input.close();
     }
 
