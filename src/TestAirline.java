@@ -412,10 +412,9 @@ public class TestAirline {
                 System.out.print("Oops, no points available to redeem\n");
             }
 
-            String confirmPayment = "";
             while (true) {
                 System.out.print("\nConfirm payment? (Y/N): ");
-                confirmPayment = input.nextLine();
+                String confirmPayment = input.nextLine();
                 if (confirmPayment.equalsIgnoreCase("Y")) {
                     double amountPaid = flight.calcTotalFare() - discount;
                     double totalAmount = flight.checkoutMember(discount);
@@ -458,10 +457,9 @@ public class TestAirline {
                 }
             }
 
-            String confirmPayment = "";
             while (true) {
                 System.out.print("\nConfirm payment? (Y/N): ");
-                confirmPayment = input.nextLine();
+                String confirmPayment = input.nextLine();
                 if (confirmPayment.equalsIgnoreCase("Y")) {
                     double totalAmount = flight.checkoutNonMember(usePromo);
                     flightArr.getLast().setTotalPaid(totalAmount);
@@ -639,20 +637,26 @@ public class TestAirline {
         CheckIn ck = null;
 
         //Check Booking Number
-        while (!checkInValid){
+        do{
+            try{
                 System.out.print("\nEnter your booking number: ");
                 bookingNumber = input.nextInt();
+
                 for (Flight flight : flightArr){
                     if (flight.getBookingNumber() == bookingNumber){
                         f = flight;
                         checkInValid = true;
+                        break;
                     }
                 }
-            if (f == null){
-                System.out.print("Please enter a valid booking number");
-                input.nextLine();
+                if (f == null){
+                    System.out.print("Please enter a valid booking number");
+                    input.nextLine();
+                }
+            } catch (Exception e) {
+                System.out.print("Invalid input, please enter again");
             }
-        }
+        } while ((!checkInValid));
 
         //Check Name
         checkInValid = false;
@@ -788,6 +792,7 @@ public class TestAirline {
             }
 
         } while (!checkLastName); //If check name is true, break from while loop
+
 
         //Print flight Details
         System.out.println("\n-----Flight Details-----" +
