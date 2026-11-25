@@ -108,7 +108,7 @@ public class TestAirline {
                         System.out.println("There is no booking to check in.");
                     }else {
                         System.out.print("-----Flight cancellation-----");
-                        flightCancellation(flightArr, input);
+                        fightCancelation(flightArr);
                     }
                     break;
                 case 4:
@@ -887,6 +887,42 @@ public class TestAirline {
                 System.out.println("Please enter again.");
                 input.nextLine(); //Clear
             }
+        }
+    }
+
+    public static void fightCancelation(ArrayList<Flight> flightArr){
+        Scanner input = new Scanner (System.in);
+
+        System.out.print("Enter Booking Number: ");
+        int bookingNumber = input.nextInt();
+        int i = 0;
+        for (i = 0 ; i < flightArr .size() ; i ++){
+            if (flightArr.get(i).getBookingNumber() == bookingNumber) {
+                break;
+            }
+        }
+
+        System.out.print("Enter your name: ");
+        String name = input.nextLine();
+        if (flightArr.get(i).getLastName() .equalsIgnoreCase(name)){
+            System.out.println("User is found");
+        }
+
+        System.out.println("Flight Details" +
+                "Name: " + flightArr.get(i).getFirstName() + " " + flightArr.get(i).getLastName() +
+                "Booking Number: " + flightArr.get(i).getBookingNumber()+
+                flightArr.get(i).getFlightId().getFrom() + " ------> " + flightArr.get(i).getFlightId().getTo() +
+                "Departure Date: " + flightArr.get(i).getDepDate());
+
+        System.out.println("If you cancel the flight it will only refund 50%");
+        System.out.println("Are you sure you want to cancel?(yes/no)");
+        String yesOrNo = input.nextLine();
+
+        if (yesOrNo.equalsIgnoreCase("yes") ){
+            System.out.println("Successfully Cancel");
+            flightArr.remove(i);
+        }else{
+            System.out.println("Unsuccessfully Cancel");
         }
     }
 }
