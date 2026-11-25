@@ -379,22 +379,20 @@ public class TestAirline {
     public static int checkoutLoyalty(Scanner input, ArrayList<User> userArr, Flight flight, ArrayList<Flight> flightArr) {
         double discount = 0.0;
         int userIndex = 0;
-
         //Check memberId / sign up / forget memberId process
         User u = findUser(input, userArr);
 
         // check if user is member or nonMember
         if (u instanceof Member m) { //User is a member
             String optPoints = "";
-            System.out.println(m); //Print member info
+            System.out.print(m); //Print member info
 
             //Ensure points balance > 0, display points redeemable, prompt user the option to redeem or not
             if (m.pointsRedeem() > 0) {
-                System.out.print("Points redeemable to cash: RM" + String.format("%.2f", m.pointsRedeem()));
+                System.out.println("Points redeemable to cash: RM" + String.format("%.2f", m.pointsRedeem()));
                 while (true) {
                     System.out.print("\nWould you like to use loyalty points as discount? (Y/N): ");
                     optPoints = input.nextLine();
-
                     if (optPoints.equalsIgnoreCase("Y")) {
                         discount = m.pointsRedeem();
                         //Only allow member to redeem the maximum points which is equal to total fare
