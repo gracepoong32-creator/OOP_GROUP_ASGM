@@ -1,13 +1,10 @@
-
 import java.time.LocalDate;
-
 public class FlightSchedule {
     private FlightDatabase flight;
     private LocalDate dateTime;
     private String gate;
     private String status;
 
-    // Constructor
     public FlightSchedule(FlightDatabase flight, LocalDate dateTime, String gate, String status) {
         this.flight = flight;
         this.dateTime = dateTime;
@@ -15,7 +12,6 @@ public class FlightSchedule {
         this.status = status;
     }
 
-    // Getter
     public FlightDatabase getFlight() {
         return flight;
     }
@@ -32,7 +28,6 @@ public class FlightSchedule {
         return status;
     }
 
-    // Setter
     public void setFlight(FlightDatabase flight) {
         this.flight = flight;
     }
