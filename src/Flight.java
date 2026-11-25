@@ -1,28 +1,16 @@
 public class Flight {
+    private int bookingNumber; //random generated
+    private FlightDatabase flightId; //from flightDatabase
+    private FlightDatabase returnFlightId;
     private String firstName;
     private String lastName;
-    private int bookingNumber; //random generated
     private String tripType;
+    private String depDate;
+    private String returnDate;
     private String cabinClass;
     private String optMeals;
     private String optBaggage;
-
-    private FlightDatabase flightId; //from flightDatabase
-    private String depDate;
-    private String seatNumber;
-    private String boardingGate;
-    private boolean checkIn = false;
-
-    private FlightDatabase returnFlightId;
-    private String returnDate;
-    private String returnSeatNumber;
-    private String returnBoardingGate;
-    private boolean returnCheckIn = false;
-
     private double totalPaid;
-
-
-
 
     public Flight(){
     }
@@ -75,6 +63,7 @@ public class Flight {
     public String getFirstName() {
         return firstName;
     }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -109,50 +98,6 @@ public class Flight {
     public void setTotalPaid(double totalPaid) {
         this.totalPaid = totalPaid;
     }
-
-    public boolean isRoundCheckIn() {
-        return returnCheckIn;
-    }
-    public void setRoundCheckIn(boolean roundCheckIn) {
-        this.returnCheckIn = roundCheckIn;
-    }
-
-    public boolean isCheckIn() {
-        return checkIn;
-    }
-    public void setCheckIn(boolean checkIn) {
-        this.checkIn = checkIn;
-    }
-
-    public String getBoardingGate() {
-        return boardingGate;
-    }
-    public void setBoardingGate(String boardingGate) {
-        this.boardingGate = boardingGate;
-    }
-
-    public String getSeatNumber() {
-        return seatNumber;
-    }
-    public void setSeatNumber(String seatNumber) {
-        this.seatNumber = seatNumber;
-    }
-
-    public String getReturnBoardingGate() {
-        return returnBoardingGate;
-    }
-    public void setReturnBoardingGate(String returnBoardingGate) {
-        this.returnBoardingGate = returnBoardingGate;
-    }
-
-    public String getReturnSeatNumber() {
-        return returnSeatNumber;
-    }
-    public void setReturnSeatNumber(String returnSeatNumber) {
-        this.returnSeatNumber = returnSeatNumber;
-    }
-
-
 
     @Override
     public String toString(){
