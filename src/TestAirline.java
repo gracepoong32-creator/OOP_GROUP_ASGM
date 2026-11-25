@@ -378,12 +378,10 @@ public class TestAirline {
     //Feature 1: Check user (member/non-member) during checkout
     public static int checkoutLoyalty(Scanner input, ArrayList<User> userArr, Flight flight, ArrayList<Flight> flightArr) {
         double discount = 0.0;
-        User u = null;
-        boolean valid = false;
         int userIndex = 0;
 
         //Check memberId / sign up / forget memberId process
-        u = findUser(input, userArr);
+        User u = findUser(input, userArr);
 
         // check if user is member or nonMember
         if (u instanceof Member m) { //User is a member
@@ -393,7 +391,7 @@ public class TestAirline {
             //Ensure points balance > 0, display points redeemable, prompt user the option to redeem or not
             if (m.pointsRedeem() > 0) {
                 System.out.print("Points redeemable to cash: RM" + String.format("%.2f", m.pointsRedeem()));
-                while (!valid) {
+                while (true) {
                     System.out.print("\nWould you like to use loyalty points as discount? (Y/N): ");
                     optPoints = input.nextLine();
 
@@ -404,10 +402,10 @@ public class TestAirline {
                             discount = flight.calcTotalFare();
                         }
                         System.out.print(flight.printPreCheckoutMember(discount, m.getPointsCollected()));
-                        valid = true;
+                        break;
                     } else if (optPoints.equalsIgnoreCase("N")){
                         System.out.print("Continue without redeeming loyalty points: ");
-                        valid = true;
+                        break;
                     }else{
                         System.out.println("Invalid input, please enter again");
                     }
@@ -417,8 +415,7 @@ public class TestAirline {
             }
 
             String confirmPayment = "";
-            valid = false; //Reinitialize boolean value of value so that valid variable can be reused for other exceptions
-            while (!valid) {
+            while (true) {
                 System.out.print("\nConfirm payment? (Y/N): ");
                 confirmPayment = input.nextLine();
                 if (confirmPayment.equalsIgnoreCase("Y")) {
@@ -430,11 +427,11 @@ public class TestAirline {
                     System.out.print(m.updatedMemberProfile(amountPaid, discount));
                     flightArr.getLast().setLastName(m.getLastName());
                     flightArr.getLast().setFirstName(m.getFirstName());
-                    valid = true;
+                    break;
                 } else if (confirmPayment.equalsIgnoreCase("N")){
                     flightArr.removeLast(); //Remove the flight booking from array once user cancel payment
                     System.out.println("You have cancelled the process");
-                    valid = true;
+                    break;
                 }else {
                     System.out.println("Invalid input, please enter again");
                 }
@@ -444,71 +441,60 @@ public class TestAirline {
             System.out.println(nm);
 
             boolean usePromo = false;
-            double totalPayable = flight.calcTotalFare();
+            flight.calcTotalFare();
 
             if (nm.isHasPromo()) {
-                String optNewUserPromo = "";
-                valid = false;
-                while (!valid) {
+                while (true) {
                     System.out.print("Would you like to use the one-time discount? (Y/N): ");
-                    optNewUserPromo = input.nextLine();
-
-                    if (optNewUserPromo.equalsIgnoreCase("Y") || optNewUserPromo.equalsIgnoreCase("N")) {
-                        valid = true;
-                    } else {
+                    String optNewUserPromo = input.nextLine();
+                    if (optNewUserPromo.equalsIgnoreCase("Y")) {
+                        usePromo = true;
+                        System.out.print(flight.printPreCheckoutNonMember(usePromo));
+                        break;
+                    } else if (optNewUserPromo.equalsIgnoreCase("N")) {
+                        System.out.print("\nContinue without one-time new user promo");
+                        break;
+                    }else {
                         System.out.println("Invalid input, please enter again\n");
                     }
-                }
-
-                if (optNewUserPromo.equalsIgnoreCase("Y")) {
-                    usePromo = true;
-                    System.out.print(flight.printPreCheckoutNonMember(usePromo));
-
-                } else {
-                    System.out.print("\nContinue without one-time new user promo");
                 }
             }
 
             String confirmPayment = "";
-            valid = false;
-            while (!valid) {
+            while (true) {
                 System.out.print("\nConfirm payment? (Y/N): ");
                 confirmPayment = input.nextLine();
+                if (confirmPayment.equalsIgnoreCase("Y")) {
+                    double totalAmount = flight.checkoutNonMember(usePromo);
+                    flightArr.getLast().setTotalPaid(totalAmount);
+                    System.out.print(flight.printPayment(totalAmount));
+                    System.out.print(nm.updatedNonMemberProfile(usePromo));
 
-                if (confirmPayment.equalsIgnoreCase("Y") || confirmPayment.equalsIgnoreCase("N")) {
-                    valid = true;
+                    //Check if bookingCount >= 10, upgrade to member
+                    if (nm.getBookingCount() >= 10) {
+                        //Create new object (Member) for nonMember
+                        Member m = new Member(nm.getFirstName(), nm.getLastName(), nm.getAge(), nm.getUserId(), 0.0, "Bronze Tier", 0.0);
+                        //Replace new object in array because previously user is a nonMember, now a Member
+                        userArr.set(userArr.indexOf(nm), m);
+
+                        //Upgraded to member message
+                        System.out.print("\n\n=========================================="
+                                + "\n       LOYALTY TIER UPGRADE!        "
+                                + "\n=========================================="
+                                + "\nCongrats!! You have reached 10 bookings"
+                                + "\nAccount (" + nm.getUserId() + ") upgraded to Loyalty Member (Bronze)"
+                                + "\n==========================================\n\n");
+                    }
+                    flightArr.getLast().setLastName(nm.getLastName());
+                    flightArr.getLast().setFirstName(nm.getFirstName());
+                    break;
+                }else if (confirmPayment.equalsIgnoreCase("N")){
+                    flightArr.removeLast();
+                    System.out.print("Payment cancelled. Returning to main menu...\n\n");
+                    break;
                 } else {
                     System.out.println("Invalid input, please enter again");
                 }
-            }
-
-            if (confirmPayment.equalsIgnoreCase("Y")) {
-                double totalAmount = flight.checkoutNonMember(usePromo);
-                flightArr.getLast().setTotalPaid(totalAmount);
-                System.out.print(flight.printPayment(totalAmount));
-                System.out.print(nm.updatedNonMemberProfile(usePromo));
-
-                //Check if bookingCount >= 10, upgrade to member
-                if (nm.getBookingCount() >= 10) {
-                    //Create new object (Member) for nonMember
-                    Member m = new Member(nm.getFirstName(), nm.getLastName(), nm.getAge(), nm.getUserId(), 0.0, "Bronze Tier", 0.0);
-                    //Replace new object in array because previously user is a nonMember, now a Member
-                    userArr.set(userArr.indexOf(nm), m);
-
-                    //Upgraded to member message
-                    System.out.print("\n\n=========================================="
-                            + "\n       LOYALTY TIER UPGRADE!        "
-                            + "\n=========================================="
-                            + "\nCongrats!! You have reached 10 bookings"
-                            + "\nAccount (" + nm.getUserId() + ") upgraded to Loyalty Member (Bronze)"
-                            + "\n==========================================\n\n");
-                }
-                flightArr.getLast().setLastName(nm.getLastName());
-                flightArr.getLast().setFirstName(nm.getFirstName());
-
-            } else {
-                flightArr.removeLast();
-                System.out.print("Payment cancelled. Returning to main menu...\n\n");
             }
         }
         return userIndex;

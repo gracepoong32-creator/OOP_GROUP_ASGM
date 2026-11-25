@@ -124,7 +124,7 @@ public class Flight {
                 + "\nTotal: RM" + String.format("%.2f", calcTotalFare()) + "\n==========================================\nContinue to payment >>>";
     }
 
-    public double calcTotalFare(){
+    public double calcTotalFare(){ //Calculate total price before minus points
         double basePrice = getFlightId().getBasePrice();
         if(tripType.equalsIgnoreCase("round trip")){
             basePrice += getReturnFlightId().getBasePrice();
