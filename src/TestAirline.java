@@ -51,22 +51,24 @@ public class TestAirline {
 
         //Preset the boarding Gate today
         String localDate = LocalDateTime.now().getDayOfMonth() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getYear();
+        LocalDate scheduleDate = LocalDate.now();
         for (int i = 0 ; i < flightDatabaseArr.size(); i++){
             boardingGateArr.add(new CheckIn(flightDatabaseArr.get(i).getFlightNum(), localDate , checkIn.checkBoardingGate(boardingGateArr, localDate)));
+
         }
 
 
         //Present flight schedules
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(0), LocalDateTime.of(2026, 11, 20, 8, 0), "A12", "On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(1), LocalDateTime.of(2026, 11, 20, 12, 0), "B6", "On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(2), LocalDateTime.of(2026, 11, 20, 17, 30), "A1", "Delayed"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(3), LocalDateTime.of(2026, 11, 21, 9, 10), "B9", "On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(4), LocalDateTime.of(2026, 11, 21, 14, 0), "C8", "On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(5), LocalDateTime.of(2026, 11, 21, 20, 0), "D3", "Cancelled"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(6), LocalDateTime.of(2026, 11, 22, 11, 0), "H8", "On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(7), LocalDateTime.of(2026, 11, 22, 7, 0), "G11", "On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(8), LocalDateTime.of(2026, 11, 22, 9, 0), "D3", "On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(9), LocalDateTime.of(2026, 11, 22, 11, 0), "C1", "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(0),scheduleDate.plusDays(0), boardingGateArr.get(0).getBoardingGate(), "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(1), scheduleDate.plusDays(1), boardingGateArr.get(1).getBoardingGate(), "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(2), scheduleDate.plusDays(2), boardingGateArr.get(2).getBoardingGate(), "Delayed"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(3), scheduleDate.plusDays(3), boardingGateArr.get(3).getBoardingGate(), "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(4),scheduleDate.plusDays(4), boardingGateArr.get(4).getBoardingGate(), "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(5), scheduleDate.plusDays(5), boardingGateArr.get(5).getBoardingGate(), "Cancelled"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(6), scheduleDate.plusDays(6), boardingGateArr.get(6).getBoardingGate(), "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(7), scheduleDate.plusDays(7), boardingGateArr.get(7).getBoardingGate(), "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(8), scheduleDate.plusDays(8), boardingGateArr.get(8).getBoardingGate(), "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(9),scheduleDate.plusDays(9), boardingGateArr.get(9).getBoardingGate(), "On Time"));
 
 
         //Preset loyalty members in arraylist
@@ -825,7 +827,7 @@ public class TestAirline {
 
     // Feature 4: Flight Schedule
     public static void displayFlightSchedule(ArrayList<FlightSchedule> flightSchedulesArr) {
-        LocalDateTime today = LocalDateTime.of(2026, 11, 20, 0, 0);
+        LocalDateTime today = LocalDate.now().atStartOfDay();
         LocalDateTime threeDaysLater = today.plusDays(3);
 
         boolean foundFlight = false;
