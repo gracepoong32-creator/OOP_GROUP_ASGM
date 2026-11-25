@@ -651,7 +651,6 @@ public class TestAirline {
     //Feature 2: Check in
     public static void checkIn(ArrayList<Flight> flightArr, ArrayList<CheckIn> checkInArr, ArrayList<User> userArr, Scanner input, ArrayList<CheckIn> boardingGateArr) {
         CheckIn checkIn = new CheckIn();
-
         //Variables
         boolean checkInValid = false;
         String name;
@@ -664,7 +663,6 @@ public class TestAirline {
         while (!checkInValid){
                 System.out.print("\nEnter your booking number: ");
                 bookingNumber = input.nextInt();
-
                 for (Flight flight : flightArr){
                     if (flight.getBookingNumber() == bookingNumber){
                         f = flight;
@@ -684,7 +682,6 @@ public class TestAirline {
         while (!checkInValid){
             System.out.print("Enter your last name: ");
             name = input.nextLine();
-
             if (f.getLastName().equalsIgnoreCase(name)) {
                 //check user age, if under 16 can't online check in
                 for (User user : userArr){
@@ -702,7 +699,6 @@ public class TestAirline {
                 System.out.println("The name you entered is not found. Please try again");
             }
         } //If check name is true, break from while loop
-
         for (CheckIn c : checkInArr){
             if(c.getBookingNumber() == bookingNumber){
                 ck = c;
@@ -710,16 +706,13 @@ public class TestAirline {
         }
 
         int bookingIndex = flightArr.indexOf(f); //Save the flight index from array
-
         //Check if checked in before
         if (ck.isCheckIn() && f.getTripType().equalsIgnoreCase("one-way")) {
             System.out.println("You have been checked in.");
-
             // If 2 trip is being checked in
         } else if (ck.isCheckIn() && ck.isRoundCheckIn()){
             System.out.println("You have been checked in this round trip.");
         } //First time check in
-
         else {
             for (CheckIn gate : boardingGateArr){
                 if (gate.getFlightNum().equalsIgnoreCase(f.getFlightId().getFlightNum())){ //If flightBookingArr Flight Num is same as boardingGateArr Flight Number
@@ -744,7 +737,6 @@ public class TestAirline {
             ck.setSeatNumber(seatNumber);
             ck.setBoardingGate(boardingGate);
         }
-
         System.out.println(checkIn.toString(flightArr, bookingIndex, checkInArr));
 
         //Return trip
