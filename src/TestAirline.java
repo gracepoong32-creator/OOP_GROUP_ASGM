@@ -1,25 +1,26 @@
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.Random;
-
+import java.io.FileNotFoundException;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 //if suddenly a lot of red, then file-> repair IDE
 
 public class TestAirline {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in); //Input scanner
         Random random = new Random(); //Random
+        CheckIn checkIn = new CheckIn();
 
-        //Arraylist for preset flight schedules, flights booked, loyalty members
+        //Arraylist for preset flight schedules, flights booked, checked in, loyalty members, upcoming flight schedule
         ArrayList<FlightDatabase> flightDatabaseArr = new ArrayList<>();
-        ArrayList <FlightBooking> flightBookingArr = new ArrayList<>();
-        ArrayList <CheckIn> checkInArr = new ArrayList<>();
-        ArrayList <User> userArr = new ArrayList<>();
+        ArrayList<Flight> flightArr = new ArrayList<>();
+        ArrayList <CheckIn> boardingGateArr = new ArrayList<>();
+        ArrayList<CheckIn> checkInArr = new ArrayList<>();
+        ArrayList<User> userArr = new ArrayList<>();
         ArrayList<FlightSchedule> flightScheduleArr = new ArrayList<>();
 
-        //Preset 10 available flights
+        //Preset 10 available departure flights (5 for alternate days)
         flightDatabaseArr.add(new FlightDatabase("MH101", "MAS", "KUL", "BKI", "Economy", 750.00, "0800"));
-        flightDatabaseArr.add(new FlightDatabase("AK512", "AirAsia", "KUL", "SIN", "Business", 380.00, "1200"));
+        flightDatabaseArr.add(new FlightDatabase("AK512", "AirAsia", "KUL", "SIN", "Business", 680.00, "1200"));
         flightDatabaseArr.add(new FlightDatabase("OD802", "Batik Air", "KUL", "DPS", "Economy", 563.00, "1730"));
         flightDatabaseArr.add(new FlightDatabase("MH253", "MAS", "KUL", "CAN", "Economy", 670.00, "0910"));
         flightDatabaseArr.add(new FlightDatabase("AK301", "AirAsia", "KUL", "SGN", "Business", 893.00, "1400"));
@@ -30,31 +31,50 @@ public class TestAirline {
         flightDatabaseArr.add(new FlightDatabase("OD106", "Batik Air", "KUL", "LGK", "Economy", 370.00, "0900"));
         flightDatabaseArr.add(new FlightDatabase("AK275", "AirAsia", "KUL", "PEN", "Economy", 256.00, "1100"));
 
+        //Preset 5 available returning flights (5 for alternate days)
+        flightDatabaseArr.add(new FlightDatabase("MH237", "MAS", "BKI", "KUL", "Economy", 733.00, "1200"));
+        flightDatabaseArr.add(new FlightDatabase("MH128", "MAS", "BKI", "KUL", "Economy", 673.00, "2300"));
+        flightDatabaseArr.add(new FlightDatabase("AK384", "AirAsia", "TPE", "KUL", "Economy", 769, "1730"));
+        flightDatabaseArr.add(new FlightDatabase("AK120", "AirAsia", "SGN", "KUL", "Business", 1029.00, "1400"));
+        flightDatabaseArr.add(new FlightDatabase("OD184", "Batik Air", "DPS", "KUL", "Economy", 574.00, "1300"));
+
+        flightDatabaseArr.add(new FlightDatabase("AK123", "AirAsia", "PEN", "KUL", "Economy", 230.00, "1130"));
+        flightDatabaseArr.add(new FlightDatabase("AK340", "AirAsia", "PEN", "KUL", "Economy", 249.00, "1300"));
+        flightDatabaseArr.add(new FlightDatabase("MH874", "MAS", "TPE", "KUL", "Economy", 670.00, "1230"));
+        flightDatabaseArr.add(new FlightDatabase("AK985", "AirAsia", "HKG", "KUL", "Business", 580.00, "1030"));
+        flightDatabaseArr.add(new FlightDatabase("MH093", "MAS", "CAN", "KUL", "Economy", 750.00, "0600"));
+
+        flightDatabaseArr.add(new FlightDatabase("AK742", "AirAsia", "SIN", "KUL", "Business", 691.00, "1200"));
+        flightDatabaseArr.add(new FlightDatabase("MH963", "MAS", "KCH", "KUL", "Business", 872.00, "1645"));
+        flightDatabaseArr.add(new FlightDatabase("OD185", "Batik Air", "LGK", "KUL", "Economy", 312.00, "0930"));
+
+
+        //Preset the boarding Gate today
+        String localDate = LocalDateTime.now().getDayOfMonth() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getYear();
+        for (int i = 0 ; i < flightDatabaseArr.size(); i++){
+            boardingGateArr.add(new CheckIn(flightDatabaseArr.get(i).getFlightNum(), localDate , checkIn.checkBoardingGate(boardingGateArr, localDate)));
+        }
+
+
         //Present flight schedules
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(0), LocalDateTime.of(2026,11,20,8,0),"A12","On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(1), LocalDateTime.of(2026,11,20,12,0),"B6","On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(2), LocalDateTime.of(2026,11,20,17,30),"A1","Delayed"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(3), LocalDateTime.of(2026,11,21,9,10),"B9","On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(4), LocalDateTime.of(2026,11,21,14,0),"C8","On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(5), LocalDateTime.of(2026,11,21,20,0),"D3","Cancelled"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(6), LocalDateTime.of(2026,11,22,11,0),"H8","On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(7), LocalDateTime.of(2026,11,22,7,0),"G11","On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(8), LocalDateTime.of(2026,11,22,9,0),"D3","On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(9), LocalDateTime.of(2026,11,22,11,0),"C1","On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(0), LocalDateTime.of(2026, 11, 20, 8, 0), "A12", "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(1), LocalDateTime.of(2026, 11, 20, 12, 0), "B6", "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(2), LocalDateTime.of(2026, 11, 20, 17, 30), "A1", "Delayed"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(3), LocalDateTime.of(2026, 11, 21, 9, 10), "B9", "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(4), LocalDateTime.of(2026, 11, 21, 14, 0), "C8", "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(5), LocalDateTime.of(2026, 11, 21, 20, 0), "D3", "Cancelled"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(6), LocalDateTime.of(2026, 11, 22, 11, 0), "H8", "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(7), LocalDateTime.of(2026, 11, 22, 7, 0), "G11", "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(8), LocalDateTime.of(2026, 11, 22, 9, 0), "D3", "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(9), LocalDateTime.of(2026, 11, 22, 11, 0), "C1", "On Time"));
 
-        //Preset 5 loyalty members
-        userArr.add(new Member("Jane", "Smith", 18, "M101", 50, "Bronze Tier", 700.00));
-        userArr.add(new Member("Shaun", "Wong", 20, "M102", 100, "Platinum Tier", 10001.00));
-        userArr.add(new Member("Daniel", "Fong", 22, "M103", 110, "Bronze Tier", 1150.00));
-        userArr.add(new Member("Marcus", "Lee", 35, "M104", 1120, "Gold Tier", 9200.00));
-        userArr.add(new Member("Lucas", "Wong", 40, "M105", 1450, "Platinum Tier", 12500.00));
 
-        //Preset 5 non Member
-        userArr.add(new NonMember("Gina","Wang", 52, "M106", 3, false));
-        userArr.add(new NonMember("Jayden", "Cooper", 19, "M107", 7, false));
-        userArr.add(new NonMember("Isabelle", "Kong", 21, "M108", 0, true));
-        userArr.add(new NonMember("Miriam", "Grey", 48, "M109", 9, false));
-        userArr.add(new NonMember("Lily", "Ketchman", 34, "M110", 1, true));
+        //Preset loyalty members in arraylist
+        try {
+            readUserData(userArr);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
         //Airline Management System Menu UI
         int option = 0;
@@ -71,25 +91,33 @@ public class TestAirline {
             switch (option) {
                 case 1:
                     System.out.print("\n-----Flight Booking-----");
-                    FlightBooking currentFlight = bookFlight(flightDatabaseArr, flightBookingArr, input, random, checkInArr);
-                    checkoutLoyalty(input, userArr, currentFlight);
-
+                    bookFlight(flightDatabaseArr, flightArr, input, random, checkInArr, userArr, boardingGateArr);
                     break;
                 case 2:
-                    System.out.print("-----Check In-----");
-                    checkIn(flightBookingArr, checkInArr,input);
+                    if (flightArr.isEmpty()){
+                        System.out.println("There is no booking to check in.");
+                    }else {
+                        System.out.print("-----Check In-----");
+                        checkIn(flightArr, checkInArr, userArr, input, boardingGateArr);
+                    }
                     break;
                 case 3:
-                    System.out.print("Flight cancellation");
+                    if (flightArr.isEmpty()){
+                        System.out.println("There is no booking to check in.");
+                    }else {
+                        System.out.print("-----Flight cancellation-----");
+                        flightCancellation(flightArr, input);
+                    }
                     break;
                 case 4:
-                    System.out.print("Summary of upcoming flight schedule");
+                    System.out.print("-----Summary of upcoming flight schedule-----");
+                    displayFlightSchedule(flightScheduleArr);
                     break;
                 case 5:
-                    System.out.print("Loyalty Programme");
+                    loyaltyMember(input, userArr);
                     break;
                 case 6:
-                    System.out.print("Exit");
+                    System.out.print("-----Exit------");
                     break;
                 default:
                     System.out.println("Please enter again");
@@ -99,24 +127,106 @@ public class TestAirline {
         } while (option != 6);
     }
 
+    //Read user txt Data
+    public static void readUserData(ArrayList <User> userArr) throws FileNotFoundException {
+        java.io.File file = new java.io.File("User.txt");         //Create a File instance
+        Scanner input = new Scanner(file);        //Create a scanner for the file
+        while(input.hasNext()){
+            String firstName = input.next();
+            String lastName = input.next();
+            int age = input.nextInt();
+            String userId = input.next();
+            int pointsCollected = input.nextInt();
+            if (input.hasNextBoolean()){
+                boolean hasPromo = input.nextBoolean();
+                userArr.add(new NonMember(firstName,lastName,age,userId,pointsCollected,hasPromo));
+            }else {
+                String memberTier = input.next() + input.next();
+                double totalSpent = input.nextDouble();
+                userArr.add(new Member(firstName, lastName, age,userId,pointsCollected,memberTier,totalSpent));
+            }
+        }
+        input.close();
+    }
+
     //Feature 1: Flight booking
-    public static FlightBooking bookFlight(ArrayList<FlightDatabase> flightDatabaseArr, ArrayList<FlightBooking> flightBookingArr, Scanner input, Random random, ArrayList<CheckIn> checkInArr){
+    public static void bookFlight(ArrayList<FlightDatabase> flightDatabaseArr, ArrayList<Flight> flightArr, Scanner input, Random random, ArrayList<CheckIn> checkInArr, ArrayList<User> userArr, ArrayList <CheckIn> boardingGateArr) {
+        //Variables
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy"); //date format
+        String todayDate = LocalDate.now().getDayOfMonth() + "-" + LocalDate.now().getMonthValue() + "-" + LocalDate.now().getYear(); //initialize today's date
+        LocalDate initialDate = LocalDate.parse(todayDate, dateFormat); //change format and save
+        String inputReturnDate = null;
+        String inputReturnFlight;
+        FlightDatabase selectedReturnFlight = null;
+        Flight flight;
+        boolean valid = false;
+        String firstName = "", lastName = "", inputTypeTrip = "", inputCabinClass = "";
+        String inputDepDate = "";
+        LocalDate depDate;
 
         //Gather all user input for flight booking
-        System.out.print("\nEnter trip type (one-way/round trip): ");
         input.nextLine();
-        String inputTypeTrip = input.nextLine();
-        System.out.print("Enter departure date (DD-MM-YYYY): ");
-        String inputDepDate = input.nextLine();
 
-        //Round trip requires returning date input
-        if(inputTypeTrip.equalsIgnoreCase("round trip")){
-            System.out.print("Enter returning date (DD-MM-YYYY): ");
-            String inputReturnDate = input.nextLine();
+        //One-way or round trip
+        while (!valid) {
+            System.out.print("\nEnter trip type (one-way/round trip): ");
+            inputTypeTrip = input.nextLine();
+            //Exception
+            if (inputTypeTrip.equalsIgnoreCase("one-way") || inputTypeTrip.equalsIgnoreCase("round trip")) {
+                valid = true;
+            } else {
+                System.out.println("Invalid input, please enter again");
+            }
         }
 
-        System.out.print("Enter cabin class (Business/Economy): ");
-        String inputCabinClass = input.nextLine();
+        //Departure date
+        while (true){
+            try{
+                System.out.print("Enter departure date (DD-MM-YYYY): ");
+                inputDepDate = input.nextLine();
+                depDate = LocalDate.parse(inputDepDate, dateFormat);
+                if (depDate.isBefore((initialDate)) || depDate.isEqual(initialDate)){
+                    System.out.println("Please enter a date after " + todayDate);
+                }else {
+                    break;
+                }
+            } catch (Exception e) {
+                System.out.println("Please enter a valid date.");
+            }
+
+        }
+
+        //Round trip requires returning date input
+        if (inputTypeTrip.equalsIgnoreCase("round trip")) {
+            while (true){
+                try{
+                    System.out.print("Enter returning date (DD-MM-YYYY): ");
+                    inputReturnDate = input.nextLine();
+                    LocalDate returnDate = LocalDate.parse(inputReturnDate, dateFormat);
+                    if (returnDate.isBefore(depDate) || returnDate.isEqual(depDate)){
+                        System.out.println("Please enter a date after " + inputDepDate);
+                    }else {
+                        break;
+                    }
+                }catch (Exception e){
+                    System.out.println("Please enter a valid date.");
+                }
+            }
+
+        }
+
+        //Cabin class
+        valid = false; //reinitialize
+        while (!valid) {
+            System.out.print("Enter cabin class (Business/Economy): ");
+            inputCabinClass = input.nextLine();
+            //Exception
+            if (inputCabinClass.equalsIgnoreCase("Economy") || inputCabinClass.equalsIgnoreCase("Business")) {
+                valid = true;
+            } else {
+                System.out.println("Invalid input, please enter again");
+            }
+        }
 
         //for loop to display available flights for booking
         System.out.print("\nFLIGHT     AIRLINE      FROM   TO     CLASS        PRICE        TIME");
@@ -124,63 +234,274 @@ public class TestAirline {
 
         //Odd days 5 flights, even days 5 flights
         int hyphenIndex = inputDepDate.indexOf("-"); //Find index of first hyphen
-        String extractedDate = inputDepDate.substring(0, hyphenIndex); //Extract the date from inputCabin
-        int date = Integer.parseInt(extractedDate); //Convert string to integer for Date
+        String extractedDepDate = inputDepDate.substring(0, hyphenIndex); //Extract the date from inputCabin
+        int date = Integer.parseInt(extractedDepDate); //Convert string to integer for Date
 
-        if (date % 2 == 0){
-            for (int i=0; i<5; i++){
-                if (flightDatabaseArr.get(i).getCabinClass().equalsIgnoreCase(inputCabinClass)){
+        if (date % 2 == 0) {
+            for (int i = 0; i < 5; i++) {
+                if (flightDatabaseArr.get(i).getCabinClass().equalsIgnoreCase(inputCabinClass)) {
                     //Format specifier to space out the String
                     System.out.printf("%-10s %-12s %-6s %-6s %-12s RM%-10.2f %-6s\n",
                             flightDatabaseArr.get(i).getFlightNum(), flightDatabaseArr.get(i).getAirline(),
                             flightDatabaseArr.get(i).getFrom(), flightDatabaseArr.get(i).getTo(),
                             flightDatabaseArr.get(i).getCabinClass(), flightDatabaseArr.get(i).getBasePrice(),
                             flightDatabaseArr.get(i).getDepartureTime());
+                } else {
+                    continue;
                 }
-                else{ continue; }
             }
-        }
-        else{
-            for (int i=5; i<10; i++){
-                if (flightDatabaseArr.get(i).getCabinClass().equalsIgnoreCase(inputCabinClass)){
+        } else {
+            for (int i = 5; i < 10; i++) {
+                if (flightDatabaseArr.get(i).getCabinClass().equalsIgnoreCase(inputCabinClass)) {
                     System.out.printf("%-10s %-12s %-6s %-6s %-12s RM%-10.2f %-6s\n",
                             flightDatabaseArr.get(i).getFlightNum(), flightDatabaseArr.get(i).getAirline(),
                             flightDatabaseArr.get(i).getFrom(), flightDatabaseArr.get(i).getTo(),
                             flightDatabaseArr.get(i).getCabinClass(), flightDatabaseArr.get(i).getBasePrice(),
                             flightDatabaseArr.get(i).getDepartureTime());
+                } else {
+                    continue;
                 }
-                else{ continue; }
             }
         }
+
         //User choose flight option
-        System.out.print("\nEnter chosen flight Id: ");
-        String inputFlight = input.nextLine();
-        System.out.print("Enter last name: ");
-        String lastName = input.nextLine();
-        System.out.print("Add-Ons: \nBaggage (Y/N): ");
-        String optBaggage = input.nextLine();
-        System.out.print("Meal (Y/N): ");
-        String optMeal = input.nextLine();
+        String inputFlight = " ";
+        FlightDatabase selectedFlight = null;
+        while (true){
+            System.out.print("\nEnter departure flight Id: ");
+            inputFlight = input.nextLine();
+            selectedFlight = matchFlight(flightDatabaseArr, inputFlight);//Check for departure flight
+            if (selectedFlight != null){
+                break;
+            }
+        }
+        //If is round trip
+        if (inputTypeTrip.equalsIgnoreCase("round trip")) {
+            System.out.print("\n\nRETURNING FLIGHTS");
+            System.out.print("\nFLIGHT     AIRLINE      FROM   TO     CLASS        PRICE        TIME");
+            System.out.println("\n---------------------------------------------------------------------");
 
-        FlightDatabase selectedFlight = matchFlight(flightDatabaseArr, inputFlight);
+            matchReturnFlight(flightDatabaseArr, inputFlight);
 
+            while (true){
+                System.out.print("\nEnter returning flight Id: ");
+                inputReturnFlight = input.nextLine();
+                selectedReturnFlight = matchFlight(flightDatabaseArr, inputReturnFlight); //Check for round-trip
+                if (selectedReturnFlight != null){
+                    break;
+                }
+            }
+        }
+
+        //Variables
+        String optMeal = "";
+        String optBaggage = "";
+
+        //Additional option
+        System.out.print("\nAdd-Ons:");
+
+        //Add on baggage
+        valid = false;
+        while (!valid) {
+            System.out.print("\nBaggage (Y/N): ");
+            optBaggage = input.nextLine();
+
+            if (optBaggage.equalsIgnoreCase("Y") || optBaggage.equalsIgnoreCase("N")) {
+                valid = true;
+            } else {
+                System.out.println("Invalid input, please enter again");
+            }
+        }
+
+        //Add on meals
+        valid = false;
+        while (!valid) {
+            System.out.print("Meal (Y/N): ");
+            optMeal = input.nextLine();
+
+            if (optMeal.equalsIgnoreCase("Y") || optMeal.equalsIgnoreCase("N")) {
+                valid = true;
+            } else {
+                System.out.println("Invalid input, please enter again");
+            }
+        }
+
+        //Random booking Number in 5 digits
         int bookingNum = random.nextInt(10000, 99999);
-        FlightBooking flightBooking = new FlightBooking(bookingNum, lastName, selectedFlight, inputTypeTrip, inputDepDate, inputCabinClass, optMeal, optBaggage);
-        flightBookingArr.add(flightBooking);
+        double totalAmount = 0;
 
-        boolean checkIn = false;
-        String boardingGate = null;
-        String seatNumber = null;
-        checkInArr.add(new CheckIn(lastName, bookingNum, checkIn, boardingGate, seatNumber));
-        System.out.println(flightBooking);
+        //Add into array
+        if (inputTypeTrip.equalsIgnoreCase("round trip")) {
+            flight = new Flight(bookingNum, selectedFlight, selectedReturnFlight, firstName, lastName, inputTypeTrip, inputDepDate, inputReturnDate, inputCabinClass, optMeal, optBaggage, totalAmount);
+        } else {
+            flight = new Flight(bookingNum, firstName, lastName, selectedFlight, inputTypeTrip, inputDepDate, inputCabinClass, optMeal, optBaggage, totalAmount);
+        }
+        flightArr.add(flight);
+        System.out.print(flight); //Print pre check-out summary
 
-        return flightBooking;
+        //Enter check loyalty member
+        int userIndex = checkoutLoyalty(input, userArr, flight, flightArr);
+        if (flightArr.getLast().getBookingNumber() == bookingNum) {
+            boolean checkIn = false; //exception if cancel booking don't come in this check in add
+            boolean roundCheckIn = false;
+            String boardingGate = "To be Determined";
+            String returnBoardingGate = "To be Determined";
+            String seatNumber = " ";
+            String returnSeatNumber = " ";
+
+            if (flightArr.getLast().getTripType().equalsIgnoreCase("one-way")) {
+                checkInArr.add(new CheckIn(userArr.get(userIndex).getLastName(), bookingNum, checkIn, boardingGate, seatNumber));
+            } else {
+                checkInArr.add(new CheckIn(userArr.get(userIndex).getLastName(), bookingNum, roundCheckIn, checkIn, boardingGate, returnBoardingGate, seatNumber, returnSeatNumber));
+            }
+
+            //Add in checkInArr
+            boolean checkFirstSame = false;
+            boolean checkSecondSame = false;
+
+            //Check if there is any same flight ID and dep date
+            for (int i = 0; i < boardingGateArr.size(); i++) {
+                //If the first trip/ one-way have alr the date in the ArrayList, no need add
+                if (!(flightArr.getLast().getFlightId().getFlightNum().equalsIgnoreCase(boardingGateArr.get(i).getFlightNum())) && !(flightArr.getLast().getDepDate().equalsIgnoreCase(boardingGateArr.get(i).getDate()))) {
+                    boardingGateArr.add(new CheckIn(flightArr.getLast().getFlightId().getFlightNum(), flightArr.getLast().getDepDate(), boardingGate));
+                }
+                //If is round trip, check if the return trip have the information in the ArrayList
+                if (flightArr.getLast().getTripType().equalsIgnoreCase("round trip")) {
+                    if (!(flightArr.getLast().getReturnFlightId().getFlightNum().equalsIgnoreCase(boardingGateArr.get(i).getFlightNum())) && !(flightArr.getLast().getReturnDate().equalsIgnoreCase(boardingGateArr.get(i).getDate()))) {
+                        boardingGateArr.add(new CheckIn(flightArr.getLast().getReturnFlightId().getFlightNum(), flightArr.getLast().getReturnDate(), returnBoardingGate));
+                    }
+                }
+            }
+        }
+    }
+
+    //Feature 1: Check user (member/non-member) during checkout
+    public static int checkoutLoyalty(Scanner input, ArrayList<User> userArr, Flight flight, ArrayList<Flight> flightArr) {
+        double discount = 0.0;
+        int userIndex = 0;
+        //Check memberId / sign up / forget memberId process
+        User u = findUser(input, userArr);
+
+        // check if user is member or nonMember
+        if (u instanceof Member m) { //User is a member
+            String optPoints = "";
+            System.out.print(m); //Print member info
+
+            //Ensure points balance > 0, display points redeemable, prompt user the option to redeem or not
+            if (m.pointsRedeem() > 0) {
+                System.out.println("Points redeemable to cash: RM" + String.format("%.2f", m.pointsRedeem()));
+                while (true) {
+                    System.out.print("\nWould you like to use loyalty points as discount? (Y/N): ");
+                    optPoints = input.nextLine();
+                    if (optPoints.equalsIgnoreCase("Y")) {
+                        discount = m.pointsRedeem();
+                        //Only allow member to redeem the maximum points which is equal to total fare
+                        if (discount > flight.calcTotalFare()) {
+                            discount = flight.calcTotalFare();
+                        }
+                        System.out.print(flight.printPreCheckoutMember(discount, m.getPointsCollected()));
+                        break;
+                    } else if (optPoints.equalsIgnoreCase("N")){
+                        System.out.print("Continue without redeeming loyalty points: ");
+                        break;
+                    }else{
+                        System.out.println("Invalid input, please enter again");
+                    }
+                }
+            } else {
+                System.out.print("Oops, no points available to redeem\n");
+            }
+
+            String confirmPayment = "";
+            while (true) {
+                System.out.print("\nConfirm payment? (Y/N): ");
+                confirmPayment = input.nextLine();
+                if (confirmPayment.equalsIgnoreCase("Y")) {
+                    double amountPaid = flight.calcTotalFare() - discount;
+                    double totalAmount = flight.checkoutMember(discount);
+                    flightArr.getLast().setTotalPaid(totalAmount);
+
+                    System.out.print(flight.printPayment(totalAmount));
+                    System.out.print(m.updatedMemberProfile(amountPaid, discount));
+                    flightArr.getLast().setLastName(m.getLastName());
+                    flightArr.getLast().setFirstName(m.getFirstName());
+                    break;
+                } else if (confirmPayment.equalsIgnoreCase("N")){
+                    flightArr.removeLast(); //Remove the flight booking from array once user cancel payment
+                    System.out.println("You have cancelled the process");
+                    break;
+                }else {
+                    System.out.println("Invalid input, please enter again");
+                }
+            }
+        } else if (u instanceof NonMember nm) { //User is a nonMember
+            System.out.print("Non-member profile found!");
+            System.out.println(nm);
+
+            boolean usePromo = false;
+            flight.calcTotalFare();
+
+            if (nm.isHasPromo()) {
+                while (true) {
+                    System.out.print("Would you like to use the one-time discount? (Y/N): ");
+                    String optNewUserPromo = input.nextLine();
+                    if (optNewUserPromo.equalsIgnoreCase("Y")) {
+                        usePromo = true;
+                        System.out.print(flight.printPreCheckoutNonMember(usePromo));
+                        break;
+                    } else if (optNewUserPromo.equalsIgnoreCase("N")) {
+                        System.out.print("\nContinue without one-time new user promo");
+                        break;
+                    }else {
+                        System.out.println("Invalid input, please enter again\n");
+                    }
+                }
+            }
+
+            String confirmPayment = "";
+            while (true) {
+                System.out.print("\nConfirm payment? (Y/N): ");
+                confirmPayment = input.nextLine();
+                if (confirmPayment.equalsIgnoreCase("Y")) {
+                    double totalAmount = flight.checkoutNonMember(usePromo);
+                    flightArr.getLast().setTotalPaid(totalAmount);
+                    System.out.print(flight.printPayment(totalAmount));
+                    System.out.print(nm.updatedNonMemberProfile(usePromo));
+
+                    //Check if bookingCount >= 10, upgrade to member
+                    if (nm.getBookingCount() >= 10) {
+                        //Create new object (Member) for nonMember
+                        Member m = new Member(nm.getFirstName(), nm.getLastName(), nm.getAge(), nm.getUserId(), 0.0, "Bronze Tier", 0.0);
+                        //Replace new object in array because previously user is a nonMember, now a Member
+                        userArr.set(userArr.indexOf(nm), m);
+
+                        //Upgraded to member message
+                        System.out.print("\n\n=========================================="
+                                + "\n       LOYALTY TIER UPGRADE!        "
+                                + "\n=========================================="
+                                + "\nCongrats!! You have reached 10 bookings"
+                                + "\nAccount (" + nm.getUserId() + ") upgraded to Loyalty Member (Bronze)"
+                                + "\n==========================================\n\n");
+                    }
+                    flightArr.getLast().setLastName(nm.getLastName());
+                    flightArr.getLast().setFirstName(nm.getFirstName());
+                    break;
+                }else if (confirmPayment.equalsIgnoreCase("N")){
+                    flightArr.removeLast();
+                    System.out.print("Payment cancelled. Returning to main menu...\n\n");
+                    break;
+                } else {
+                    System.out.println("Invalid input, please enter again");
+                }
+            }
+        }
+        return userIndex;
     }
 
     //Feature 1: Match inputFlight with flightNum in FlightDatabase
-    public static FlightDatabase matchFlight(ArrayList<FlightDatabase> flightDatabaseArr, String inputFlight){
-        for (FlightDatabase flight : flightDatabaseArr){
-            if (flight.getFlightNum().equalsIgnoreCase(inputFlight)){
+    public static FlightDatabase matchFlight(ArrayList<FlightDatabase> flightDatabaseArr, String inputFlight) {
+        for (FlightDatabase flight : flightDatabaseArr) {
+            if (flight.getFlightNum().equalsIgnoreCase(inputFlight)) {
                 return flight;
             }
         }
@@ -188,140 +509,64 @@ public class TestAirline {
         return null;
     }
 
-    //Feature 1: Check user (member/non-member) during checkout
-    public static void checkoutLoyalty(Scanner input, ArrayList<User> userArr, FlightBooking flightBooking){
-        double discount = 0.0;
-        double pointsRedeem = 0;
-        User u = null;
+    //Feature 1: Match return flight with chosen flight locations (reverse from, 1to)
+    public static void matchReturnFlight(ArrayList<FlightDatabase> flightDatabaseArr, String inputFlight) {
+        FlightDatabase selectedFlight = matchFlight(flightDatabaseArr, inputFlight);
 
-        System.out.print("Enter user Id (or '-' to sign up): ");
-        String inputUserId = input.nextLine();
-
-        if (inputUserId.equals("-")){
-            u = signUpNonMember(input, userArr);
+        if (selectedFlight == null) {
+            return;
         }
-        else{
-            u = matchUser(userArr, inputUserId);
-        }
+        boolean foundReturn = false;
 
-        if (u instanceof Member){
-            Member m = (Member) u;
-            System.out.print("Loyalty member profile found!");
-            System.out.println(m.toString());
+        for (int i = 10; i < flightDatabaseArr.size(); i++) {
+            FlightDatabase returnFlight = flightDatabaseArr.get(i);
 
-            if (m.pointsRedeem() > 0){
-                System.out.print("Points redeemable to cash: RM" + String.format("%.2f", m.pointsRedeem()));
-                System.out.print("\nWould you like to use loyalty points as discount? (Y/N): ");
-                String optPoints = input.nextLine();
-
-                if(optPoints.equalsIgnoreCase("Y")){
-                    discount = m.pointsRedeem();
-                    //Only allow member to redeem the maximum points which is equal to total fare
-                    if (discount > flightBooking.calcTotalFare()){
-                        discount = flightBooking.calcTotalFare();
-                    }
-
-                    System.out.print(flightBooking.printPreCheckoutMember(discount, m.getPointsCollected()));
-                }
-                else{
-                    System.out.print("Continue without redeeming loyalty points: ");
-                }
-            }
-            else {
-                System.out.print("Oops, no points available to redeem");
-            }
-
-            System.out.print("Confirm payment? (Y/N): ");
-            String confirmPayment = input.nextLine();
-
-            if (confirmPayment.equalsIgnoreCase("Y")){
-                double amountPaid = flightBooking.calcTotalFare() - discount;
-                System.out.print(flightBooking.printPostCheckoutMember(discount));
-                System.out.print(m.updatedMemberProfile(amountPaid, discount));
+            if (selectedFlight.getTo().equalsIgnoreCase(returnFlight.getFrom()) && selectedFlight.getFrom().equalsIgnoreCase(returnFlight.getTo())) {
+                foundReturn = true;
+                System.out.printf("%-10s %-12s %-6s %-6s %-12s RM%-10.2f %-6s\n",
+                        returnFlight.getFlightNum(), returnFlight.getAirline(),
+                        returnFlight.getFrom(), returnFlight.getTo(),
+                        returnFlight.getCabinClass(), returnFlight.getBasePrice(),
+                        returnFlight.getDepartureTime());
             }
         }
-
-        else if (u instanceof NonMember){
-            NonMember nm = (NonMember) u;
-
-            System.out.print("Non-member profile found!");
-            System.out.println(nm.toString());
-
-            boolean usedPromo = false;
-            double totalPayable = flightBooking.calcTotalFare();
-
-            if (nm.isHasPromo()){
-                System.out.print("Would you like to use the one-time discount? (Y/N): ");
-                String optNewUserPromo = input.nextLine();
-
-                if (optNewUserPromo.equalsIgnoreCase("Y")){
-                    usedPromo = true;
-                    System.out.print(flightBooking.printPreCheckoutNonMember(totalPayable, usedPromo));
-                }
-                else{
-                    System.out.print("\nContinue without one-time new user promo");
-                }
-            }
-            System.out.print("\n\nConfirm payment? (Y/N): ");
-            String confirmPayment = input.nextLine();
-
-            if (confirmPayment.equalsIgnoreCase("Y")){
-                System.out.print(flightBooking.printPostCheckoutNonMember(usedPromo));
-                System.out.print(nm.updatedNonMemberProfile(usedPromo));
-
-                //Check if bookingCount >= 10, upgrade to member
-                if (nm.getBookingCount() >= 10){
-                    //Create new object (Member) for nonMember
-                    Member m = new Member(nm.getFirstName(), nm.getLastName(), nm.getAge(), nm.getUserId(), 0.0, "Bronze Tier", 0.0);
-                    //Replace new object in array
-                    userArr.set(userArr.indexOf(nm), m);
-
-                    //Upgraded to member message
-                    System.out.print("\n\n=========================================="
-                            + "\n      *** LOYALTY TIER UPGRADE! ***       "
-                            + "\n=========================================="
-                            + "\nCongrats!! You have reached 10 booking"
-                            + "\nAccount (" + nm.getUserId() + ") upgraded to Loyalty Member (Bronze)"
-                            + "\n==========================================\n\n");
-                }
-            }
-            else{
-                System.out.print("Payment cancelled. Returning to main menu...\n\n");
-            }
-        }
-        else {
-            System.out.print("User ID not found. Returning to main menu...");
+        if (!foundReturn) {
+            System.out.print("No matching flights available");
         }
     }
 
-    //Feature 1: Match user id if member/non-member
-    public static User matchUser(ArrayList<User> userArr, String inputUserId){
-        for (User u : userArr){
-            if (u.getUserId().equalsIgnoreCase(inputUserId)){
-                return u;
-            }
-        }
-        System.out.println("No matching member profiles");
-        System.out.println("\nPlease sign up to continue to checkout >>>");
-        return null;
-    }
-
-    //Feature 1: Sign up during checkout
-    public static NonMember signUpNonMember(Scanner input, ArrayList<User> userArr){
+    //Feature 1: Sign up during checkout & Feature 5: Sign up as a user
+    public static NonMember signUpNonMember(Scanner input, ArrayList<User> userArr) {
         System.out.print("\n\nNEW NON MEMBER SIGN UP\n------------------------\n");
         System.out.print("Enter first name: ");
         String firstName = input.nextLine();
         System.out.print("Enter last name: ");
         String lastName = input.nextLine();
-        System.out.print("Enter age: ");
-        int age = input.nextInt();
-        input.nextLine(); //clears leftover newline from age input
 
-        String newUserId = "M" + (101+userArr.size());
-        NonMember nm = new NonMember (firstName, lastName, age, newUserId);
+        int age = 0;
+        boolean valid = false;
+        while (!valid) {
+            try {
+                System.out.print("Enter age: ");
+                age = input.nextInt();
+                input.nextLine(); //clears leftover newline from age input
+
+                if (age <= 0) {
+                    System.out.println("Invalid input, please enter again");
+                } else {
+                    valid = true;
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid input, please enter again");
+                input.nextLine(); //clears leftover newline
+            }
+        }
+
+        String newUserId = "M" + (101 + userArr.size());
+        NonMember nm = new NonMember(firstName, lastName, age, newUserId);
         userArr.add(nm);
 
-        System.out.println("------------------------------------------");
+        System.out.println("\n------------------------------------------");
         System.out.println("Account created successfully!");
         System.out.println("Your new User Id: " + newUserId);
         System.out.println("==========================================\n");
@@ -329,74 +574,317 @@ public class TestAirline {
         return nm;
     }
 
-    //Feature 2: Check in
-    public static void checkIn(ArrayList<FlightBooking> flightBookingArr, ArrayList<CheckIn> checkInArr, Scanner input){
-        CheckIn checkIn = new CheckIn();
-
-        int bookingIndex = 0; //initial number
-        boolean checkName = false; //Initial haven't checkName
-        String name;
-        int bookingNumber = 0;
-        int reset = 0;
-
-        //Check Name
-        do{
-            if (reset == 0){
-                System.out.print("\nEnter your last name: ");
-                input.nextLine();
-                name = input.nextLine();
-                reset ++;
-            }else {
-                System.out.print("\nEnter your last name: ");
-                name = input.nextLine();
+    //Feature 1: Match user id if member/non-member
+    public static User matchUser(ArrayList<User> userArr, String inputUserId) {
+        for (User u : userArr) {
+            if (u.getUserId().equalsIgnoreCase(inputUserId)) {
+                return u;
             }
-            for (bookingIndex = 0; bookingIndex < flightBookingArr.size(); bookingIndex++) {
-                if (name.equals(flightBookingArr.get(bookingIndex).getLastName())){
-                    checkName = true;
+        }
+        return null;
+    }
+
+    //Find user member id in Arraylist
+    public static User findUser(Scanner input, ArrayList <User> userArr){
+        User u = null;
+        while (true){
+            System.out.print("\nEnter member id (Enter '-' to sign up, or '?' if you forget your memberId): ");
+            String userId = input.nextLine();
+
+            if (userId.equalsIgnoreCase("-")){
+                u = signUpNonMember(input, userArr);
+                break;
+            } else if (userId.equalsIgnoreCase("?")) {
+                System.out.print("Enter first name: ");
+                String firstName = input.nextLine();
+                System.out.print("Enter last name: ");
+                String lastName = input.nextLine();
+                boolean userCheck = false;
+                for (User user: userArr){
+                    if (user.getFirstName().equalsIgnoreCase(firstName) && user.getLastName().equalsIgnoreCase(lastName)){
+                        System.out.println("Member id found: " + user.getUserId());
+                        u = user;
+                        userCheck = true;
+                        break;
+                    }
+                }
+                if (!userCheck){
+                    System.out.println("Name entered not found. Please try again.");
+                }else {
                     break;
                 }
 
-                if (!checkName){
-                    System.out.println("The name you entered is not found. Please try again");
+            } else{
+                u = TestAirline.matchUser(userArr, userId);
+                if (u != null){
+                    System.out.println("Loyalty member profile found!");
+                    break;
+                }else{
+                    System.out.println("The member id you entered is not found. Please enter again.");
                 }
-
             }
-
-        }while (!checkName); //If check name is true, break from while loop
-
-
-        //Check Booking Number
-        boolean checkBookingNumber = false;
-        do{
-            System.out.print("Enter your booking number: ");
-            bookingNumber = input.nextInt();
-            if (bookingNumber == flightBookingArr.get(bookingIndex).getBookingNumber()) {
-                checkBookingNumber = true;
-                break;
-            }
-            System.out.println("The booking number is invalid or not found. Please try again.");
-        }while (!checkBookingNumber);
-
-
-        if (checkInArr.get(bookingIndex).isCheckIn()){
-            System.out.println("You have been checked in.");
-        }else{
-            String boardingGate = checkIn.randomBoardingGate();
-            String seatNumber = checkIn.randomSeatNumber(flightBookingArr,bookingIndex);
-            System.out.println("Your seat has been automatically given as " + seatNumber);
-            checkInArr.get(bookingIndex).setCheckIn(true);
-            checkInArr.get(bookingIndex).setBoardingGate(boardingGate);
-            checkInArr.get(bookingIndex).setSeatNumber(seatNumber);
-
         }
-        System.out.println(checkIn.toString(flightBookingArr,bookingIndex,checkInArr));
+        return u;
     }
 
-    //Feature4 Flight Schedule
-    public static void displayFlightSchedule(ArrayList<FlightSchedule>flightSchedulesArr){
-        System.out.println("===== Upcoming Flight Schedule =====");
-        for (FlightSchedule schedule : flightSchedulesArr){
-          
+    //Feature 2: Check in
+    public static void checkIn(ArrayList<Flight> flightArr, ArrayList<CheckIn> checkInArr, ArrayList<User> userArr, Scanner input, ArrayList<CheckIn> boardingGateArr) {
+        CheckIn checkIn = new CheckIn();
+        //Variables
+        boolean checkInValid = false;
+        String name;
+        int bookingNumber = 0;
+        String boardingGate = null;
+        Flight f = null;
+        CheckIn ck = null;
+
+        //Check Booking Number
+        while (!checkInValid){
+                System.out.print("\nEnter your booking number: ");
+                bookingNumber = input.nextInt();
+                for (Flight flight : flightArr){
+                    if (flight.getBookingNumber() == bookingNumber){
+                        f = flight;
+                        checkInValid = true;
+                    }
+                }
+            if (f == null){
+                System.out.print("Please enter a valid booking number");
+                input.nextLine();
+            }
+        }
+
+        //Check Name
+        checkInValid = false;
+        input.nextLine();
+
+        while (!checkInValid){
+            System.out.print("Enter your last name: ");
+            name = input.nextLine();
+            if (f.getLastName().equalsIgnoreCase(name)) {
+                //check user age, if under 16 can't online check in
+                for (User user : userArr){
+                    if (f.getLastName().equalsIgnoreCase(user.getLastName())){
+                        if (user.getAge() < 16){
+                            System.out.println("User under 16 is not allowed to check in online. Please proceed to the check-in counter. ");
+                            return;
+                        }
+                        break;
+                    }
+                }
+                checkInValid = true;
+            }
+            else{
+                System.out.println("The name you entered is not found. Please try again");
+            }
+        } //If check name is true, break from while loop
+        for (CheckIn c : checkInArr){
+            if(c.getBookingNumber() == bookingNumber){
+                ck = c;
+            }
+        }
+
+        int bookingIndex = flightArr.indexOf(f); //Save the flight index from array
+        //Check if checked in before
+        if (ck.isCheckIn() && f.getTripType().equalsIgnoreCase("one-way")) {
+            System.out.println("You have been checked in.");
+            // If 2 trip is being checked in
+        } else if (ck.isCheckIn() && ck.isRoundCheckIn()){
+            System.out.println("You have been checked in this round trip.");
+        } //First time check in
+        else {
+            for (CheckIn gate : boardingGateArr){
+                if (gate.getFlightNum().equalsIgnoreCase(f.getFlightId().getFlightNum())){ //If flightBookingArr Flight Num is same as boardingGateArr Flight Number
+                    if (gate.getDate().equals(f.getDepDate())){  //If flightBookingArr Departure date is same with boardingGateArr Departure Date
+                        if (gate.getBoardingGate().equalsIgnoreCase("To be Determined")){ //If boardingGateArr is to be determined, the boarding Gate have not been assigned yet/ randomly generated
+                            boardingGate = checkIn.checkBoardingGate(boardingGateArr, gate.getDate()); //Check if any clash in boardingGate
+                            gate.setBoardingGate(boardingGate); //set the boarding Gate
+                            break;
+                        }else {
+                            boardingGate = gate.getBoardingGate(); //Alr have boardingGate
+                            break;
+                        }
+                    }
+                }
+            }
+
+            String seatNumber = checkIn.randomSeatNumber(flightArr, bookingIndex); //Random seat number
+            System.out.print("Your seat has been automatically given as " + seatNumber);
+
+            //Set back in arrayList
+            ck.setCheckIn(true);
+            ck.setSeatNumber(seatNumber);
+            ck.setBoardingGate(boardingGate);
+        }
+        System.out.println(checkIn.toString(flightArr, bookingIndex, checkInArr));
+
+        //Return trip
+        if (!ck.isRoundCheckIn() && f.getTripType().equalsIgnoreCase("round trip")){
+            System.out.print("\nDo you want to check in for return trip (Y for yes/ N for no): ");
+            String checkInReturn = input.nextLine();
+            //Do the boarding pass for return trip
+            if (checkInReturn.equalsIgnoreCase("Y")){
+                String boardingGateReturn = checkIn.checkBoardingGate(boardingGateArr, f.getReturnDate());
+                String seatNumberReturn = checkIn.randomSeatNumber(flightArr, bookingIndex);
+                System.out.println("Your seat has been automatically given as " + seatNumberReturn);
+
+                ck.setReturnBoardingGate(boardingGateReturn);
+                ck.setReturnSeatNumber(seatNumberReturn);
+                ck.setRoundCheckIn(true);
+                System.out.println(checkIn.toString(flightArr, bookingIndex, checkInArr));
+
+
+            } else if (checkInReturn.equalsIgnoreCase("N")) {
+                System.out.println("You can check in for the return trip 24 hours before the flight.");
+            }else {
+                System.out.println("Please enter again.");
+            }
+        }
+    }
+
+    //Feature 3: Flight Cancellation
+    public static void flightCancellation(ArrayList<Flight> flightArr, Scanner input) {
+
+        //variables
+        boolean checkBookingNumber = false;
+        boolean checkLastName = false;
+        int bookingIndex = 0;
+        int reset = 0;
+        String lastName = "";
+        String cancelFlight = "";
+
+        //Check Booking Number
+        do {
+            try{
+                System.out.print("\nEnter your booking number: ");
+                int bookingNumber = input.nextInt();
+                for (bookingIndex = 0; bookingIndex < flightArr.size(); bookingIndex++) {
+                    if (bookingNumber == flightArr.get(bookingIndex).getBookingNumber()) {
+                        checkBookingNumber = true;
+                        break;
+                    }
+                }
+                if (!checkBookingNumber){
+                    System.out.println("The booking number is invalid or not found. Please try again.");
+                }
+            } catch (Exception e) {
+                System.out.println("Please enter a valid booking number.");
+                input.nextLine();
+            }
+
+        } while (!checkBookingNumber);
+
+        //Check Name
+        input.nextLine();
+        do {
+            System.out.print("Enter your last name: ");
+            lastName = input.nextLine();
+            if (lastName.equalsIgnoreCase(flightArr.get(bookingIndex).getLastName())) {
+                break;
+            }
+
+            if (!checkLastName) {
+                System.out.println("The name you entered is not found. Please try again");
+            }
+
+        } while (!checkLastName); //If check name is true, break from while loop
+
+        //Print flight Details
+        System.out.println("\n-----Flight Details-----" +
+                "\nFlight Id: " + flightArr.get(bookingIndex).getFlightId().getFlightNum() +
+                "\nRoute: " + flightArr.get(bookingIndex).getFlightId().getFrom() + " -> " + flightArr.get(bookingIndex).getFlightId().getTo() +
+                "\nDeparture: " + flightArr.get(bookingIndex).getDepDate() + " at " + flightArr.get(bookingIndex).getFlightId().getDepartureTime() +
+                "\nTrip type: " + flightArr.get(bookingIndex).getTripType() +
+                "\nCabin class: " + flightArr.get(bookingIndex).getCabinClass());
+
+        boolean cancelProcess = false;
+        do {
+            System.out.println("\nCancelling a flight will only refund 80% of the total amount paid.");
+            System.out.print("Are you sure to cancel this flight (y for yes/ n for no): ");
+            cancelFlight = input.nextLine();
+
+            if (cancelFlight.equalsIgnoreCase("y")) {
+                //Cancel Flight
+                double flightRefund = (flightArr.get(bookingIndex).getTotalPaid()) * 0.8;
+                System.out.print("Your refund for this flight is " + flightRefund);
+                System.out.println("The refund is successful.");
+                flightArr.remove(bookingIndex);
+                cancelProcess = true;
+
+            } else if (cancelFlight.equalsIgnoreCase("n")) {
+                //Cancel cancel Flight
+                System.out.print("You cancelled this process.\n");
+                cancelProcess = true;
+
+            } else {
+                //Exception
+                System.out.print("Please enter Y/N only.");
+            }
+        } while (!cancelProcess);
+    }
+
+    // Feature 4: Flight Schedule
+    public static void displayFlightSchedule(ArrayList<FlightSchedule> flightSchedulesArr) {
+        LocalDateTime today = LocalDateTime.of(2026, 11, 20, 0, 0);
+        LocalDateTime threeDaysLater = today.plusDays(3);
+
+        boolean foundFlight = false;
+
+        for (FlightSchedule schedule : flightSchedulesArr) {
+
+            if (!schedule.getDateTime().isBefore(today) && schedule.getDateTime().isBefore(threeDaysLater)) {
+
+                foundFlight = true;
+
+                System.out.println("Flight Number: " + schedule.getFlight().getFlightNum());
+                System.out.println("Date and Time: " + schedule.getDateTime());
+                System.out.println("Gate: " + schedule.getGate());
+                System.out.println("Status: " + schedule.getStatus());
+                System.out.println("-------------------------");
+
+            }
+        }
+
+        if (!foundFlight) {
+            System.out.println("No upcoming flights");
+        }
+    }
+
+    //Feature 5: Loyalty member
+    public static void loyaltyMember(Scanner input, ArrayList <User> userArr){
+        int choice = 0;
+        while (true){
+            System.out.println("\n-----Loyalty Programme-----");
+            System.out.println("1. Sign up as a new user" +
+                    "\n2. Check user details");
+            System.out.print("Enter your choice (1-2): ");
+            try{
+                choice = input.nextInt();
+                switch (choice) {
+                    case 1:
+                        input.nextLine();
+                        NonMember nm = signUpNonMember(input, userArr);
+                        System.out.println(nm.toString());
+                        break;
+                    case 2:
+                        input.nextLine();
+                        User user = findUser(input, userArr);
+                        if (user instanceof Member member) {
+                            System.out.println(member.toString());
+                        } else if (user instanceof NonMember nonMember) {
+                            System.out.println(nonMember.toString());
+                        }
+                        break;
+                    default:
+                        System.out.println("Please enter 1 or 2 only.");
+                }
+                if (choice == 1 || choice == 2){
+                    break;
+                }
+            } catch (Exception e) {
+                System.out.println("Please enter again.");
+                input.nextLine(); //Clear
+            }
         }
     }
 }

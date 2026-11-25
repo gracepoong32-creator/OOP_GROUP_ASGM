@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
 
 public class CheckIn {  //find implement user interface
     private boolean checkIn = false;
@@ -186,8 +185,8 @@ public class CheckIn {  //find implement user interface
             if (!boardingGateArr.isEmpty()) {
                 boolean crash = false; //Initial did not crash
 
-                for (int i = 0; i < boardingGateArr.size(); i++) {//Check in the Array
-                    if (boardingGateArr.get(i).getBoardingGate().equalsIgnoreCase(boardingGate) && boardingGateArr.get(i).getDate().equals(localDate)) {
+                for (CheckIn boarding : boardingGateArr) {//Check in the Array
+                    if (boarding.getBoardingGate().equalsIgnoreCase(boardingGate) && boarding.getDate().equals(localDate)) {
                         crash = true;
                         break;
                     }
