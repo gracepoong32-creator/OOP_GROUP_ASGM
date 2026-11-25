@@ -59,7 +59,7 @@ public class TestAirline {
 
 
         //Present flight schedules
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(0),scheduleDate.plusDays(0), boardingGateArr.get(0).getBoardingGate(), "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(0), scheduleDate.plusDays(0), boardingGateArr.get(0).getBoardingGate(), "On Time"));
         flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(1), scheduleDate.plusDays(1), boardingGateArr.get(1).getBoardingGate(), "On Time"));
         flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(2), scheduleDate.plusDays(2), boardingGateArr.get(2).getBoardingGate(), "Delayed"));
         flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(3), scheduleDate.plusDays(3), boardingGateArr.get(3).getBoardingGate(), "On Time"));
@@ -827,23 +827,25 @@ public class TestAirline {
 
     // Feature 4: Flight Schedule
     public static void displayFlightSchedule(ArrayList<FlightSchedule> flightSchedulesArr) {
-        LocalDateTime today = LocalDate.now().atStartOfDay();
-        LocalDateTime threeDaysLater = today.plusDays(3);
+
+        LocalDate today = LocalDate.now();
+        LocalDate threeDaysLater = today.plusDays(3);
 
         boolean foundFlight = false;
 
         for (FlightSchedule schedule : flightSchedulesArr) {
 
-            if (!schedule.getDateTime().isBefore(today) && schedule.getDateTime().isBefore(threeDaysLater)) {
+            if (!schedule.getDateTime().isBefore(today)
+                    && schedule.getDateTime().isBefore(threeDaysLater)) {
 
                 foundFlight = true;
 
                 System.out.println("Flight Number: " + schedule.getFlight().getFlightNum());
-                System.out.println("Date and Time: " + schedule.getDateTime());
+                System.out.println("Date: " + schedule.getDateTime());
+                System.out.println("Time: " + schedule.getFlight().getDepartureTime());
                 System.out.println("Gate: " + schedule.getGate());
                 System.out.println("Status: " + schedule.getStatus());
                 System.out.println("-------------------------");
-
             }
         }
 
@@ -851,6 +853,7 @@ public class TestAirline {
             System.out.println("No upcoming flights");
         }
     }
+
 
     //Feature 5: Loyalty member
     public static void loyaltyMember(Scanner input, ArrayList <User> userArr){
