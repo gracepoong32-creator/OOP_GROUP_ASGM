@@ -2,8 +2,6 @@ import java.io.FileNotFoundException;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-
-
 //if suddenly a lot of red, then file-> repair IDE
 
 public class TestAirline {
@@ -158,7 +156,6 @@ public class TestAirline {
 
     //Feature 1: Flight booking
     public static void bookFlight(ArrayList<FlightDatabase> flightDatabaseArr, ArrayList<Flight> flightArr, Scanner input, Random random, ArrayList<CheckIn> checkInArr, ArrayList<User> userArr, ArrayList <CheckIn> boardingGateArr) {
-
         //Variables
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy"); //date format
         String todayDate = LocalDate.now().getDayOfMonth() + "-" + LocalDate.now().getMonthValue() + "-" + LocalDate.now().getYear(); //initialize today's date
@@ -401,28 +398,24 @@ public class TestAirline {
             //Ensure points balance > 0, display points redeemable, prompt user the option to redeem or not
             if (m.pointsRedeem() > 0) {
                 System.out.print("Points redeemable to cash: RM" + String.format("%.2f", m.pointsRedeem()));
-
                 while (!valid) {
                     System.out.print("\nWould you like to use loyalty points as discount? (Y/N): ");
                     optPoints = input.nextLine();
 
-                    if (optPoints.equalsIgnoreCase("Y") || optPoints.equalsIgnoreCase("N")) {
+                    if (optPoints.equalsIgnoreCase("Y")) {
+                        discount = m.pointsRedeem();
+                        //Only allow member to redeem the maximum points which is equal to total fare
+                        if (discount > flight.calcTotalFare()) {
+                            discount = flight.calcTotalFare();
+                        }
+                        System.out.print(flight.printPreCheckoutMember(discount, m.getPointsCollected()));
                         valid = true;
-                    } else {
+                    } else if (optPoints.equalsIgnoreCase("N")){
+                        System.out.print("Continue without redeeming loyalty points: ");
+                        valid = true;
+                    }else{
                         System.out.println("Invalid input, please enter again");
                     }
-                }
-
-                //Member choose to redeem points
-                if (optPoints.equalsIgnoreCase("Y")) {
-                    discount = m.pointsRedeem();
-                    //Only allow member to redeem the maximum points which is equal to total fare
-                    if (discount > flight.calcTotalFare()) {
-                        discount = flight.calcTotalFare();
-                    }
-                    System.out.print(flight.printPreCheckoutMember(discount, m.getPointsCollected()));
-                } else {
-                    System.out.print("Continue without redeeming loyalty points: ");
                 }
             } else {
                 System.out.print("Oops, no points available to redeem\n");
@@ -433,32 +426,25 @@ public class TestAirline {
             while (!valid) {
                 System.out.print("\nConfirm payment? (Y/N): ");
                 confirmPayment = input.nextLine();
+                if (confirmPayment.equalsIgnoreCase("Y")) {
+                    double amountPaid = flight.calcTotalFare() - discount;
+                    double totalAmount = flight.checkoutMember(discount);
+                    flightArr.getLast().setTotalPaid(totalAmount);
 
-                if (confirmPayment.equalsIgnoreCase("Y") || confirmPayment.equalsIgnoreCase("N")) {
+                    System.out.print(flight.printPayment(totalAmount));
+                    System.out.print(m.updatedMemberProfile(amountPaid, discount));
+                    flightArr.getLast().setLastName(m.getLastName());
+                    flightArr.getLast().setFirstName(m.getFirstName());
                     valid = true;
-                } else {
+                } else if (confirmPayment.equalsIgnoreCase("N")){
+                    flightArr.removeLast(); //Remove the flight booking from array once user cancel payment
+                    System.out.println("You have cancelled the process");
+                    valid = true;
+                }else {
                     System.out.println("Invalid input, please enter again");
                 }
             }
-
-            //User confirms to make payment
-            if (confirmPayment.equalsIgnoreCase("Y")) {
-                double amountPaid = flight.calcTotalFare() - discount;
-                double totalAmount = flight.checkoutMember(discount);
-                flightArr.getLast().setTotalPaid(totalAmount);
-
-                System.out.print(flight.printPayment(totalAmount));
-                System.out.print(m.updatedMemberProfile(amountPaid, discount));
-                flightArr.getLast().setLastName(m.getLastName());
-                flightArr.getLast().setFirstName(m.getFirstName());
-
-            } else {
-                flightArr.removeLast(); //Remove the flight booking from array once user cancel payment
-                System.out.println("You have cancelled the process");
-            }
-
         } else if (u instanceof NonMember nm) { //User is a nonMember
-
             System.out.print("Non-member profile found!");
             System.out.println(nm);
 
