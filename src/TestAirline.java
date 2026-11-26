@@ -798,32 +798,27 @@ public class TestAirline {
 
     // Feature 4: Flight Schedule
     public static void displayFlightSchedule(ArrayList<FlightSchedule> flightSchedulesArr) {
-
         LocalDate today = LocalDate.now();
         LocalDate threeDaysLater = today.plusDays(3);
 
         boolean foundFlight = false;
 
         for (FlightSchedule schedule : flightSchedulesArr) {
-
-            if (!schedule.getDateTime().isBefore(today)
-                    && schedule.getDateTime().isBefore(threeDaysLater)) {
-
+            if (!schedule.getDateTime().isBefore(today) && schedule.getDateTime().isBefore(threeDaysLater)) {
                 foundFlight = true;
 
-                System.out.println("Flight Number: " + schedule.getFlight().getFlightNum());
+                System.out.println("\nFlight Number: " + schedule.getFlight().getFlightNum());
                 System.out.println("Date: " + schedule.getDateTime());
-                System.out.println("Time: " + schedule.getFlight().getDepartureTime());
-                System.out.println("Gate: " + schedule.getGate());
-                System.out.println("Status: " + schedule.getStatus());
-                System.out.println("-------------------------");
+                System.out.println("Departure Time: " + schedule.getFlight().getDepartureTime());
+                System.out.println("Boarding Gate: " + schedule.getGate());
+                System.out.println("Flight Status: " + schedule.getStatus());
+                System.out.println("----------------------------------");
             }
-        }
-
-        if (!foundFlight) {
+        } if (!foundFlight) {
             System.out.println("No upcoming flights");
         }
     }
+
 
 
     //Feature 5: Loyalty member
