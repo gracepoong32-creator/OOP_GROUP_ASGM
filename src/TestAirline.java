@@ -69,9 +69,26 @@ public class TestAirline {
         flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(9), LocalDateTime.of(2026, 11, 22, 11, 0), "C1", "On Time"));
 
 
-        //Preset loyalty members in arraylist
+        //Preset loyalty members in arraylist from User.txt
         try {
-            readUserData(userArr);
+            java.io.File file = new java.io.File("User.txt");         //Create a File instance
+            Scanner fileInput = new Scanner(file);        //Create a scanner for the file
+            while(fileInput.hasNext()){
+                String firstName = fileInput.next();
+                String lastName = fileInput.next();
+                int age = fileInput.nextInt();
+                String userId = fileInput.next();
+                int pointsCollected = fileInput.nextInt();
+                if (fileInput.hasNextBoolean()){
+                    boolean hasPromo = fileInput.nextBoolean();
+                    userArr.add(new NonMember(firstName,lastName,age,userId,pointsCollected,hasPromo));
+                }else {
+                    String memberTier = fileInput.next() + fileInput.next();
+                    double totalSpent = fileInput.nextDouble();
+                    userArr.add(new Member(firstName, lastName, age,userId,pointsCollected,memberTier,totalSpent));
+                }
+            }
+            fileInput.close();
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -127,27 +144,6 @@ public class TestAirline {
         } while (option != 6);
     }
 
-    //Read user txt Data
-    public static void readUserData(ArrayList <User> userArr) throws FileNotFoundException {
-        java.io.File file = new java.io.File("User.txt");         //Create a File instance
-        Scanner input = new Scanner(file);        //Create a scanner for the file
-        while(input.hasNext()){
-            String firstName = input.next();
-            String lastName = input.next();
-            int age = input.nextInt();
-            String userId = input.next();
-            int pointsCollected = input.nextInt();
-            if (input.hasNextBoolean()){
-                boolean hasPromo = input.nextBoolean();
-                userArr.add(new NonMember(firstName,lastName,age,userId,pointsCollected,hasPromo));
-            }else {
-                String memberTier = input.next() + input.next();
-                double totalSpent = input.nextDouble();
-                userArr.add(new Member(firstName, lastName, age,userId,pointsCollected,memberTier,totalSpent));
-            }
-        }
-        input.close();
-    }
 
     //Feature 1: Flight booking
     public static void bookFlight(ArrayList<FlightDatabase> flightDatabaseArr, ArrayList<Flight> flightArr, Scanner input, Random random, ArrayList<CheckIn> checkInArr, ArrayList<User> userArr, ArrayList <CheckIn> boardingGateArr) {
