@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.time.*;
@@ -101,7 +102,7 @@ public class TestAirline {
                     boolean hasPromo = fileInput.nextBoolean();
                     userArr.add(new NonMember(firstName,lastName,age,userId,pointsCollected,hasPromo));
                 }else {
-                    String memberTier = fileInput.next() + fileInput.next();
+                    String memberTier = fileInput.next() + " " + fileInput.next();
                     double totalSpent = fileInput.nextDouble();
                     userArr.add(new Member(firstName, lastName, age,userId,pointsCollected,memberTier,totalSpent));
                 }
@@ -153,6 +154,7 @@ public class TestAirline {
                     break;
                 case 6:
                     System.out.print("-----Exit------");
+                    exit(boardingGateArr, checkInArr, flightArr, userArr);
                     break;
                 default:
                     System.out.println("Please enter again");
@@ -161,12 +163,6 @@ public class TestAirline {
 
         } while (option != 6);
     }
-
-    public static void writeBoardingGate(){
-
-
-    }
-
 
     //Feature 1: Flight booking
     public static void bookFlight(ArrayList<FlightDatabase> flightDatabaseArr, ArrayList<Flight> flightArr, Scanner input, Random random, ArrayList<CheckIn> checkInArr, ArrayList<User> userArr, ArrayList <CheckIn> boardingGateArr) {
@@ -858,5 +854,46 @@ public class TestAirline {
         }
     }
 
+    //Feature 6: Exit (Print and save everything to txt file)
+    public static void exit(ArrayList <CheckIn> boardingGateArr, ArrayList <CheckIn> checkInArr, ArrayList <Flight> flightArr, ArrayList <User> userArr){
+        java.io.File boardingGateFile = new java.io.File("BoardingGate.txt");
+        java.io.File checkInFile = new java.io.File("CheckIn.txt");
+        java.io.File bookingFile = new java.io.File("Booking.txt");
+        java.io.File userFile = new java.io.File("User.txt");
+        try{
+            java.io.PrintWriter output = new java.io.PrintWriter(boardingGateFile);
+            for (CheckIn b:boardingGateArr){
+                output.println(b.getFlightNum() + " " + b.getDate() + " " + b.getBoardingGate());
+            }
+            output = new java.io.PrintWriter(checkInFile);
+            for (int i = 0; i < checkInArr.size(); i ++){
+                if (flightArr.get(i).getTripType().equalsIgnoreCase("Round trip")){
+                    output.println(checkInArr.get(i).getLastName() + " " + checkInArr.get(i).getBookingNumber() + " " + checkInArr.get(i).isRoundCheckIn() + " " + checkInArr.get(i).isCheckIn() + " " + checkInArr.get(i).getBoardingGate() + " " + checkInArr.get(i).getReturnBoardingGate() + checkInArr.get(i).getSeatNumber() + checkInArr.get(i).getReturnSeatNumber());
+                }else {
+                    output.println(checkInArr.get(i).getLastName() + " " + checkInArr.get(i).getBookingNumber() + " " + checkInArr.get(i).isCheckIn() + " " + checkInArr.get(i).getBoardingGate() + " " + checkInArr.get(i).getSeatNumber());
+                }
+            }
+            output = new java.io.PrintWriter(bookingFile);
+            for (Flight f : flightArr){
+                if (f.getTripType().equalsIgnoreCase("Round trip")){
+                    output.println(f.getBookingNumber() + " " + f.getFlightId() + " " + f.getReturnFlightId() + " " + f.getFirstName() + " " + f.getLastName() + " " + f.getTripType() + " " + f.getDepDate() + " " + f.getReturnDate() + " " + f.getCabinClass() + " " + f.getOptMeals() + " " + f.getOptBaggage() + " " + f.getTotalPaid());
+                }else {
+                    output.println(f.getBookingNumber() + " " + f.getFlightId() + " " + f.getFirstName() + " " + f.getLastName() + " " + f.getTripType() + " " + f.getDepDate() + " " + f.getCabinClass() + " " + f.getOptMeals() + " " + f.getOptBaggage() + " " + f.getTotalPaid());
+                }
+            }
+            output = new java.io.PrintWriter(userFile);
+            for (User u : userArr){
+                if (u instanceof Member){
+                    output.println(u.getFirstName() + " " + u.getLastName() + " " + u.getAge() + " " + u.getUserId() + " " + ((Member) u).getPointsCollected() + " " + ((Member) u).getMemberTier() + " " + ((Member) u).getTotalSpent());
+                }else if (u instanceof NonMember) {
+                    output.println(u.getFirstName() + " " + u.getLastName() + " " + u.getAge() + " " + ((NonMember) u).getBookingCount() + " " + ((NonMember)u).isHasPromo());
+                }
+            }
+            output.close();
+        }catch (Exception exception){
+            System.out.println("File isn't exists");
+        }
+
+    }
 
 }
