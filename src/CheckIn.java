@@ -31,7 +31,7 @@ public class CheckIn {  //find implement user interface
         this.seatNumber = seatNumber;
     }
 
-    public CheckIn(String lastName, int bookingNumber, boolean roundCheckIn, boolean checkIn, String boardingGate, String returnBoardingGate, String seatNumber, String returnSeatNumber) {
+    public CheckIn(String lastName, int bookingNumber, boolean checkIn, boolean roundCheckIn, String boardingGate, String returnBoardingGate, String seatNumber, String returnSeatNumber) {
         this.returnBoardingGate = returnBoardingGate;
         this.returnSeatNumber = returnSeatNumber;
         this.lastName = lastName;

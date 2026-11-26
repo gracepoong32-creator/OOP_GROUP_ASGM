@@ -110,7 +110,7 @@ public class TestAirline {
             }
             fileInput.close();
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            System.out.println("File not exists");
         }
 
         //Preset the Booking Array
@@ -135,7 +135,7 @@ public class TestAirline {
                     FlightDatabase returnflightDatabase = null;
                     for (FlightDatabase f : flightDatabaseArr) {
                         if (f.getFlightNum().equalsIgnoreCase(returnflight)) {
-                            flightDatabase = f;
+                            returnflightDatabase = f;
                             break;
                         }
                     }
@@ -143,9 +143,28 @@ public class TestAirline {
                 }
             }
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            System.out.println("File not exists");
         }
 
+        //Preset CheckIn Array
+        try{
+            file = new java.io.File("CheckIn.txt");
+            Scanner fileInput = new Scanner(file);
+            while (input.hasNext()){
+                String lastName = input.next();
+                int bookingnumber = input.nextInt();
+                boolean hasCheckIn = input.nextBoolean();
+                if (input.nextBoolean()){
+                    checkInArr.add(new CheckIn(lastName,bookingnumber,hasCheckIn,fileInput.nextBoolean(), fileInput.next(),fileInput.next(), fileInput.next(), fileInput.next()));
+
+                }else {
+                    checkInArr.add(new CheckIn(lastName,bookingnumber,hasCheckIn,fileInput.next(),fileInput.next()));
+                }
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         //Airline Management System Menu UI
         int option = 0;
@@ -402,7 +421,7 @@ public class TestAirline {
             if (flightArr.getLast().getTripType().equalsIgnoreCase("one-way")) {
                 checkInArr.add(new CheckIn(userArr.get(userIndex).getLastName(), bookingNum, checkIn, boardingGate, seatNumber));
             } else {
-                checkInArr.add(new CheckIn(userArr.get(userIndex).getLastName(), bookingNum, roundCheckIn, checkIn, boardingGate, returnBoardingGate, seatNumber, returnSeatNumber));
+                checkInArr.add(new CheckIn(userArr.get(userIndex).getLastName(), bookingNum, checkIn, roundCheckIn, boardingGate, returnBoardingGate, seatNumber, returnSeatNumber));
             }
 
             //Add in checkInArr
@@ -922,7 +941,7 @@ public class TestAirline {
                 if (f.getTripType().equalsIgnoreCase("Round trip")){
                     output.println(f.getBookingNumber() + " " + f.getFlightId() + " " + f.getReturnFlightId() + " " + f.getFirstName() + " " + f.getLastName() + " " + f.getTripType() + " " + f.getDepDate() + " " + f.getReturnDate() + " " + f.getCabinClass() + " " + f.getOptMeals() + " " + f.getOptBaggage() + " " + f.getTotalPaid());
                 }else {
-                    output.println(f.getBookingNumber() + " " + f.getFlightId() + " " + f.getFirstName() + " " + f.getLastName() + " " + f.getTripType() + " " + f.getDepDate() + " " + f.getCabinClass() + " " + f.getOptMeals() + " " + f.getOptBaggage() + " " + f.getTotalPaid());
+                    output.println(f.getBookingNumber() + " " + f.getFlightId().getFlightNum() + " " + f.getFirstName() + " " + f.getLastName() + " " + f.getTripType() + " " + f.getDepDate() + " " + f.getCabinClass() + " " + f.getOptMeals() + " " + f.getOptBaggage() + " " + f.getTotalPaid());
                 }
             }
             output.close();
