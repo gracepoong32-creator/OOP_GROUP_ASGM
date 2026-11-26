@@ -175,42 +175,46 @@ public class TestAirline {
                     "\n5. Loyalty member" +
                     "\n6. Exit");
             System.out.print("\n\nEnter your option(1-6): "); //menu interface
-            option = input.nextInt();
-            switch (option) {
-                case 1:
-                    System.out.print("\n-----Flight Booking-----");
-                    bookFlight(flightDatabaseArr, flightArr, input, random, checkInArr, userArr, boardingGateArr);
-                    break;
-                case 2:
-                    if (flightArr.isEmpty()){
-                        System.out.println("There is no booking to check in.");
-                    }else {
-                        System.out.print("-----Check In-----");
-                        checkIn(flightArr, checkInArr, userArr, input, boardingGateArr);
-                    }
-                    break;
-                case 3:
-                    if (flightArr.isEmpty()){
-                        System.out.println("There is no booking to check in.");
-                    }else {
-                        System.out.print("-----Flight cancellation-----");
-                        fightCancellation(flightArr);
-                    }
-                    break;
-                case 4:
-                    System.out.print("-----Summary of upcoming flight schedule-----");
-                    displayFlightSchedule(flightScheduleArr);
-                    break;
-                case 5:
-                    loyaltyMember(input, userArr);
-                    break;
-                case 6:
-                    System.out.print("-----Exit------");
-                    exit(boardingGateArr, checkInArr, flightArr, userArr);
-                    break;
-                default:
-                    System.out.println("Please enter again");
-                    break;
+            try{
+                option = input.nextInt();
+                switch (option) {
+                    case 1:
+                        System.out.print("\n-----Flight Booking-----");
+                        bookFlight(flightDatabaseArr, flightArr, input, random, checkInArr, userArr, boardingGateArr);
+                        break;
+                    case 2:
+                        if (flightArr.isEmpty()){
+                            System.out.println("There is no booking to check in.");
+                        }else {
+                            System.out.print("-----Check In-----");
+                            checkIn(flightArr, checkInArr, userArr, input, boardingGateArr);
+                        }
+                        break;
+                    case 3:
+                        if (flightArr.isEmpty()){
+                            System.out.println("There is no booking to check in.");
+                        }else {
+                            System.out.print("-----Flight cancellation-----");
+                            fightCancellation(flightArr);
+                        }
+                        break;
+                    case 4:
+                        System.out.print("-----Summary of upcoming flight schedule-----");
+                        displayFlightSchedule(flightScheduleArr);
+                        break;
+                    case 5:
+                        loyaltyMember(input, userArr);
+                        break;
+                    case 6:
+                        System.out.print("-----Exit------");
+                        exit(boardingGateArr, checkInArr, flightArr, userArr);
+                        break;
+                    default:
+                        System.out.println("Please enter again");
+                        break;
+                }
+            } catch (Exception e) {
+                System.out.println("Please enter 1 - 6 only");
             }
 
         } while (option != 6);
