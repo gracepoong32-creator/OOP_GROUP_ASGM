@@ -807,12 +807,7 @@ public class TestAirline {
             if (!schedule.getDateTime().isBefore(today) && schedule.getDateTime().isBefore(threeDaysLater)) {
                 foundFlight = true;
 
-                System.out.println("\nFlight Number: " + schedule.getFlight().getFlightNum());
-                System.out.println("Date: " + schedule.getDateTime());
-                System.out.println("Departure Time: " + schedule.getFlight().getDepartureTime());
-                System.out.println("Boarding Gate: " + schedule.getGate());
-                System.out.println("Flight Status: " + schedule.getStatus());
-                System.out.println("----------------------------------");
+                System.out.println(schedule.toString());
             }
         } if (!foundFlight) {
             System.out.println("No upcoming flights");
