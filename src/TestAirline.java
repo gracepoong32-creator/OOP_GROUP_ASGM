@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -51,8 +52,16 @@ public class TestAirline {
 
         //Preset the boarding Gate today
         String localDate = LocalDateTime.now().getDayOfMonth() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getYear();
-        for (int i = 0 ; i < flightDatabaseArr.size(); i++){
-            boardingGateArr.add(new CheckIn(flightDatabaseArr.get(i).getFlightNum(), localDate , checkIn.checkBoardingGate(boardingGateArr, localDate)));
+        try{ //see want to change at last only put everything in or not
+            java.io.File file = new java.io.File("BoardingGate.txt");
+            java.io.PrintWriter output = new java.io.PrintWriter(file);
+            for (int i = 0 ; i < flightDatabaseArr.size(); i++){
+                boardingGateArr.add(new CheckIn(flightDatabaseArr.get(i).getFlightNum(), localDate , checkIn.checkBoardingGate(boardingGateArr, localDate)));
+                output.println(flightDatabaseArr.get(i).getFlightNum()+ " " + localDate + " " + checkIn.checkBoardingGate(boardingGateArr, localDate));
+            }
+            output.close();
+        }catch (Exception e){
+
         }
 
 
@@ -142,6 +151,11 @@ public class TestAirline {
             }
 
         } while (option != 6);
+    }
+
+    public static void writeBoardingGate(){
+
+
     }
 
 
