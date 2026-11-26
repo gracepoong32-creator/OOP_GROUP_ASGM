@@ -15,11 +15,6 @@ public class Flight {
     public Flight(){
     }
 
-    public Flight(String lastName, int bookingNumber){
-        this.lastName = lastName;
-        this.bookingNumber = bookingNumber;
-    }
-
     //Parameterized constructor for one-way
     public Flight(int bookingNumber, String firstName, String lastName, FlightDatabase flightId, String tripType, String depDate, String cabinClass, String optMeals, String optBaggage, double totalPaid){
         this.bookingNumber = bookingNumber;
