@@ -6,8 +6,8 @@ public class FlightSchedule {
     private String status;
 
     public FlightSchedule() {
-
     }
+
     public FlightSchedule(FlightDatabase flight, LocalDate dateTime, String gate, String status) {
         this.flight = flight;
         this.dateTime = dateTime;

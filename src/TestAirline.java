@@ -814,8 +814,6 @@ public class TestAirline {
         }
     }
 
-
-
     //Feature 5: Loyalty member
     public static void loyaltyMember(Scanner input, ArrayList <User> userArr){
         int choice = 0;
