@@ -113,6 +113,40 @@ public class TestAirline {
             throw new RuntimeException(e);
         }
 
+        //Preset the Booking Array
+        try{
+            file = new java.io.File("Booking.txt");
+            Scanner fileInput = new Scanner(file);
+            while (fileInput.hasNext()){
+                int bookingNumber = fileInput.nextInt();
+                String tripType = fileInput.next();
+                String flight = input.next();
+                FlightDatabase flightDatabase = null;
+                for (FlightDatabase f : flightDatabaseArr) {
+                    if (f.getFlightNum().equalsIgnoreCase(flight)) {
+                        flightDatabase = f;
+                        break;
+                    }
+                }
+                if (tripType.equalsIgnoreCase("One-way")){
+                    flightArr.add(new Flight(bookingNumber,tripType,flightDatabase, fileInput.next(), fileInput.next(), fileInput.next(), fileInput.next(), fileInput.next(), fileInput.next(), fileInput.nextDouble()));
+                }else {
+                    String returnflight = input.next();
+                    FlightDatabase returnflightDatabase = null;
+                    for (FlightDatabase f : flightDatabaseArr) {
+                        if (f.getFlightNum().equalsIgnoreCase(returnflight)) {
+                            flightDatabase = f;
+                            break;
+                        }
+                    }
+                    flightArr.add(new Flight(bookingNumber,tripType,flightDatabase, returnflightDatabase, fileInput.next(), fileInput.next(), fileInput.next(), fileInput.next(), fileInput.next(), fileInput.next(), fileInput.next(), fileInput.nextDouble()));
+                }
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+
         //Airline Management System Menu UI
         int option = 0;
         do {
@@ -348,9 +382,9 @@ public class TestAirline {
 
         //Add into array
         if (inputTypeTrip.equalsIgnoreCase("round trip")) {
-            flight = new Flight(bookingNum, selectedFlight, selectedReturnFlight, firstName, lastName, inputTypeTrip, inputDepDate, inputReturnDate, inputCabinClass, optMeal, optBaggage, totalAmount);
+            flight = new Flight(bookingNum,inputTypeTrip, selectedFlight, selectedReturnFlight, firstName, lastName, inputDepDate, inputReturnDate, inputCabinClass, optMeal, optBaggage, totalAmount);
         } else {
-            flight = new Flight(bookingNum, firstName, lastName, selectedFlight, inputTypeTrip, inputDepDate, inputCabinClass, optMeal, optBaggage, totalAmount);
+            flight = new Flight(bookingNum,inputTypeTrip, selectedFlight, firstName, lastName,inputDepDate, inputCabinClass, optMeal, optBaggage, totalAmount);
         }
         flightArr.add(flight);
         System.out.print(flight); //Print pre check-out summary
