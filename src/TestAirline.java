@@ -53,19 +53,25 @@ public class TestAirline {
         //Preset the boarding Gate today
         String localDate = LocalDateTime.now().getDayOfMonth() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getYear();
         LocalDate scheduleDate = LocalDate.now();
-
-        try {
-            java.io.File file = new java.io.File("BoardingGate.txt");
-            java.io.PrintWriter output = new java.io.PrintWriter(file);
-
-            for (int i = 0; i < flightDatabaseArr.size(); i++) {
-                String gate = checkIn.checkBoardingGate(boardingGateArr, localDate);
-                boardingGateArr.add(new CheckIn(flightDatabaseArr.get(i).getFlightNum(), localDate, gate));
-                output.println(flightDatabaseArr.get(i).getFlightNum() + " " + localDate + " " + gate);
-            }output.close();
-
+        java.io.File file = new java.io.File("BoardingGate.txt");
+        boolean add = false;
+        try{
+            Scanner fileInput = new Scanner(file);
+            while (fileInput.hasNext()){
+                boardingGateArr.add(new CheckIn(fileInput.next(), fileInput.next(), fileInput.next()));
+            }
+            for (CheckIn g: boardingGateArr){
+                if (!(g.getDate().equals(localDate))){
+                    add = true;
+                }
+            }
+            if (add == true || file.length()==0){
+                for (FlightDatabase f:flightDatabaseArr){
+                    boardingGateArr.add(new CheckIn(f.getFlightNum(), f.getDepartureTime(),checkIn.checkBoardingGate(boardingGateArr, localDate)));
+                }
+            }
         } catch (Exception e) {
-            System.out.println("Error creating BoardingGate.txt: " + e.getMessage());
+            System.out.println("File isn't exists.");
         }
 
 
@@ -83,7 +89,7 @@ public class TestAirline {
 
         //Preset loyalty members in arraylist from User.txt
         try {
-            java.io.File file = new java.io.File("User.txt");         //Create a File instance
+            file = new java.io.File("User.txt");         //Create a File instance
             Scanner fileInput = new Scanner(file);        //Create a scanner for the file
             while(fileInput.hasNext()){
                 String firstName = fileInput.next();
