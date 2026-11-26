@@ -68,11 +68,11 @@ public class TestAirline {
             }
             if (add == true || file.length()==0){
                 for (FlightDatabase f:flightDatabaseArr){
-                    boardingGateArr.add(new CheckIn(f.getFlightNum(), f.getDepartureTime(),checkIn.checkBoardingGate(boardingGateArr, localDate)));
+                    boardingGateArr.add(new CheckIn(f.getFlightNum(), localDate,checkIn.checkBoardingGate(boardingGateArr, localDate)));
                 }
             }
-        } catch (Exception e) {
-            System.out.println("File isn't exists.");
+        } catch (FileNotFoundException e) {
+            System.out.println("Boarding gate File isn't exists.");
         }
 
 
@@ -110,7 +110,7 @@ public class TestAirline {
             }
             fileInput.close();
         } catch (FileNotFoundException e) {
-            System.out.println("File not exists");
+            System.out.println("User File not exists");
         }
 
         //Preset the Booking Array
@@ -143,7 +143,7 @@ public class TestAirline {
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not exists");
+            System.out.println("Booking File not exists");
         }
 
         //Preset CheckIn Array
