@@ -46,4 +46,14 @@ public class FlightSchedule {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "\nFlight Number: " + flight.getFlightNum()
+                + "\nDate: " + dateTime
+                + "\nDeparture Time: " + flight.getDepartureTime()
+                + "\nBoarding Gate: " + gate
+                + "\nFlight Status: " + status
+                + "\n----------------------------------";
+    }
 }
