@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -51,29 +52,52 @@ public class TestAirline {
 
         //Preset the boarding Gate today
         String localDate = LocalDateTime.now().getDayOfMonth() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getYear();
-        LocalDate scheduleDate = LocalDate.now();
-        for (int i = 0 ; i < flightDatabaseArr.size(); i++){
-            boardingGateArr.add(new CheckIn(flightDatabaseArr.get(i).getFlightNum(), localDate , checkIn.checkBoardingGate(boardingGateArr, localDate)));
+        try{ //see want to change at last only put everything in or not
+            java.io.File file = new java.io.File("BoardingGate.txt");
+            java.io.PrintWriter output = new java.io.PrintWriter(file);
+            for (int i = 0 ; i < flightDatabaseArr.size(); i++){
+                boardingGateArr.add(new CheckIn(flightDatabaseArr.get(i).getFlightNum(), localDate , checkIn.checkBoardingGate(boardingGateArr, localDate)));
+                output.println(flightDatabaseArr.get(i).getFlightNum()+ " " + localDate + " " + checkIn.checkBoardingGate(boardingGateArr, localDate));
+            }
+            output.close();
+        }catch (Exception e){
 
         }
 
 
         //Present flight schedules
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(0), scheduleDate.plusDays(0), boardingGateArr.get(0).getBoardingGate(), "On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(1), scheduleDate.plusDays(1), boardingGateArr.get(1).getBoardingGate(), "On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(2), scheduleDate.plusDays(2), boardingGateArr.get(2).getBoardingGate(), "Delayed"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(3), scheduleDate.plusDays(3), boardingGateArr.get(3).getBoardingGate(), "On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(4),scheduleDate.plusDays(4), boardingGateArr.get(4).getBoardingGate(), "On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(5), scheduleDate.plusDays(5), boardingGateArr.get(5).getBoardingGate(), "Cancelled"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(6), scheduleDate.plusDays(6), boardingGateArr.get(6).getBoardingGate(), "On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(7), scheduleDate.plusDays(7), boardingGateArr.get(7).getBoardingGate(), "On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(8), scheduleDate.plusDays(8), boardingGateArr.get(8).getBoardingGate(), "On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(9),scheduleDate.plusDays(9), boardingGateArr.get(9).getBoardingGate(), "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(0), LocalDateTime.of(2026, 11, 20, 8, 0), "A12", "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(1), LocalDateTime.of(2026, 11, 20, 12, 0), "B6", "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(2), LocalDateTime.of(2026, 11, 20, 17, 30), "A1", "Delayed"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(3), LocalDateTime.of(2026, 11, 21, 9, 10), "B9", "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(4), LocalDateTime.of(2026, 11, 21, 14, 0), "C8", "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(5), LocalDateTime.of(2026, 11, 21, 20, 0), "D3", "Cancelled"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(6), LocalDateTime.of(2026, 11, 22, 11, 0), "H8", "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(7), LocalDateTime.of(2026, 11, 22, 7, 0), "G11", "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(8), LocalDateTime.of(2026, 11, 22, 9, 0), "D3", "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(9), LocalDateTime.of(2026, 11, 22, 11, 0), "C1", "On Time"));
 
 
-        //Preset loyalty members in arraylist
+        //Preset loyalty members in arraylist from User.txt
         try {
-            readUserData(userArr);
+            java.io.File file = new java.io.File("User.txt");         //Create a File instance
+            Scanner fileInput = new Scanner(file);        //Create a scanner for the file
+            while(fileInput.hasNext()){
+                String firstName = fileInput.next();
+                String lastName = fileInput.next();
+                int age = fileInput.nextInt();
+                String userId = fileInput.next();
+                int pointsCollected = fileInput.nextInt();
+                if (fileInput.hasNextBoolean()){
+                    boolean hasPromo = fileInput.nextBoolean();
+                    userArr.add(new NonMember(firstName,lastName,age,userId,pointsCollected,hasPromo));
+                }else {
+                    String memberTier = fileInput.next() + fileInput.next();
+                    double totalSpent = fileInput.nextDouble();
+                    userArr.add(new Member(firstName, lastName, age,userId,pointsCollected,memberTier,totalSpent));
+                }
+            }
+            fileInput.close();
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -108,7 +132,7 @@ public class TestAirline {
                         System.out.println("There is no booking to check in.");
                     }else {
                         System.out.print("-----Flight cancellation-----");
-                        fightCancelation(flightArr);
+                        fightCancellation(flightArr);
                     }
                     break;
                 case 4:
@@ -129,27 +153,11 @@ public class TestAirline {
         } while (option != 6);
     }
 
-    //Read user txt Data
-    public static void readUserData(ArrayList <User> userArr) throws FileNotFoundException {
-        java.io.File file = new java.io.File("User.txt");         //Create a File instance
-        Scanner input = new Scanner(file);        //Create a scanner for the file
-        while(input.hasNext()){
-            String firstName = input.next();
-            String lastName = input.next();
-            int age = input.nextInt();
-            String userId = input.next();
-            int pointsCollected = input.nextInt();
-            if (input.hasNextBoolean()){
-                boolean hasPromo = input.nextBoolean();
-                userArr.add(new NonMember(firstName,lastName,age,userId,pointsCollected,hasPromo));
-            }else {
-                String memberTier = input.next() + input.next();
-                double totalSpent = input.nextDouble();
-                userArr.add(new Member(firstName, lastName, age,userId,pointsCollected,memberTier,totalSpent));
-            }
-        }
-        input.close();
+    public static void writeBoardingGate(){
+
+
     }
+
 
     //Feature 1: Flight booking
     public static void bookFlight(ArrayList<FlightDatabase> flightDatabaseArr, ArrayList<Flight> flightArr, Scanner input, Random random, ArrayList<CheckIn> checkInArr, ArrayList<User> userArr, ArrayList <CheckIn> boardingGateArr) {
@@ -749,108 +757,61 @@ public class TestAirline {
     }
 
     //Feature 3: Flight Cancellation
-    public static void flightCancellation(ArrayList<Flight> flightArr, Scanner input) {
+    public static void fightCancellation(ArrayList<Flight> flightArr){
+        Scanner input = new Scanner (System.in);
 
-        //variables
-        boolean checkBookingNumber = false;
-        boolean checkLastName = false;
-        int bookingIndex = 0;
-        int reset = 0;
-        String lastName = "";
-        String cancelFlight = "";
-
-        //Check Booking Number
-        do {
-            try{
-                System.out.print("\nEnter your booking number: ");
-                int bookingNumber = input.nextInt();
-                for (bookingIndex = 0; bookingIndex < flightArr.size(); bookingIndex++) {
-                    if (bookingNumber == flightArr.get(bookingIndex).getBookingNumber()) {
-                        checkBookingNumber = true;
-                        break;
-                    }
-                }
-                if (!checkBookingNumber){
-                    System.out.println("The booking number is invalid or not found. Please try again.");
-                }
-            } catch (Exception e) {
-                System.out.println("Please enter a valid booking number.");
-                input.nextLine();
-            }
-
-        } while (!checkBookingNumber);
-
-        //Check Name
-        input.nextLine();
-        do {
-            System.out.print("Enter your last name: ");
-            lastName = input.nextLine();
-            if (lastName.equalsIgnoreCase(flightArr.get(bookingIndex).getLastName())) {
+        System.out.print("Enter Booking Number: ");
+        int bookingNumber = input.nextInt();
+        int i = 0;
+        for (i = 0 ; i < flightArr .size() ; i ++){
+            if (flightArr.get(i).getBookingNumber() == bookingNumber) {
                 break;
             }
+        }
 
-            if (!checkLastName) {
-                System.out.println("The name you entered is not found. Please try again");
-            }
+        System.out.print("Enter your name: ");
+        String name = input.nextLine();
+        if (flightArr.get(i).getLastName() .equalsIgnoreCase(name)){
+            System.out.println("User is found");
+        }
 
-        } while (!checkLastName); //If check name is true, break from while loop
+        System.out.println("Flight Details" +
+                "Name: " + flightArr.get(i).getFirstName() + " " + flightArr.get(i).getLastName() +
+                "Booking Number: " + flightArr.get(i).getBookingNumber()+
+                flightArr.get(i).getFlightId().getFrom() + " ------> " + flightArr.get(i).getFlightId().getTo() +
+                "Departure Date: " + flightArr.get(i).getDepDate());
 
+        System.out.println("If you cancel the flight it will only refund 50%");
+        System.out.println("Are you sure you want to cancel?(yes/no)");
+        String yesOrNo = input.nextLine();
 
-        //Print flight Details
-        System.out.println("\n-----Flight Details-----" +
-                "\nFlight Id: " + flightArr.get(bookingIndex).getFlightId().getFlightNum() +
-                "\nRoute: " + flightArr.get(bookingIndex).getFlightId().getFrom() + " -> " + flightArr.get(bookingIndex).getFlightId().getTo() +
-                "\nDeparture: " + flightArr.get(bookingIndex).getDepDate() + " at " + flightArr.get(bookingIndex).getFlightId().getDepartureTime() +
-                "\nTrip type: " + flightArr.get(bookingIndex).getTripType() +
-                "\nCabin class: " + flightArr.get(bookingIndex).getCabinClass());
-
-        boolean cancelProcess = false;
-        do {
-            System.out.println("\nCancelling a flight will only refund 80% of the total amount paid.");
-            System.out.print("Are you sure to cancel this flight (y for yes/ n for no): ");
-            cancelFlight = input.nextLine();
-
-            if (cancelFlight.equalsIgnoreCase("y")) {
-                //Cancel Flight
-                double flightRefund = (flightArr.get(bookingIndex).getTotalPaid()) * 0.8;
-                System.out.print("Your refund for this flight is " + flightRefund);
-                System.out.println("The refund is successful.");
-                flightArr.remove(bookingIndex);
-                cancelProcess = true;
-
-            } else if (cancelFlight.equalsIgnoreCase("n")) {
-                //Cancel cancel Flight
-                System.out.print("You cancelled this process.\n");
-                cancelProcess = true;
-
-            } else {
-                //Exception
-                System.out.print("Please enter Y/N only.");
-            }
-        } while (!cancelProcess);
+        if (yesOrNo.equalsIgnoreCase("yes") ){
+            System.out.println("Successfully Cancel");
+            flightArr.remove(i);
+        }else{
+            System.out.println("Unsuccessfully Cancel");
+        }
     }
 
     // Feature 4: Flight Schedule
     public static void displayFlightSchedule(ArrayList<FlightSchedule> flightSchedulesArr) {
-
-        LocalDate today = LocalDate.now();
-        LocalDate threeDaysLater = today.plusDays(3);
+        LocalDateTime today = LocalDateTime.of(2026, 11, 20, 0, 0);
+        LocalDateTime threeDaysLater = today.plusDays(3);
 
         boolean foundFlight = false;
 
         for (FlightSchedule schedule : flightSchedulesArr) {
 
-            if (!schedule.getDateTime().isBefore(today)
-                    && schedule.getDateTime().isBefore(threeDaysLater)) {
+            if (!schedule.getDateTime().isBefore(today) && schedule.getDateTime().isBefore(threeDaysLater)) {
 
                 foundFlight = true;
 
                 System.out.println("Flight Number: " + schedule.getFlight().getFlightNum());
-                System.out.println("Date: " + schedule.getDateTime());
-                System.out.println("Time: " + schedule.getFlight().getDepartureTime());
+                System.out.println("Date and Time: " + schedule.getDateTime());
                 System.out.println("Gate: " + schedule.getGate());
                 System.out.println("Status: " + schedule.getStatus());
                 System.out.println("-------------------------");
+
             }
         }
 
@@ -858,7 +819,6 @@ public class TestAirline {
             System.out.println("No upcoming flights");
         }
     }
-
 
     //Feature 5: Loyalty member
     public static void loyaltyMember(Scanner input, ArrayList <User> userArr){
@@ -898,39 +858,5 @@ public class TestAirline {
         }
     }
 
-    public static void fightCancelation(ArrayList<Flight> flightArr){
-        Scanner input = new Scanner (System.in);
 
-        System.out.print("Enter Booking Number: ");
-        int bookingNumber = input.nextInt();
-        int i = 0;
-        for (i = 0 ; i < flightArr .size() ; i ++){
-            if (flightArr.get(i).getBookingNumber() == bookingNumber) {
-                break;
-            }
-        }
-
-        System.out.print("Enter your name: ");
-        String name = input.nextLine();
-        if (flightArr.get(i).getLastName() .equalsIgnoreCase(name)){
-            System.out.println("User is found");
-        }
-
-        System.out.println("Flight Details" +
-                "Name: " + flightArr.get(i).getFirstName() + " " + flightArr.get(i).getLastName() +
-                "Booking Number: " + flightArr.get(i).getBookingNumber()+
-                flightArr.get(i).getFlightId().getFrom() + " ------> " + flightArr.get(i).getFlightId().getTo() +
-                "Departure Date: " + flightArr.get(i).getDepDate());
-
-        System.out.println("If you cancel the flight it will only refund 50%");
-        System.out.println("Are you sure you want to cancel?(yes/no)");
-        String yesOrNo = input.nextLine();
-
-        if (yesOrNo.equalsIgnoreCase("yes") ){
-            System.out.println("Successfully Cancel");
-            flightArr.remove(i);
-        }else{
-            System.out.println("Unsuccessfully Cancel");
-        }
-    }
 }
