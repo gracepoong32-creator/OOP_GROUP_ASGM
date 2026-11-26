@@ -97,11 +97,12 @@ public class TestAirline {
                 String lastName = fileInput.next();
                 int age = fileInput.nextInt();
                 String userId = fileInput.next();
-                int pointsCollected = fileInput.nextInt();
-                if (fileInput.hasNextBoolean()){
+                if (fileInput.hasNextInt()){
+                    int bookingCount = fileInput.nextInt();
                     boolean hasPromo = fileInput.nextBoolean();
-                    userArr.add(new NonMember(firstName,lastName,age,userId,pointsCollected,hasPromo));
+                    userArr.add(new NonMember(firstName,lastName,age,userId, bookingCount,hasPromo));
                 }else {
+                    double pointsCollected = fileInput.nextDouble();
                     String memberTier = fileInput.next() + " " + fileInput.next();
                     double totalSpent = fileInput.nextDouble();
                     userArr.add(new Member(firstName, lastName, age,userId,pointsCollected,memberTier,totalSpent));
@@ -377,15 +378,20 @@ public class TestAirline {
             //Check if there is any same flight ID and dep date
             for (int i = 0; i < boardingGateArr.size(); i++) {
                 //If the first trip/ one-way have alr the date in the ArrayList, no need add
-                if (!(flightArr.getLast().getFlightId().getFlightNum().equalsIgnoreCase(boardingGateArr.get(i).getFlightNum())) && !(flightArr.getLast().getDepDate().equalsIgnoreCase(boardingGateArr.get(i).getDate()))) {
-                    boardingGateArr.add(new CheckIn(flightArr.getLast().getFlightId().getFlightNum(), flightArr.getLast().getDepDate(), boardingGate));
+                if (flightArr.getLast().getFlightId().getFlightNum().equalsIgnoreCase(boardingGateArr.get(i).getFlightNum()) && flightArr.getLast().getDepDate().equalsIgnoreCase(boardingGateArr.get(i).getDate())) {
+                    checkFirstSame = true;
                 }
                 //If is round trip, check if the return trip have the information in the ArrayList
                 if (flightArr.getLast().getTripType().equalsIgnoreCase("round trip")) {
-                    if (!(flightArr.getLast().getReturnFlightId().getFlightNum().equalsIgnoreCase(boardingGateArr.get(i).getFlightNum())) && !(flightArr.getLast().getReturnDate().equalsIgnoreCase(boardingGateArr.get(i).getDate()))) {
-                        boardingGateArr.add(new CheckIn(flightArr.getLast().getReturnFlightId().getFlightNum(), flightArr.getLast().getReturnDate(), returnBoardingGate));
+                    if (flightArr.getLast().getReturnFlightId().getFlightNum().equalsIgnoreCase(boardingGateArr.get(i).getFlightNum()) && flightArr.getLast().getReturnDate().equalsIgnoreCase(boardingGateArr.get(i).getDate())) {
+                        checkSecondSame = true;
                     }
                 }
+            }
+            if (!checkFirstSame){
+                boardingGateArr.add(new CheckIn(flightArr.getLast().getFlightId().getFlightNum(), flightArr.getLast().getDepDate(), boardingGate));
+            }else if (!checkSecondSame){
+                boardingGateArr.add(new CheckIn(flightArr.getLast().getReturnFlightId().getFlightNum(), flightArr.getLast().getReturnDate(), returnBoardingGate));
             }
         }
     }
@@ -713,8 +719,7 @@ public class TestAirline {
         } //First time check in
         else {
             for (CheckIn gate : boardingGateArr){
-                if (gate.getFlightNum().equalsIgnoreCase(f.getFlightId().getFlightNum())){ //If flightBookingArr Flight Num is same as boardingGateArr Flight Number
-                    if (gate.getDate().equals(f.getDepDate())){  //If flightBookingArr Departure date is same with boardingGateArr Departure Date
+                if (gate.getFlightNum().equalsIgnoreCase(f.getFlightId().getFlightNum()) && gate.getDate().equals(f.getDepDate())){ //If flightBookingArr Flight Num is same as boardingGateArr Flight Number and /If flightBookingArr Departure date is same with boardingGateArr Departure Date
                         if (gate.getBoardingGate().equalsIgnoreCase("To be Determined")){ //If boardingGateArr is to be determined, the boarding Gate have not been assigned yet/ randomly generated
                             boardingGate = checkIn.checkBoardingGate(boardingGateArr, gate.getDate()); //Check if any clash in boardingGate
                             gate.setBoardingGate(boardingGate); //set the boarding Gate
@@ -723,7 +728,6 @@ public class TestAirline {
                             boardingGate = gate.getBoardingGate(); //Alr have boardingGate
                             break;
                         }
-                    }
                 }
             }
 
@@ -860,12 +864,16 @@ public class TestAirline {
         java.io.File checkInFile = new java.io.File("CheckIn.txt");
         java.io.File bookingFile = new java.io.File("Booking.txt");
         java.io.File userFile = new java.io.File("User.txt");
+
         try{
             java.io.PrintWriter output = new java.io.PrintWriter(boardingGateFile);
+            output.write("");
             for (CheckIn b:boardingGateArr){
                 output.println(b.getFlightNum() + " " + b.getDate() + " " + b.getBoardingGate());
             }
+            output.close();
             output = new java.io.PrintWriter(checkInFile);
+            output.write("");
             for (int i = 0; i < checkInArr.size(); i ++){
                 if (flightArr.get(i).getTripType().equalsIgnoreCase("Round trip")){
                     output.println(checkInArr.get(i).getLastName() + " " + checkInArr.get(i).getBookingNumber() + " " + checkInArr.get(i).isRoundCheckIn() + " " + checkInArr.get(i).isCheckIn() + " " + checkInArr.get(i).getBoardingGate() + " " + checkInArr.get(i).getReturnBoardingGate() + checkInArr.get(i).getSeatNumber() + checkInArr.get(i).getReturnSeatNumber());
@@ -873,7 +881,9 @@ public class TestAirline {
                     output.println(checkInArr.get(i).getLastName() + " " + checkInArr.get(i).getBookingNumber() + " " + checkInArr.get(i).isCheckIn() + " " + checkInArr.get(i).getBoardingGate() + " " + checkInArr.get(i).getSeatNumber());
                 }
             }
+            output.close();
             output = new java.io.PrintWriter(bookingFile);
+            output.write("");
             for (Flight f : flightArr){
                 if (f.getTripType().equalsIgnoreCase("Round trip")){
                     output.println(f.getBookingNumber() + " " + f.getFlightId() + " " + f.getReturnFlightId() + " " + f.getFirstName() + " " + f.getLastName() + " " + f.getTripType() + " " + f.getDepDate() + " " + f.getReturnDate() + " " + f.getCabinClass() + " " + f.getOptMeals() + " " + f.getOptBaggage() + " " + f.getTotalPaid());
@@ -881,12 +891,14 @@ public class TestAirline {
                     output.println(f.getBookingNumber() + " " + f.getFlightId() + " " + f.getFirstName() + " " + f.getLastName() + " " + f.getTripType() + " " + f.getDepDate() + " " + f.getCabinClass() + " " + f.getOptMeals() + " " + f.getOptBaggage() + " " + f.getTotalPaid());
                 }
             }
+            output.close();
             output = new java.io.PrintWriter(userFile);
+            output.write("");
             for (User u : userArr){
                 if (u instanceof Member){
                     output.println(u.getFirstName() + " " + u.getLastName() + " " + u.getAge() + " " + u.getUserId() + " " + ((Member) u).getPointsCollected() + " " + ((Member) u).getMemberTier() + " " + ((Member) u).getTotalSpent());
                 }else if (u instanceof NonMember) {
-                    output.println(u.getFirstName() + " " + u.getLastName() + " " + u.getAge() + " " + ((NonMember) u).getBookingCount() + " " + ((NonMember)u).isHasPromo());
+                    output.println(u.getFirstName() + " " + u.getLastName() + " " + u.getAge() + " " + u.getUserId() + " " +((NonMember) u).getBookingCount() + " " + ((NonMember)u).isHasPromo());
                 }
             }
             output.close();

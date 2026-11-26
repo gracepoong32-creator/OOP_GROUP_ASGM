@@ -1,10 +1,11 @@
-Jane Smith 18 M101 50 Bronze Tier 700.00
-Shaun Wong 20 M102 100 Platinum Tier 10001.00
-Daniel Fong 22 M103 110 Bronze Tier 1150.00
-Marcus Lee 35 M104 1120 Gold Tier 9200.00
-Lucas Wong 40 M105 1450 Platinum Tier 12500.00
+Jane Smith 18 M101 50.0 Bronze Tier 700.0
+Shaun Wong 20 M102 100.0 Platinum Tier 10001.0
+Daniel Fong 22 M103 110.0 Bronze Tier 1150.0
+Marcus Lee 35 M104 1120.0 Gold Tier 9200.0
+Lucas Wong 40 M105 1450.0 Platinum Tier 12500.0
 Gina Wang 52 M106 3 false
 Jayden Cooper 13 M107 7 false
 Isabelle Kong 21 M108 0 true
 Miriam Grey 48 M109 9 false
 Lily Ketchman 34 M110 1 true
+cyue hello 20 M111 1 true
