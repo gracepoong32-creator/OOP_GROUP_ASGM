@@ -935,10 +935,14 @@ public class TestAirline {
 
     //Feature 6: Exit (Print and save everything to txt file)
     public static void exit(ArrayList <CheckIn> boardingGateArr, ArrayList <CheckIn> checkInArr, ArrayList <Flight> flightArr, ArrayList <User> userArr){
-        java.io.File boardingGateFile = new java.io.File("BoardingGate.txt");
-        java.io.File checkInFile = new java.io.File("CheckIn.txt");
-        java.io.File bookingFile = new java.io.File("Booking.txt");
-        java.io.File userFile = new java.io.File("User.txt");
+        LocalDateTime dateTime = java.time.LocalDateTime.now();
+        DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy_HH-mm-ss");
+        String timestamp = dateTime.format(dateTimeFormat);
+
+        java.io.File boardingGateFile = new java.io.File("BoardingGate_" + timestamp + ".txt");
+        java.io.File checkInFile = new java.io.File("CheckIn_" + timestamp + ".txt");
+        java.io.File bookingFile = new java.io.File("Booking_" + timestamp + ".txt");
+        java.io.File userFile = new java.io.File("User_" + timestamp + ".txt");
 
         try{
             java.io.PrintWriter output = new java.io.PrintWriter(boardingGateFile);
@@ -951,7 +955,7 @@ public class TestAirline {
             output.write("");
             for (int i = 0; i < checkInArr.size(); i ++){
                 if (flightArr.get(i).getTripType().equalsIgnoreCase("Round trip")){
-                    output.println(checkInArr.get(i).getLastName() + " " + checkInArr.get(i).getBookingNumber() + " " + checkInArr.get(i).isCheckIn()+ " " + checkInArr.get(i).isRoundCheckIn()  + " " + checkInArr.get(i).getBoardingGate() + " " + checkInArr.get(i).getReturnBoardingGate() + checkInArr.get(i).getSeatNumber() + checkInArr.get(i).getReturnSeatNumber());
+                    output.println(checkInArr.get(i).getLastName() + " " + checkInArr.get(i).getBookingNumber() + " " + checkInArr.get(i).isCheckIn()+ " " + checkInArr.get(i).isRoundCheckIn()  + " " + checkInArr.get(i).getBoardingGate() + " " + checkInArr.get(i).getReturnBoardingGate() + " " + checkInArr.get(i).getSeatNumber() + " " + checkInArr.get(i).getReturnSeatNumber());
                 }else {
                     output.println(checkInArr.get(i).getLastName() + " " + checkInArr.get(i).getBookingNumber() + " " + checkInArr.get(i).isCheckIn() + " " + checkInArr.get(i).getBoardingGate() + " " + checkInArr.get(i).getSeatNumber());
                 }
