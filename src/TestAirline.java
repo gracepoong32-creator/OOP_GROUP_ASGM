@@ -811,8 +811,7 @@ public class TestAirline {
     }
 
     //Feature 3: Flight Cancellation
-    public static void fightCancellation(ArrayList<Flight> flightArr, ArrayList<CheckIn> checkInArr){
-        Scanner input = new Scanner (System.in);
+    public static void fightCancellation(ArrayList<Flight> flightArr, ArrayList<CheckIn> checkInArr, Scanner input){
         int i = 0;
         while (true){ //Loop in to check booking Number
             try{
