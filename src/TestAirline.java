@@ -949,7 +949,7 @@ public class TestAirline {
 
     //Feature 6: Exit (Print and save everything to txt file)
     public static void exit(ArrayList <CheckIn> boardingGateArr, ArrayList <CheckIn> checkInArr, ArrayList <Flight> flightArr, ArrayList <User> userArr){
-        LocalDateTime dateTime = java.time.LocalDateTime.now();
+        LocalDateTime dateTime = java.time.LocalDateTime.now(); //dateTime stores the current timestamp
         DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy_HH-mm-ss");
         String timestamp = dateTime.format(dateTimeFormat);
 
