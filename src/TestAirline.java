@@ -795,7 +795,7 @@ public class TestAirline {
 
         //Return trip
         if (!ck.isRoundCheckIn() && f.getTripType().equalsIgnoreCase("round trip")){
-            System.out.print("\nDo you want to check in for return trip (Y for yes/ N for no): ");
+            System.out.print("\nDo you want to check in for return trip (Y/N): ");
             String checkInReturn = input.nextLine();
             //Do the boarding pass for return trip
             if (checkInReturn.equalsIgnoreCase("Y")){
