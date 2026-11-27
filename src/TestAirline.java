@@ -49,7 +49,7 @@ public class TestAirline {
 
         //Track latest timestamp to load latest database
         String record = ""; //Default empty so initial files load first when there's no file with timestamp
-        java.io.File trackerFile = new File("latestFile.txt"); //Stores the latest timestamp from previous exit
+        File trackerFile = new File("latestFile.txt"); //Stores the latest timestamp from previous exit
         try{
             Scanner fileTrack = new Scanner(trackerFile);
             if (fileTrack.hasNext()){
@@ -61,45 +61,50 @@ public class TestAirline {
         }
 
         //Preset the boarding Gate today
-        String localDate = LocalDateTime.now().getDayOfMonth() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getYear();
-        LocalDate scheduleDate = LocalDate.now();
-        java.io.File file = new java.io.File("BoardingGate" + record + ".txt");
-        int add = 0;
+        File file = new File("BoardingGate" + record + ".txt");
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy"); //date format
+        String todayDate = LocalDate.now().getDayOfMonth() + "-" + LocalDate.now().getMonthValue() + "-" + LocalDate.now().getYear(); //initialize today's date
+        LocalDate initialDate = LocalDate.parse(todayDate, dateFormat); //change format and save
         try{
             Scanner fileInput = new Scanner(file);
             while (fileInput.hasNext()){ //If file has information, load in arrayList
                 boardingGateArr.add(new CheckIn(fileInput.next(), fileInput.next() , fileInput.next()));
             }
-            for (CheckIn g: boardingGateArr){ //Check if arrayList have alr got today's date
-                if (g.getDate().equals(localDate)){
-                    add ++;
+            for (int i = 0; i < 3; i++){ // fist day -> first flightnumber -> today's date
+                LocalDate target = initialDate.plusDays(i); //Today, tomorrow and the next day after
+                for (FlightDatabase f : flightDatabaseArr){
+                    boolean got = false;
+                    for (CheckIn c: boardingGateArr){
+                        LocalDate dateBoardingGate = LocalDate.parse(c.getDate(),dateFormat);
+                        if (c.getFlightNum().equalsIgnoreCase(f.getFlightNum()) && dateBoardingGate.equals(target)){ //If boardinggateArr flight Number is same with flightDatabase Arr and boardingGateArr date is same with target date
+                            got = true;
+                        }
+                    }
+                    if (!got){
+                        boardingGateArr.add(new CheckIn(f.getFlightNum(), target.format(dateFormat) ,checkIn.checkBoardingGate(boardingGateArr, target.format(dateFormat))));
+                    }
                 }
             }
-            System.out.println(add);
-            if (add < 23|| file.length()==0){
-                for (FlightDatabase f:flightDatabaseArr){
-                    boardingGateArr.add(new CheckIn(f.getFlightNum(), localDate,checkIn.checkBoardingGate(boardingGateArr, localDate)));
-                }
-            }
+
         } catch (FileNotFoundException e) {
             System.out.println("Boarding gate File isn't exists.");
         }
 
         // Present flight schedules
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(0), scheduleDate.plusDays(0), boardingGateArr.get(0).getBoardingGate(), "On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(1), scheduleDate.plusDays(0), boardingGateArr.get(1).getBoardingGate(), "On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(2), scheduleDate.plusDays(0), boardingGateArr.get(2).getBoardingGate(), "Delayed"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(3), scheduleDate.plusDays(1), boardingGateArr.get(3).getBoardingGate(), "On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(4), scheduleDate.plusDays(1), boardingGateArr.get(4).getBoardingGate(), "On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(5), scheduleDate.plusDays(1), boardingGateArr.get(5).getBoardingGate(), "Cancelled"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(6), scheduleDate.plusDays(2), boardingGateArr.get(6).getBoardingGate(), "On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(7), scheduleDate.plusDays(2), boardingGateArr.get(7).getBoardingGate(), "On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(8), scheduleDate.plusDays(2), boardingGateArr.get(8).getBoardingGate(), "On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(9), scheduleDate.plusDays(2), boardingGateArr.get(9).getBoardingGate(), "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(0), initialDate.plusDays(0), boardingGateArr.get(0).getBoardingGate(), "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(1), initialDate.plusDays(0), boardingGateArr.get(1).getBoardingGate(), "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(2), initialDate.plusDays(0), boardingGateArr.get(2).getBoardingGate(), "Delayed"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(3), initialDate.plusDays(1), boardingGateArr.get(3).getBoardingGate(), "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(4), initialDate.plusDays(1), boardingGateArr.get(4).getBoardingGate(), "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(5), initialDate.plusDays(1), boardingGateArr.get(5).getBoardingGate(), "Cancelled"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(6), initialDate.plusDays(2), boardingGateArr.get(6).getBoardingGate(), "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(7), initialDate.plusDays(2), boardingGateArr.get(7).getBoardingGate(), "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(8), initialDate.plusDays(2), boardingGateArr.get(8).getBoardingGate(), "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(9), initialDate.plusDays(2), boardingGateArr.get(9).getBoardingGate(), "On Time"));
 
         //Preset loyalty members in arraylist from User.txt
         try {
-            file = new java.io.File("User" + record + ".txt");         //Create a File instance, record has the timestamp of latest timestamp
+            file = new File("User" + record + ".txt");         //Create a File instance, record has the timestamp of latest timestamp
             Scanner fileInput = new Scanner(file);        //Create a scanner for the file
             while(fileInput.hasNext()){
                 String firstName = fileInput.next();
@@ -124,7 +129,7 @@ public class TestAirline {
 
         //Preset the Booking Array
         try{
-            file = new java.io.File("Booking" + record + ".txt");
+            file = new File("Booking" + record + ".txt");
             Scanner fileInput = new Scanner(file);
             while (fileInput.hasNext()){
                 int bookingNumber = fileInput.nextInt();
@@ -158,7 +163,7 @@ public class TestAirline {
 
         //Preset CheckIn Array
         try{
-            file = new java.io.File("CheckIn" + record + ".txt");
+            file = new File("CheckIn" + record + ".txt");
             Scanner fileInput = new Scanner(file);
             while (fileInput.hasNext()){
                 String lastName = fileInput.next();
@@ -190,7 +195,7 @@ public class TestAirline {
                 switch (option) {
                     case 1:
                         System.out.print("\n-----Flight Booking-----");
-                        bookFlight(flightDatabaseArr, flightArr, input, random, checkInArr, userArr, boardingGateArr);
+                        bookFlight(flightDatabaseArr, flightArr, input, random, checkInArr, userArr, boardingGateArr, dateFormat, todayDate, initialDate);
                         break;
                     case 2:
                         if (flightArr.isEmpty()){
@@ -232,11 +237,8 @@ public class TestAirline {
     }
 
     //Feature 1: Flight booking
-    public static void bookFlight(ArrayList<FlightDatabase> flightDatabaseArr, ArrayList<Flight> flightArr, Scanner input, Random random, ArrayList<CheckIn> checkInArr, ArrayList<User> userArr, ArrayList <CheckIn> boardingGateArr) {
+    public static void bookFlight(ArrayList<FlightDatabase> flightDatabaseArr, ArrayList<Flight> flightArr, Scanner input, Random random, ArrayList<CheckIn> checkInArr, ArrayList<User> userArr, ArrayList <CheckIn> boardingGateArr, DateTimeFormatter dateFormat, String todayDate, LocalDate initialDate) {
         //Variables
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy"); //date format
-        String todayDate = LocalDate.now().getDayOfMonth() + "-" + LocalDate.now().getMonthValue() + "-" + LocalDate.now().getYear(); //initialize today's date
-        LocalDate initialDate = LocalDate.parse(todayDate, dateFormat); //change format and save
         String inputReturnDate = null;
         String inputReturnFlight;
         FlightDatabase selectedReturnFlight = null;
