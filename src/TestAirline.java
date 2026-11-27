@@ -651,7 +651,7 @@ public class TestAirline {
     public static User findUser(Scanner input, ArrayList <User> userArr){
         User u = null;
         while (true){
-            System.out.print("\nEnter member id (Enter '-' to sign up, or '?' if you forget your memberId): ");
+            System.out.print("\nEnter user id (Enter '-' to sign up, or '?' if you forget your user Id): ");
             String userId = input.nextLine();
 
             if (userId.equalsIgnoreCase("-")){
