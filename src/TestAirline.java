@@ -943,6 +943,7 @@ public class TestAirline {
         DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy_HH-mm-ss");
         String timestamp = dateTime.format(dateTimeFormat);
 
+        java.io.File fileTracker = new java.io.File("latestFile.txt");
         java.io.File boardingGateFile = new java.io.File("BoardingGate_" + timestamp + ".txt");
         java.io.File checkInFile = new java.io.File("CheckIn_" + timestamp + ".txt");
         java.io.File bookingFile = new java.io.File("Booking_" + timestamp + ".txt");
@@ -985,6 +986,11 @@ public class TestAirline {
                 }
             }
             output.close();
+
+            output = new java.io.PrintWriter(fileTracker);
+            output.write(timestamp);
+            output.close();
+
         }catch (Exception exception){
             System.out.println("File isn't exists");
         }
