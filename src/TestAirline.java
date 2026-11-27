@@ -52,18 +52,19 @@ public class TestAirline {
         String localDate = LocalDateTime.now().getDayOfMonth() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getYear();
         LocalDate scheduleDate = LocalDate.now();
         java.io.File file = new java.io.File("BoardingGate.txt");
-        boolean add = false;
+        int add = 0;
         try{
             Scanner fileInput = new Scanner(file);
-            while (fileInput.hasNext()){
+            while (fileInput.hasNext()){ //If file has information, load in arrayList
                 boardingGateArr.add(new CheckIn(fileInput.next(), fileInput.next() , fileInput.next()));
             }
-            for (CheckIn g: boardingGateArr){
-                if (!(g.getDate().equals(localDate))){
-                    add = true;
+            for (CheckIn g: boardingGateArr){ //Check if arrayList have alr got today's date
+                if (g.getDate().equals(localDate)){
+                    add ++;
                 }
             }
-            if (add == true || file.length()==0){
+            System.out.println(add);
+            if (add < 23|| file.length()==0){
                 for (FlightDatabase f:flightDatabaseArr){
                     boardingGateArr.add(new CheckIn(f.getFlightNum(), localDate,checkIn.checkBoardingGate(boardingGateArr, localDate)));
                 }
@@ -119,12 +120,13 @@ public class TestAirline {
                 String tripType = fileInput.next();
                 String flight = fileInput.next();
                 FlightDatabase flightDatabase = null;
-                for (FlightDatabase f : flightDatabaseArr) {
-                    if (f.getFlightNum().equalsIgnoreCase(flight)) {
-                        flightDatabase = f;
+                for (FlightDatabase f : flightDatabaseArr){
+                    if (f.getFlightNum().equalsIgnoreCase(flight)){
+                        flightDatabase = f; //Set the
                         break;
                     }
                 }
+
                 if (tripType.equalsIgnoreCase("One-way")){
                     flightArr.add(new Flight(bookingNumber,tripType,flightDatabase, fileInput.next(), fileInput.next(), fileInput.next(), fileInput.next(), fileInput.next(), fileInput.next(), fileInput.nextDouble()));
                 }else {
@@ -158,7 +160,7 @@ public class TestAirline {
                 }
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            System.out.println("Check In file isn't exists.");
         }
 
         //Airline Management System Menu UI
@@ -955,9 +957,9 @@ public class TestAirline {
             output.write("");
             for (Flight f : flightArr){
                 if (f.getTripType().equalsIgnoreCase("Round trip")){
-                    output.println(f.getBookingNumber() + " " + f.getTripType() + " " + f.getFlightId() + " " + f.getReturnFlightId() + " " + f.getFirstName() + " " + f.getLastName()  + " " + f.getDepDate() + " " + f.getReturnDate() + " " + f.getCabinClass() + " " + f.getOptMeals() + " " + f.getOptBaggage() + " " + f.getTotalPaid());
+                    output.println(f.getBookingNumber() + " " + f.getTripType() + " " + f.getFlightId().getFlightNum() + " " + f.getReturnFlightId() + " " + f.getFirstName() + " " + f.getLastName()  + " " + f.getDepDate() + " " + f.getReturnDate() + " " + f.getCabinClass() + " " + f.getOptMeals() + " " + f.getOptBaggage() + " " + f.getTotalPaid());
                 }else {
-                    output.println(f.getBookingNumber() + " " + f.getTripType() + " " + f.getFlightId() + " " + f.getFirstName() + " " + f.getLastName() + " " + f.getDepDate() + " " + f.getCabinClass() + " " + f.getOptMeals() + " " + f.getOptBaggage() + " " + f.getTotalPaid());
+                    output.println(f.getBookingNumber() + " " + f.getTripType() + " " + f.getFlightId().getFlightNum() + " " + f.getFirstName() + " " + f.getLastName() + " " + f.getDepDate() + " " + f.getCabinClass() + " " + f.getOptMeals() + " " + f.getOptBaggage() + " " + f.getTotalPaid());
                 }
             }
             output.close();
