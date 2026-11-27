@@ -214,6 +214,7 @@ public class TestAirline {
                 }
             } catch (Exception e) {
                 System.out.println("Please enter 1 - 6 only");
+                input.nextLine();
             }
 
         } while (option != 6);
@@ -832,6 +833,7 @@ public class TestAirline {
                 break;
             }catch (Exception e){ //If enter string, will come to exception and loop again
                 System.out.println("Enter a valid booking number,");
+                input.nextLine();
             }
         }
 
