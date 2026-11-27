@@ -815,17 +815,21 @@ public class TestAirline {
     //Feature 3: Flight Cancellation
     public static void fightCancellation(ArrayList<Flight> flightArr, ArrayList<CheckIn> checkInArr, Scanner input){
         int i = 0;
-        while (true){ //Loop in to check booking Number
+        boolean found = false;
+        while (!found){ //Loop in to check booking Number
             try{
                 System.out.print("\nEnter Booking Number: ");
                 int bookingNumber = input.nextInt();
                 for (i = 0 ; i < flightArr .size() ; i ++){
                     if (flightArr.get(i).getBookingNumber() == bookingNumber) {
+                        found = true;
                         break;
                     }
                 }
-                break;
-            }catch (Exception e){ //If enter string, will come to exception and loop again
+                if (!found){
+                    System.out.print("Booking number not found. Try again.");
+                }
+            } catch (Exception e){ //If enter string, will come to exception and loop again
                 System.out.println("\nEnter a valid booking number,");
                 input.nextLine();
             }
@@ -855,12 +859,12 @@ public class TestAirline {
             System.out.print("Are you sure you want to cancel (Y/N)?: ");
             String yesOrNo = input.nextLine();
             if (yesOrNo.equalsIgnoreCase("Y") ){
-                System.out.println("Successfully Cancelled Flight");
+                System.out.println("Flight cancellation successful");
                 flightArr.remove(i);
                 checkInArr.remove(i);
                 break;
             }else if (yesOrNo.equalsIgnoreCase("N")){
-                System.out.println("Unsuccessfully Cancelled Flight");
+                System.out.println("Flight cancellation unsuccessful");
                 break;
             }else { //exception to loop again
                 System.out.println("Please enter again.");
