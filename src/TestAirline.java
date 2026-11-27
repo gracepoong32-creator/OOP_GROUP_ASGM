@@ -649,11 +649,7 @@ public class TestAirline {
 
     //Feature 1: Match user id if member/non-member
     public static User matchUser(ArrayList<User> userArr, String inputUserId) {
-        for (User u : userArr) {
-            if (u.getUserId().equalsIgnoreCase(inputUserId)) {
-                return u;
-            }
-        }
+
         return null;
     }
 
@@ -672,28 +668,31 @@ public class TestAirline {
                 String firstName = input.nextLine();
                 System.out.print("Enter last name: ");
                 String lastName = input.nextLine();
-                boolean userCheck = false;
                 for (User user: userArr){
                     if (user.getFirstName().equalsIgnoreCase(firstName) && user.getLastName().equalsIgnoreCase(lastName)){
                         System.out.println("Member id found: " + user.getUserId());
                         u = user;
-                        userCheck = true;
                         break;
                     }
                 }
-                if (!userCheck){
+                if (u == null){
                     System.out.println("Name entered not found. Please try again.");
                 }else {
                     break;
                 }
 
-            } else{
-                u = TestAirline.matchUser(userArr, userId);
-                if (u != null){
-                    System.out.println("Loyalty member profile found!");
+            } else {
+                for (User user : userArr){
+                    if (user.getUserId().equalsIgnoreCase(userId)){
+                        System.out.println("Loyalty member profile found!");
+                        u = user;
+                        break;
+                    }
+                }
+                if (u == null){
+                    System.out.println("The member id you entered is not found. Please enter again");
+                }else {
                     break;
-                }else{
-                    System.out.println("The member id you entered is not found. Please enter again.");
                 }
             }
         }

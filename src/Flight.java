@@ -147,7 +147,7 @@ public class Flight {
         return "\n\n------------------------------------------\n"
                 + "UPDATED PAYMENT SUMMARY\n"
                 + "Subtotal: RM" + String.format("%.2f", calcTotalFare())
-                + "\nPoints redeemed (" + pointsCollected + "): - RM" + String.format("%.2f", discount)
+                + "\nPoints redeemed (" + String.format("%.2f", pointsCollected) + "): - RM" + String.format("%.2f", discount)
                 + "\n------------------------------------------"
                 + "\nTotal to pay: RM" + String.format("%.2f", (calcTotalFare()-discount))
                 + "\n=========================================="
