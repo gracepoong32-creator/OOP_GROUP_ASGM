@@ -47,13 +47,13 @@ public class TestAirline {
         flightDatabaseArr.add(new FlightDatabase("MH963", "MAS", "KCH", "KUL", "Business", 872.00, "1645"));
         flightDatabaseArr.add(new FlightDatabase("OD185", "Batik Air", "LGK", "KUL", "Economy", 312.00, "0930"));
 
-        //Track all timestamps
-        String record = ""; //Java loads file.txt first when there's no file with timestamp
-        java.io.File trackerFile = new File("latestFile.txt"); //file tracks the latest timestamp
+        //Track latest timestamp to load latest database
+        String record = ""; //Default empty so initial files load first when there's no file with timestamp
+        java.io.File trackerFile = new File("latestFile.txt"); //Stores the latest timestamp from previous exit
         try{
             Scanner fileTrack = new Scanner(trackerFile);
             if (fileTrack.hasNext()){
-                record = "_" + fileTrack.next();
+                record = "_" + fileTrack.next(); //saves the timestamp to match with latest file
             }
             fileTrack.close();
         } catch (FileNotFoundException ex){
@@ -99,7 +99,7 @@ public class TestAirline {
 
         //Preset loyalty members in arraylist from User.txt
         try {
-            file = new java.io.File("User" + record + ".txt");         //Create a File instance
+            file = new java.io.File("User" + record + ".txt");         //Create a File instance, record has the timestamp of latest timestamp
             Scanner fileInput = new Scanner(file);        //Create a scanner for the file
             while(fileInput.hasNext()){
                 String firstName = fileInput.next();
