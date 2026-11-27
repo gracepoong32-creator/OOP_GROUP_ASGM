@@ -73,7 +73,6 @@ public class TestAirline {
             System.out.println("Boarding gate File isn't exists.");
         }
 
-
         // Present flight schedules
         flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(0), scheduleDate.plusDays(0), boardingGateArr.get(0).getBoardingGate(), "On Time"));
         flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(1), scheduleDate.plusDays(1), boardingGateArr.get(1).getBoardingGate(), "On Time"));
@@ -129,7 +128,7 @@ public class TestAirline {
 
                 if (tripType.equalsIgnoreCase("One-way")){
                     flightArr.add(new Flight(bookingNumber,tripType,flightDatabase, fileInput.next(), fileInput.next(), fileInput.next(), fileInput.next(), fileInput.next(), fileInput.next(), fileInput.nextDouble()));
-                }else {
+                } else {
                     String returnFlight = fileInput.next();
                     FlightDatabase returnflightDatabase = null;
                     for (FlightDatabase f : flightDatabaseArr) {
@@ -971,7 +970,5 @@ public class TestAirline {
         }catch (Exception exception){
             System.out.println("File isn't exists");
         }
-
     }
-
 }
