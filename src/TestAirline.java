@@ -1,10 +1,7 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-//if suddenly a lot of red, then file-> repair IDE
 
 public class TestAirline {
     public static void main(String[] args) {
@@ -195,7 +192,7 @@ public class TestAirline {
                             System.out.println("There is no booking to check in.");
                         }else {
                             System.out.print("-----Flight cancellation-----");
-                            fightCancellation(flightArr);
+                            fightCancellation(flightArr, checkInArr);
                         }
                         break;
                     case 4:
@@ -819,40 +816,59 @@ public class TestAirline {
     }
 
     //Feature 3: Flight Cancellation
-    public static void fightCancellation(ArrayList<Flight> flightArr){
+    public static void fightCancellation(ArrayList<Flight> flightArr, ArrayList<CheckIn> checkInArr){
         Scanner input = new Scanner (System.in);
-
-        System.out.print("Enter Booking Number: ");
-        int bookingNumber = input.nextInt();
         int i = 0;
-        for (i = 0 ; i < flightArr .size() ; i ++){
-            if (flightArr.get(i).getBookingNumber() == bookingNumber) {
+        while (true){ //Loop in to check booking Number
+            try{
+                System.out.print("Enter Booking Number: ");
+                int bookingNumber = input.nextInt();
+                for (i = 0 ; i < flightArr .size() ; i ++){
+                    if (flightArr.get(i).getBookingNumber() == bookingNumber) {
+                        break;
+                    }
+                }
                 break;
+            }catch (Exception e){ //If enter string, will come to exception and loop again
+                System.out.println("Enter a valid booking number,");
             }
         }
 
-        System.out.print("Enter your name: ");
-        String name = input.nextLine();
-        if (flightArr.get(i).getLastName() .equalsIgnoreCase(name)){
-            System.out.println("User is found");
+
+        while (true){ //Loop in to check last name
+            System.out.print("Enter your name: ");
+            String name = input.nextLine();
+            if (flightArr.get(i).getLastName() .equalsIgnoreCase(name)){
+                System.out.println("\nUser is found");
+                break;
+            }else {
+                System.out.println("User in not found. Please try again."); //exception to loop again
+            }
         }
 
-        System.out.println("Flight Details" +
-                "Name: " + flightArr.get(i).getFirstName() + " " + flightArr.get(i).getLastName() +
-                "Booking Number: " + flightArr.get(i).getBookingNumber()+
-                flightArr.get(i).getFlightId().getFrom() + " ------> " + flightArr.get(i).getFlightId().getTo() +
-                "Departure Date: " + flightArr.get(i).getDepDate());
 
-        System.out.println("If you cancel the flight it will only refund 50%");
-        System.out.println("Are you sure you want to cancel?(yes/no)");
-        String yesOrNo = input.nextLine();
-
-        if (yesOrNo.equalsIgnoreCase("yes") ){
-            System.out.println("Successfully Cancel");
-            flightArr.remove(i);
-        }else{
-            System.out.println("Unsuccessfully Cancel");
+        System.out.println("\nFlight Details" +
+                "\nName: " + flightArr.get(i).getFirstName() + " " + flightArr.get(i).getLastName() +
+                "\nBooking Number: " + flightArr.get(i).getBookingNumber()+
+                "\n" + flightArr.get(i).getFlightId().getFrom() + " ------> " + flightArr.get(i).getFlightId().getTo() +
+                "\nDeparture Date: " + flightArr.get(i).getDepDate());
+        while (true){    //check cancellation yes or no
+            System.out.println("If you cancel the flight it will only refund 50%");
+            System.out.print("Are you sure you want to cancel?(yes/no)");
+            String yesOrNo = input.nextLine();
+            if (yesOrNo.equalsIgnoreCase("yes") ){
+                System.out.println("Successfully Cancel");
+                flightArr.remove(i);
+                checkInArr.remove(i);
+                break;
+            }else if (yesOrNo.equalsIgnoreCase("no")){
+                System.out.println("Unsuccessfully Cancel");
+                break;
+            }else { //exception to loop again
+                System.out.println("Please enter again.");
+            }
         }
+
     }
 
     // Feature 4: Flight Schedule
