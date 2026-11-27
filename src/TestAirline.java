@@ -464,7 +464,7 @@ public class TestAirline {
 
             //Ensure points balance > 0, display points redeemable, prompt user the option to redeem or not
             if (m.pointsRedeem() > 0) {
-                System.out.println("Points redeemable to cash: RM" + String.format("%.2f", m.pointsRedeem()));
+                System.out.println("\nPoints redeemable to cash: RM" + String.format("%.2f", m.pointsRedeem()));
                 while (true) {
                     System.out.print("\nWould you like to use loyalty points as discount? (Y/N): ");
                     optPoints = input.nextLine();

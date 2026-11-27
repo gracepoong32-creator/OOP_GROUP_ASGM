@@ -1,6 +1,6 @@
 Jane Smith 18 M101 50.0 Bronze Tier 700.0
 Shaun Wong 20 M102 2199.1112999999996 Platinum Tier 12118.4671
-Daniel Fong 22 M103 110.0 Bronze Tier 1150.0
+Daniel Fong 22 M103 700.0 Silver Tier 1740.0
 Marcus Lee 35 M104 1120.0 Gold Tier 9200.0
 Lucas Wong 40 M105 1450.0 Platinum Tier 12500.0
 Gina Wang 52 M106 3 false
