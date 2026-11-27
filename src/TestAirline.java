@@ -75,15 +75,15 @@ public class TestAirline {
 
         // Present flight schedules
         flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(0), scheduleDate.plusDays(0), boardingGateArr.get(0).getBoardingGate(), "On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(1), scheduleDate.plusDays(1), boardingGateArr.get(1).getBoardingGate(), "On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(2), scheduleDate.plusDays(2), boardingGateArr.get(2).getBoardingGate(), "Delayed"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(3), scheduleDate.plusDays(3), boardingGateArr.get(3).getBoardingGate(), "On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(4), scheduleDate.plusDays(4), boardingGateArr.get(4).getBoardingGate(), "On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(5), scheduleDate.plusDays(5), boardingGateArr.get(5).getBoardingGate(), "Cancelled"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(6), scheduleDate.plusDays(6), boardingGateArr.get(6).getBoardingGate(), "On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(7), scheduleDate.plusDays(7), boardingGateArr.get(7).getBoardingGate(), "On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(8), scheduleDate.plusDays(8), boardingGateArr.get(8).getBoardingGate(), "On Time"));
-        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(9), scheduleDate.plusDays(9), boardingGateArr.get(9).getBoardingGate(), "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(1), scheduleDate.plusDays(0), boardingGateArr.get(1).getBoardingGate(), "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(2), scheduleDate.plusDays(0), boardingGateArr.get(2).getBoardingGate(), "Delayed"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(3), scheduleDate.plusDays(1), boardingGateArr.get(3).getBoardingGate(), "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(4), scheduleDate.plusDays(1), boardingGateArr.get(4).getBoardingGate(), "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(5), scheduleDate.plusDays(1), boardingGateArr.get(5).getBoardingGate(), "Cancelled"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(6), scheduleDate.plusDays(2), boardingGateArr.get(6).getBoardingGate(), "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(7), scheduleDate.plusDays(2), boardingGateArr.get(7).getBoardingGate(), "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(8), scheduleDate.plusDays(2), boardingGateArr.get(8).getBoardingGate(), "On Time"));
+        flightScheduleArr.add(new FlightSchedule(flightDatabaseArr.get(9), scheduleDate.plusDays(2), boardingGateArr.get(9).getBoardingGate(), "On Time"));
 
         //Preset loyalty members in arraylist from User.txt
         try {
@@ -875,17 +875,22 @@ public class TestAirline {
     // Feature 4: Flight Schedule
     public static void displayFlightSchedule(ArrayList<FlightSchedule> flightSchedulesArr) {
         LocalDate today = LocalDate.now();
-        LocalDate threeDaysLater = today.plusDays(3);
-
         boolean foundFlight = false;
 
-        for (FlightSchedule schedule : flightSchedulesArr) {
-            if (!schedule.getDateTime().isBefore(today) && schedule.getDateTime().isBefore(threeDaysLater)) {
-                foundFlight = true;
+        for (int i=0; i<3; i++){
+            LocalDate currentDate = today.plusDays(i);
+            System.out.print("\n\nDATE: " + currentDate);
+            System.out.print("\nFLIGHT     FROM     TO       TIME       GATE       STATUS");
+            System.out.println("\n---------------------------------------------------------------------");
 
-                System.out.println(schedule.toString());
+            for (FlightSchedule schedule : flightSchedulesArr) {
+                if (schedule.getDateTime().equals(currentDate)) {
+                    foundFlight = true;
+                    System.out.println(schedule);
+                }
             }
-        } if (!foundFlight) {
+        }
+         if (!foundFlight) {
             System.out.println("No upcoming flights");
         }
     }

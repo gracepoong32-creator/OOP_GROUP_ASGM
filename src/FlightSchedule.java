@@ -49,11 +49,7 @@ public class FlightSchedule {
 
     @Override
     public String toString() {
-        return "\nFlight Number: " + flight.getFlightNum()
-                + "\nDate: " + dateTime
-                + "\nDeparture Time: " + flight.getDepartureTime()
-                + "\nBoarding Gate: " + gate
-                + "\nFlight Status: " + status
-                + "\n----------------------------------";
+        return String.format("%-10s %-8s %-8s %-10s %-10s %-12s",
+            flight.getFlightNum(), flight.getFrom(), flight.getTo(), flight.getDepartureTime(), gate, status);
     }
 }
