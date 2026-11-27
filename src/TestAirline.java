@@ -648,12 +648,6 @@ public class TestAirline {
         return nm;
     }
 
-    //Feature 1: Match user id if member/non-member
-    public static User matchUser(ArrayList<User> userArr, String inputUserId) {
-
-        return null;
-    }
-
     //Find user member id in Arraylist
     public static User findUser(Scanner input, ArrayList <User> userArr){
         User u = null;
