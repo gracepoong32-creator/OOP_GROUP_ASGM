@@ -47,11 +47,23 @@ public class TestAirline {
         flightDatabaseArr.add(new FlightDatabase("MH963", "MAS", "KCH", "KUL", "Business", 872.00, "1645"));
         flightDatabaseArr.add(new FlightDatabase("OD185", "Batik Air", "LGK", "KUL", "Economy", 312.00, "0930"));
 
+        //Track all timestamps
+        String record = ""; //Java loads file.txt first when there's no file with timestamp
+        java.io.File trackerFile = new File("latestFile.txt"); //file tracks the latest timestamp
+        try{
+            Scanner fileTrack = new Scanner(trackerFile);
+            if (fileTrack.hasNext()){
+                record = "_" + fileTrack.next();
+            }
+            fileTrack.close();
+        } catch (FileNotFoundException ex){
+            System.out.print("File not found");
+        }
 
         //Preset the boarding Gate today
         String localDate = LocalDateTime.now().getDayOfMonth() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getYear();
         LocalDate scheduleDate = LocalDate.now();
-        java.io.File file = new java.io.File("BoardingGate.txt");
+        java.io.File file = new java.io.File("BoardingGate" + record + ".txt");
         int add = 0;
         try{
             Scanner fileInput = new Scanner(file);
@@ -87,7 +99,7 @@ public class TestAirline {
 
         //Preset loyalty members in arraylist from User.txt
         try {
-            file = new java.io.File("User.txt");         //Create a File instance
+            file = new java.io.File("User" + record + ".txt");         //Create a File instance
             Scanner fileInput = new Scanner(file);        //Create a scanner for the file
             while(fileInput.hasNext()){
                 String firstName = fileInput.next();
@@ -112,7 +124,7 @@ public class TestAirline {
 
         //Preset the Booking Array
         try{
-            file = new java.io.File("Booking.txt");
+            file = new java.io.File("Booking" + record + ".txt");
             Scanner fileInput = new Scanner(file);
             while (fileInput.hasNext()){
                 int bookingNumber = fileInput.nextInt();
@@ -146,7 +158,7 @@ public class TestAirline {
 
         //Preset CheckIn Array
         try{
-            file = new java.io.File("CheckIn.txt");
+            file = new java.io.File("CheckIn" + record + ".txt");
             Scanner fileInput = new Scanner(file);
             while (fileInput.hasNext()){
                 String lastName = fileInput.next();
@@ -984,7 +996,7 @@ public class TestAirline {
             output.close();
 
             output = new java.io.PrintWriter(fileTracker);
-            output.write(timestamp);
+            output.write(timestamp); //writes the timestamp to fileTracker
             output.close();
 
         }catch (Exception exception){
