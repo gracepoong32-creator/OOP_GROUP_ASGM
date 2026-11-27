@@ -38,7 +38,7 @@ public class Member extends User{
                 + "\nFull name: " + super.getFirstName() + " " + super.getLastName()
                 + "\nTier status: " + " " + memberTier
                 + "\n------------------------------------------"
-                + "\nLoyalty points: " + pointsCollected + "pts"
+                + "\nLoyalty points: " +String.format("%.2f",pointsCollected) + "pts"
                 + "\nTotal spent: RM" + String.format("%.2f", totalSpent);
     }
 
@@ -83,8 +83,8 @@ public class Member extends User{
 
         return "\nUPDATED MEMBER PROFILE (" + getUserId() + ")"
                 + "\nName: " + getFirstName() + " " + getLastName() + " (" + memberTier + ")"
-                + "\nPoints \nUsed: -" + (discount*100) + "pts | Earned: +" + pointsEarned + "pts"
-                + "\nNew point balance: " + pointsCollected + "pts"
+                + "\nPoints \nUsed: -" + String.format("%.2f", (discount*100)) + "pts | Earned: +" + String.format("%.2f",pointsEarned) + "pts"
+                + "\nNew point balance: " + String.format("%.2f",pointsCollected) + "pts"
                 + "\nTotal spent: RM" + String.format("%.2f", totalSpent)
                 + "\n==========================================\n\n\n";
     }
