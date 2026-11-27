@@ -193,7 +193,7 @@ public class TestAirline {
                             System.out.println("There is no booking to check in.");
                         } else {
                             System.out.print("-----Flight cancellation-----");
-                            fightCancellation(flightArr, checkInArr);
+                            fightCancellation(flightArr, checkInArr, input);
                         }
                         break;
                     case 4:
@@ -709,6 +709,7 @@ public class TestAirline {
             try{
                 System.out.print("\nEnter your booking number: ");
                 bookingNumber = input.nextInt();
+                input.nextLine();
                 for (Flight flight : flightArr){
                     if (flight.getBookingNumber() == bookingNumber){
                         f = flight;
@@ -722,6 +723,7 @@ public class TestAirline {
                 }
             } catch (Exception e) {
                 System.out.print("Invalid input, please enter again");
+                input.nextLine();
             }
         } while ((!checkInValid));
         //Check Name
